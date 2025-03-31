@@ -6,6 +6,8 @@
     <title>Register admin</title>
 </head>
 <body>
-    
+    <form action="">
+        <label for="">Hola</label>
+    </form>
 </body>
 </html>
