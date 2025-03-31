@@ -6,6 +6,9 @@
     <title>Register User</title>
 </head>
 <body>
-    
+    <form action="">
+        <label for=""></label>
+        <input type="submit" name="register" value="">
+    </form>
 </body>
 </html>

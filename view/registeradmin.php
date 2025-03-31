@@ -7,7 +7,8 @@
 </head>
 <body>
     <form action="">
-        <label for="">Hola</label>
+        <label for=""></label>
+        <input type="submit" name="register" value="">
     </form>
 </body>
 </html>
