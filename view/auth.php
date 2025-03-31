@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="auth.css">
 </head>
 <body>
+    
 
     <div id="authDiv">
     <h1 id="title">EventLink</h1>
