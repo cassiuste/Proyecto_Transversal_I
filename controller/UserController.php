@@ -28,11 +28,11 @@ class UserController{
         // $password = "";
 
         // // Create connection
-        // $this->$conn = new mysqli($servername, $username, $password);
+        // $this->conn = new mysqli($servername, $username, $password);
 
         // // Check connection
-        // if ($conn->connect_error) {
-        // die("Connection failed: " . $conn->connect_error);
+        // if ($this->conn->connect_error) {
+        // die("Connection failed: " . $this->conn->connect_error);
         // }
         // echo "Connected successfully";
         }
