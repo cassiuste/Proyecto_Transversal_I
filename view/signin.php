@@ -23,10 +23,10 @@
                     }
                 ?>
                 </div>
-                <form action="./controller/UserController.php" method="post">
+                <form action="../controller/UserController.php" method="post">
                     <div class="form_text">
                         <label for="username">Username: </label>
-                        <input type="text" required>
+                        <input type="text" name="username" required>
                         <br>
                         <label for="password">Password: </label>
                         <input type="password" name="password" id="password" required>
@@ -35,7 +35,7 @@
                     <a href="">Forgot Password</a>
                     <br>
                     <div class="buttons">
-                        <input type="submit" value="Login">
+                        <input type="submit" name="login" value="Login">
                         <div class="separator">
                             <hr>
                             <span>Or</span>

@@ -47,13 +47,13 @@ class UserController{
 
     public function login() : void {
 
-        $email = htmlspecialchars($_POST["email"]);
+        $username = htmlspecialchars($_POST["username"]);
         $password = htmlspecialchars($_POST["password"]); 
 
-        echo "email: " . "$email" . "<br>" . "password: " . "$password" . "<br><br>"; 
+        echo "username: " . "$username" . "<br>" . "password: " . "$password" . "<br><br>"; 
 
         echo "Resultado base de datos<br>";
-        $sql = "SELECT * FROM user WHERE email='$email' AND password='$password'";
+        $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
         $result = $this->conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -61,11 +61,12 @@ class UserController{
         // Si encuentra el usuario que lo mande a la pagina de profile
         // sino al login con mensaje de error
         while($row = $result->fetch_assoc()) {
-            echo "email: " . $row["email"]. "<br>" . "password: " . $row["password"];
+            echo "username: " . $row["username"]. "<br>" . "email: " . $row["email"] . "<br>" . "password: " . $row["password"];
         }
         } else {
-        $_SESSION["error_message"] = "Cuenta no encontrada";
-        header("location: ../view/login.php");
+        $_SESSION["error_message"] = "Could not find the account";
+        header("location: ../view/signin.php");
+        exit;
         }
         $this->conn->close();
     }
