@@ -12,8 +12,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         echo "<p>Logout button is clicked. </p>";
         $user->logout();
     }
-    if(isset($_POST["register"])){
-        echo "<p>Register button is clicked. </p>";
+    if(isset($_POST["register_admin"])){
+        echo "<p>Register admin button is clicked. </p>";
+        $isAdmin = true;
+        $user->register();
+    }
+    if(isset($_POST["register_user"])){
+        echo "<p>Register user button is clicked. </p>";
+        $isAdmin = false;
         $user->register();
     }
 }
@@ -60,9 +66,11 @@ class UserController{
         // output data of each row
         // Si encuentra el usuario que lo mande a la pagina de profile
         // sino al login con mensaje de error
-        while($row = $result->fetch_assoc()) {
-            echo "username: " . $row["username"]. "<br>" . "email: " . $row["email"] . "<br>" . "password: " . $row["password"];
-        }
+        header("location: ../view/profile.php");
+        $_SESSION['logged'] = true;
+        // que vea si es admin o no
+        // $_SESSION['admin'] = true;
+        exit;
         } else {
         $_SESSION["error_message"] = "Could not find the account";
         header("location: ../view/signin.php");
@@ -73,7 +81,10 @@ class UserController{
 
 
     public function logout() : void {
-        
+        session_unset();
+        session_destroy();
+        header("location: ../view/index.html");
+        exit;
     }
 
     function set_conn($conn){

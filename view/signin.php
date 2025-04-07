@@ -50,7 +50,9 @@
                         <a href=""><img src="img/facebook_logo.png" class="logo" alt="logo of facebook"></a>
                         <a href=""><img src="img/apple_logo.png" class="logo" alt="logo of apple"></a>
                     </div>
-                    <a href="signup.html">Create account</a>
+                    <a href="registeruser.php">Create User account</a>
+                    <br>
+                    <a href="registeradmin.php">Create Admin account</a>
                 </div>
             </div>
         </div>

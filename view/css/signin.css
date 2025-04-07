@@ -6,6 +6,11 @@ html, body{
 a{
     color: #6379d8;
 }
+
+.error_message{
+    color: red;
+}
+
 .event_img img{
     position: fixed;
     right: 0;
@@ -83,11 +88,6 @@ form a{
     color: #0f0f0f;
 }
 
-.error_message{
-    color : red;
-    margin-bottom: 5%;
-}
-
 input[type="submit"] {
     padding: 0.8rem;
     background-color: #dfb885;
@@ -108,4 +108,31 @@ input[type="submit"] {
     .page{
         width: 100%;
     }
+
+    .form_text{
+        line-height: 3;
+    }
+
+    .other{
+        margin-top: 5px;
+    }
+
+    a{
+        font: 15px arial;
+    }
+    p{
+        font: 14px arial;
+    }
+
+    .logo_images{
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo{
+        max-width: 44px;
+        margin-left: 13px;
+        margin-right: 13px;
+    }
+
 }
