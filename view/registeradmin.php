@@ -22,6 +22,7 @@
                         unset($_SESSION["error_message"]);
                     }
                 ?>
+                </div>
                 <form action="../controller/UserController.php" method="post">
                     <div class="form_text" style="margin-bottom: 10%;">
                         <label for="username">Username: </label>
