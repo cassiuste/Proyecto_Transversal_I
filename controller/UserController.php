@@ -14,13 +14,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     if(isset($_POST["register_admin"])){
         echo "<p>Register admin button is clicked. </p>";
-        $isAdmin = true;
-        $user->register();
+        $user->register("admin");
     }
     if(isset($_POST["register_user"])){
         echo "<p>Register user button is clicked. </p>";
-        $isAdmin = false;
-        $user->register();
+        $user->register("user");
     }
 }
 
@@ -32,7 +30,7 @@ class UserController{
 
         // Base de datos a cambiar cuando tengamos la definitiva
         $servername = "localhost";
-        $database = "eventlink_prueba";
+        $database = "eventlink";
         $username = "root";
         $password = "";
 
@@ -46,13 +44,44 @@ class UserController{
         echo "Connected successfully";
         }
 
-    public function register() : void {
+    public function register($rol) : void {
         // validar el email
         
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        // insertar fila
+        $sql = "INSERT INTO user (username, email, password, rol)
+                VALUES ('$username', '$email', '$password', '$rol')";
+
+        // Falta el control de errores en el sql para las filas
+        if ($this->conn->query($sql) === TRUE) {
+            $_SESSION['logged'] = true;
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['email'] = $row['email'];
+            // puede ser admin o user
+            $_SESSION['rol'] = $row['rol'];
+
+            header("location: ../view/index.html");
+            exit;
+        } 
+        else {
+            // falta validaciones si esta repetido
+            $_SESSION['logged'] = false;
+            $_SESSION["error_message"] = "Could not register the account";
+            if($isAdmin){
+                header("location: ../view/registeradmin.php");
+                exit;
+            }
+            else{
+                header("location: ../view/registeruser.php");
+                exit;
+            }
+        }
+
+        $conn->close();
         // despues validar si esta repetido
-
-        
-
     }
 
 
@@ -69,8 +98,6 @@ class UserController{
         // Si encuentra el usuario que lo mande a la pagina de profile
         // sino al login con mensaje de error
         
-        // que vea si es admin o no
-        $sql = "SELECT * FROM user WHERE admin"
         $_SESSION['logged'] = true;
         $_SESSION['name'] = $row['name'];
         $_SESSION['email'] = $row['email'];
