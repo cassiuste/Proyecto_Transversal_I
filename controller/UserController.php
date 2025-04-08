@@ -47,7 +47,12 @@ class UserController{
         }
 
     public function register() : void {
+        // validar el email
         
+        // despues validar si esta repetido
+
+        
+
     }
 
 
@@ -56,9 +61,6 @@ class UserController{
         $username = htmlspecialchars($_POST["username"]);
         $password = htmlspecialchars($_POST["password"]); 
 
-        echo "username: " . "$username" . "<br>" . "password: " . "$password" . "<br><br>"; 
-
-        echo "Resultado base de datos<br>";
         $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
         $result = $this->conn->query($sql);
 
@@ -66,12 +68,19 @@ class UserController{
         // output data of each row
         // Si encuentra el usuario que lo mande a la pagina de profile
         // sino al login con mensaje de error
-        header("location: ../view/profile.php");
-        $_SESSION['logged'] = true;
+        
         // que vea si es admin o no
-        // $_SESSION['admin'] = true;
+        $sql = "SELECT * FROM user WHERE admin"
+        $_SESSION['logged'] = true;
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['email'] = $row['email'];
+        // puede ser admin o user
+        $_SESSION['rol'] = $row['rol'];
+        
+        header("location: ../view/profile.php");
         exit;
         } else {
+        $_SESSION['logged'] = false;
         $_SESSION["error_message"] = "Could not find the account";
         header("location: ../view/signin.php");
         exit;
