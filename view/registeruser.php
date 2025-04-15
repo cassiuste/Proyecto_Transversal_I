@@ -13,7 +13,7 @@
     <main>
         <div class="page">
             <div class="content">
-                <h2>REGISTER AN USER ACCOUNT!</h2>
+                <h2>REGISTER A USER ACCOUNT!</h2>
                 <div class="error_message">
                 <?php
                     if(isset($_SESSION["error_message"])){
