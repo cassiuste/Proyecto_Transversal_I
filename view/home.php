@@ -1,6 +1,5 @@
 <?php
     session_start();
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +14,7 @@
 
     <header>
         <div class="head">
-            <img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo">
+            <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
             <div class="left">
                 <a href=""><div class="hbuttom">Search event</div></a>
                 <a href=""><div class="hbuttom">City / Zip code</div></a>
@@ -25,12 +24,12 @@
             </div>
             <div class="right">
                 <?php
-                    if(isset($_SESSION["logged"])){
+                    if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='buttom'>CREATE EVENT</div></a>";
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
-            <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
+                            <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
                     }
                     ?>
             </div>
