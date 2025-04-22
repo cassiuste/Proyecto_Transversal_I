@@ -45,11 +45,37 @@ class UserController{
         }
 
     public function register($rol) : void {
-        // validar el email
         
         $username = $_POST["username"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+
+        //validacion del email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format";
+            $_SESSION["error_message"] = $emailErr;
+            if($isAdmin){
+                header("location: ../view/registeradmin.php");
+                exit;
+            }
+            else{
+                header("location: ../view/registeruser.php");
+                exit;
+            }
+          }
+
+          // Validación de la contraseña
+            if (!preg_match('/^(?=(?:.*[a-zA-Z]){8,})(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password)) {
+                $passErr = "Password must contain at least 8 letters, one number, and one special character.";
+                $_SESSION["error_message"] = $passErr;
+                if($isAdmin){
+                    header("location: ../view/registeradmin.php");
+                    exit;
+                } else {
+                    header("location: ../view/registeruser.php");
+                    exit;
+                }
+            }
 
         // insertar fila
         $sql = "INSERT INTO user (username, email, password, rol)
