@@ -25,7 +25,7 @@
             <div class="right">
                 <?php
                     if(!empty($_SESSION["logged"])){
-                        echo "<a href='createevent.php'><div class='buttom'>CREATE EVENT</div></a>";
+                        echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
@@ -41,9 +41,11 @@
             <div class="main_image">
                 <img src="./img/home/barcelona_event.jpg" alt="event">
                 <div class="oval_container">
-                    <a href="signin.html">
-                        <div class="oval_join"><p>Join Eventlink now!</p></div>
-                    </a>
+                    <?php
+                        if(empty($_SESSION["logged"])){
+                            echo "<a href='signin.html'><div class='oval_join'><p>Join Eventlink now!</p></div></a>";
+                        }
+                        ?>
                 </div>
             </div>
         </div>
