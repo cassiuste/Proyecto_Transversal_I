@@ -48,15 +48,15 @@
                 <div class="other">
                     <p>Other methods</p>
                     <div class="logo_images">
-                        <a href=""><img src="img/facebook_logo.png" class="logo" alt="logo of facebook"></a>
-                        <a href=""><img src="img/apple_logo.png" class="logo" alt="logo of apple"></a>
+                        <a href=""><img src="img/sign/facebook_logo.png" class="logo" alt="logo of facebook"></a>
+                        <a href=""><img src="img/sign/apple_logo.png" class="logo" alt="logo of apple"></a>
                     </div>
                     <a href="signin.php">Sign in</a>
                 </div>
             </div>
         </div>
         <div class="event_img">
-            <img src="img/event_pic.jpg" alt="image of an event">
+            <img src="img/sign/event_pic.jpg" alt="image of an event">
         </div>
 
     </main>

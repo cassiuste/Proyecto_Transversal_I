@@ -43,7 +43,7 @@
                 <div class="oval_container">
                     <?php
                         if(empty($_SESSION["logged"])){
-                            echo "<a href='signin.html'><div class='oval_join'><p>Join Eventlink now!</p></div></a>";
+                            echo "<a href='signin.php'><div class='oval_join'><p>Join Eventlink now!</p></div></a>";
                         }
                         ?>
                 </div>
