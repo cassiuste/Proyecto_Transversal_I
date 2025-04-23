@@ -26,6 +26,7 @@
                 <?php
                     if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+                        echo "<a href='profile.php'><div class='profilebtm'>A</div></a>";
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
