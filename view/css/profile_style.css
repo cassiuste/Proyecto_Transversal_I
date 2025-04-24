@@ -102,14 +102,17 @@ sidebar .user-nav li a {
 }
 
 .event .event-image {
-    width: 150px;
     height: 150px;
     border: none;
     margin-bottom: 10px;
+    display: flex; /* Para centrar la imagen si es necesario */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    overflow: hidden;
 }
 
-.event .event-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.event .event-image img {
+    height: 100%; /* La imagen ocupa el 100% de la altura del contenedor */
+    width: auto; /* El ancho se ajusta proporcionalmente */
+    object-fit: contain; /* Muestra la imagen completa, puede haber espacios laterales */
 }

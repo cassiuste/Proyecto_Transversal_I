@@ -71,7 +71,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
                     
                     <div class="event-image">
-                        <img  src="../view/img/profile/e2_velero_profile.jpg" width="150" height="150" alt="Event2 profile"/>
+                        <img  src="../view/img/profile/e2_velero_profile.jpg" alt="Event2 profile"/>
                     </div>
                     
                     <h3>EVENT 2</h3>
@@ -83,7 +83,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
 
                     <div class="event-image">
-                        <img  src="../view/img/profile/event3_profile.jpg" width="150" height="150" alt="Event3 profile"/>
+                        <img  src="../view/img/profile/event3_profile.jpg" alt="Event3 profile"/>
                     </div>
                     
                     <h3>EVENT 3</h3>
@@ -95,7 +95,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
                     
                     <div class="event-image">
-                        <img  src="../view/img/profile/event3_profile.jpg" width="150" height="150"  alt="Event4 profile"/>
+                        <img  src="../view/img/profile/event3_profile.jpg" alt="Event4 profile"/>
                     </div>
                     
                     <h3>EVENT 4</h3>
