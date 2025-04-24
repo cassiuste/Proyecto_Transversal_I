@@ -15,12 +15,12 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
-    <link rel="stylesheet" href="../css/profile_style.css">
+    <link rel="stylesheet" href="../view/css/profile_style.css">
 </head>
 <body>
     <header>
         <div class="image">
-            <img  src="../img/logo2.png"/>
+            <img  src="../view/img/logo.png"/>
         </div>
         <div class="search-bar">
             <input type="text" placeholder="Buscar evento">
@@ -59,7 +59,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
 
                     <div class="event-image">
-                        <img  src="../img/cataVinos_profile.jpg" alt="Event1 profile"/>
+                        <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
                     </div>
                     
                     <h3>EVENT 1</h3>
@@ -71,7 +71,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
                     
                     <div class="event-image">
-                        <img  src="../img/e2_velero_profile.jpg" width="150" height="150" alt="Event2 profile"/>
+                        <img  src="../view/img/profile/e2_velero_profile.jpg" width="150" height="150" alt="Event2 profile"/>
                     </div>
                     
                     <h3>EVENT 2</h3>
@@ -83,7 +83,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
 
                     <div class="event-image">
-                        <img  src="../img/event3_profile.jpg" width="150" height="150" alt="Event3 profile"/>
+                        <img  src="../view/img/profile/event3_profile.jpg" width="150" height="150" alt="Event3 profile"/>
                     </div>
                     
                     <h3>EVENT 3</h3>
@@ -95,7 +95,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                 <div class="event">
                     
                     <div class="event-image">
-                        <img  src="../img/event3_profile.jpg" width="150" height="150"  alt="Event4 profile"/>
+                        <img  src="../view/img/profile/event3_profile.jpg" width="150" height="150"  alt="Event4 profile"/>
                     </div>
                     
                     <h3>EVENT 4</h3>
