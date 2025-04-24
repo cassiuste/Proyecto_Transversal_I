@@ -52,6 +52,8 @@
                         <a href=""><img src="img/sign/apple_logo.png" class="logo" alt="logo of apple"></a>
                     </div>
                     <a href="signin.php">Sign in</a>
+                    <br>
+                    <a href="registeradmin.php">Create Admin account</a>
                 </div>
             </div>
         </div>
