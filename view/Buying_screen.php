@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compra de Tickets</title>
-    <link rel="stylesheet" href="../css/Buying_screen.css">
+    <link rel="stylesheet" href="../view/css/Buying_screen_style.css">
 </head>
 <body>
     <header>
