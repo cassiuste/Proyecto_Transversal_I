@@ -41,10 +41,14 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
             </div>
             <nav class="user-nav">
                 <ul>
-                    <li><a href="#">EVENTS</a></li>
-                    <li><a href="#">Attending</a></li>
-                    <li><a href="#">Saved</a></li>
-                    <li><a href="#">Hosting</a></li>
+                    <li>
+                       <a href="#" class="parent-link">EVENTS</a>
+                        <ul class="sub-menu">
+                            <li><a href="#">Attending</a></li>
+                            <li><a href="#">Saved</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#">FRIENDS</a></li>
                     <li><a href="#">EDIT PROFILE</a></li>
                     <li><a href="#">LOG OUT</a></li>

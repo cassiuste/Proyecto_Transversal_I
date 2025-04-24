@@ -53,34 +53,125 @@ header .user-avatar {
 }
 
 .sidebar {
-    width: 200px;
-    background-color: #e0e0e0;
+    width: 220px; /* Ancho y espacio para iconos */
+    background-color: #f8f8f8; /* fondo */
     padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra derecha para separarla del contenido */
+    display: flex;
+    flex-direction: column; /* alinear izquierda con cuerpo*/
+    align-items: flex-start; /* Alinear izquierda */
 }
 
 .sidebar .profile-info {
-    text-align: center;
-    margin-bottom: 20px;
+    text-align: center; /* Centrar el contenido dentro de profile-info */
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    display: flex; /* Usar flexbox para centrar verticalmente */
+    flex-direction: column; /* Alinear elementos verticalmente */
+    align-items: center; /* Centrar elementos horizontalmente */
 }
 
 .sidebar .profile-image {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    background-color: #ccc;
-    margin: 0 auto 10px;
+    background-color: #ccc; /* Simula el fondo de la imagen */
+    margin-bottom: 10px;
+    /* Para simular un icono de "añadir imagen" */
+    position: relative; /* Crear un contexto de posicionamiento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; /* Tamaño del icono */
+    color: #fff; /* Color del icono */
+    cursor: pointer; /* Indicar que es interactivo */
+}
+
+/* Simular un icono de "signo +" para añadir imagen */
+.sidebar .profile-image::before {
+    content: '+';
+    position: absolute;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.sidebar .profile-name {
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Asegurar que el texto esté centrado */
+}
+
+.sidebar .user-nav {
+    width: 100%;
 }
 
 .sidebar .user-nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-sidebar .user-nav li a {
+.sidebar .user-nav > ul > li > a { /* Estilo para los enlaces de nivel superior (como EVENTS) */
     display: block;
-    padding: 10px;
+    padding: 12px 15px;
     text-decoration: none;
-    color: #333;
+    color: #555;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: bold; /* Hacer "EVENTS" más prominente */
+}
+
+.sidebar .user-nav > ul > li > a:hover {
+    background-color: #e0e0e0;
+    color: #007bff;
+}
+
+.sidebar .user-nav > ul > li > ul { /* Estilo para el sub-menú (Attending, Saved, Hosting) */
+    list-style: none;
+    padding-left: 20px; /* Indentación para indicar que son sub-opciones */
+    margin: 5px 0;
+}
+
+.sidebar .user-nav > ul > li > ul > li > a { /* Estilo para los enlaces del sub-menú */
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #777; /* Color de texto ligeramente diferente */
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #f8f8f8; /* Fondo ligeramente diferente */
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .user-nav > ul > li > ul > li > a:hover {
+    background-color: #e0e0e0;
+    color: #007bff;
+}
+
+.sidebar .user-nav li a {
+    display: flex; /* Para alinear icono y texto */
+    align-items: center; /* Centrar verticalmente icono y texto */
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #555;
+    border-radius: 5px; /* Bordes redondeado para las opciones */
+    margin-bottom: 8px; /* Espacio entre las opciones */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.sidebar .user-nav li a:hover {
+    background-color: #e0e0e0; /* Fondo gris claro al pasar el ratón */
+    color: #007bff; /* Color primario al pasar el ratón */
+}
+
+/* Estilo para la opción activa */
+.sidebar .user-nav li a.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }
 
 .content {
