@@ -56,21 +56,21 @@ header .user-avatar {
     width: 220px; /* Ancho y espacio para iconos */
     background-color: #f8f8f8; /* fondo */
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra derecha para separarla del contenido */
-    display: flex;
-    flex-direction: column; /* alinear izquierda con cuerpo*/
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra derecha del menú izquierdo */
+    display: flex; /* centrar vertical */
+    flex-direction: column; /* Alinear vertical */
     align-items: flex-start; /* Alinear izquierda */
 }
 
 .sidebar .profile-info {
-    text-align: center; /* Centrar el contenido dentro de profile-info */
+    text-align: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
     width: 100%;
-    display: flex; /* Usar flexbox para centrar verticalmente */
-    flex-direction: column; /* Alinear elementos verticalmente */
-    align-items: center; /* Centrar elementos horizontalmente */
+    display: flex; /* centrar vertical */
+    flex-direction: column; /* Alinear vertical */
+    align-items: center; /* Centrar horizontal */
 }
 
 .sidebar .profile-image {
@@ -113,7 +113,7 @@ header .user-avatar {
     margin: 0;
 }
 
-.sidebar .user-nav > ul > li > a { /* Estilo para los enlaces de nivel superior (como EVENTS) */
+.sidebar .user-nav > ul > li > a { /* menú izquiera principales */
     display: block;
     padding: 12px 15px;
     text-decoration: none;
@@ -121,7 +121,7 @@ header .user-avatar {
     border-radius: 5px;
     margin-bottom: 8px;
     transition: background-color 0.3s ease;
-    font-weight: bold; /* Hacer "EVENTS" más prominente */
+    font-weight: bold; /* Negrita */
 }
 
 .sidebar .user-nav > ul > li > a:hover {
@@ -129,20 +129,20 @@ header .user-avatar {
     color: #007bff;
 }
 
-.sidebar .user-nav > ul > li > ul { /* Estilo para el sub-menú (Attending, Saved, Hosting) */
+.sidebar .user-nav > ul > li > ul { /* menú izquiera hijos de events */
     list-style: none;
-    padding-left: 20px; /* Indentación para indicar que son sub-opciones */
+    padding-left: 20px; /* más margen izquierdo para el submenú */
     margin: 5px 0;
 }
 
-.sidebar .user-nav > ul > li > ul > li > a { /* Estilo para los enlaces del sub-menú */
+.sidebar .user-nav > ul > li > ul > li > a { /* Propiedades para submenú */
     display: block;
     padding: 10px 15px;
     text-decoration: none;
-    color: #777; /* Color de texto ligeramente diferente */
+    color: #777; /* Color más claro de la letra*/
     border-radius: 5px;
     margin-bottom: 5px;
-    background-color: #f8f8f8; /* Fondo ligeramente diferente */
+    background-color: #f8f8f8; /* color fondo más claro cuando posiciona el cursor en transition*/
     transition: background-color 0.3s ease;
 }
 
@@ -163,8 +163,8 @@ header .user-avatar {
 }
 
 .sidebar .user-nav li a:hover {
-    background-color: #e0e0e0; /* Fondo gris claro al pasar el ratón */
-    color: #007bff; /* Color primario al pasar el ratón */
+    background-color: #e0e0e0; /* Fondo gris claro al pasar el cursor */
+    color: #007bff; /* Color primario al pasar el cursor */
 }
 
 /* Estilo para la opción activa */
