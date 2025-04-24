@@ -1,0 +1,66 @@
+body{
+    margin: 0;
+}
+
+.page{
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.content{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    position: relative;
+    line-height: 2;
+}
+
+input[type="submit"] {
+    padding: 0.8rem;
+    background-color: #dfb885;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.createbtm{
+    position: relative;
+    bottom: -12%;
+    left: 100%;
+}
+
+
+.datetime-row {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.datetime-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+@media (max-width: 480px) {
+    
+    .createbtm{
+        left: 65%;
+    }
+}
