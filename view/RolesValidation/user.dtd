@@ -1,0 +1,14 @@
+<!-- Roles validation-->
+<!ELEMENT users (user+)>
+<!-- 
+Para que cada contacto tenga un único nombre, apellido, telefono... Creamos un elemento con el nombre
+del tag contacte y añadimos los elementos hijos que por defecto no se podrán repetir
+-->
+<!ELEMENT users (username, email, password)>
+<!-- Para diferenciar si es un usuario administrador o no, usamos el atributo que lo diferencia usando el operador | que nos permie
+seleccionar una de las opciones y la regla #REQUIRED para que sea obligatorio seleccionar la opción -->
+<!ATTLIST user admin (si|no) #REQUIRED>
+<!-- Añadimos la regla #PCDATA para que solo pueda contener texto -->
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT password (#PCDATA)>

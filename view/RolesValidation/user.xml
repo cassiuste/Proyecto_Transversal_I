@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+4	Crea el DTD associat al XML amb informació de contactes i afegeix-hi regles de validació -->
+<!-- 
+Para asociar el XML al DTD y asociar las reglas de validadión, añadimos solo el nombre del fichero
+sin tener que añadir la ruta  porque está en la misma carpeta.
+-->
+<!DOCTYPE contactes SYSTEM "contacte.dtd">
+<contactes>
+    <user admin="si">
+        <nom>nom</nom>
+        <cognoms>cognoms</cognoms>
+        <telefonFix>TelefonFix</telefonFix>
+        <telefonMobil>TelefonMobil</telefonMobil>
+        <edat>edat</edat>
+        <direccio principal="si">
+            <carrer>carrer</carrer>
+            <codiPostal>codiPostal</codiPostal>
+            <ciutat>ciutat</ciutat>
+        </direccio>
+        <email>correo1@gmail.com</email>
+    </contacte>
+    <contacte familiar="si">
+        <nom>nom</nom>
+        <cognoms>cognoms</cognoms>
+        <telefonFix>TelefonFix</telefonFix>
+        <telefonMobil>TelefonMobil</telefonMobil>
+        <edat>edat</edat>
+        <direccio principal="no">
+            <carrer>carrer</carrer>
+            <codiPostal>codiPostal</codiPostal>
+            <ciutat>ciutat</ciutat>
+        </direccio>
+        <email>correo1@gmail.com</email>
+    </contacte>
+    <contacte familiar="no">
+        <nom>nom</nom>
+        <cognoms>cognoms</cognoms>
+        <telefonFix>TelefonFix</telefonFix>
+        <telefonMobil>TelefonMobil</telefonMobil>
+        <edat>edat</edat>
+        <direccio principal="si">
+            <carrer>carrer</carrer>
+            <codiPostal>codiPostal</codiPostal>
+            <ciutat>ciutat</ciutat>
+        </direccio>
+        <email>correo1@gmail.com</email>
+    </contacte>
+        <contacte familiar="no">
+        <nom>nom</nom>
+        <cognoms>cognoms</cognoms>
+        <telefonFix>TelefonFix</telefonFix>
+        <telefonMobil>TelefonMobil</telefonMobil>
+        <edat>edat</edat>
+        <direccio principal="no">
+            <carrer>carrer</carrer>
+            <codiPostal>codiPostal</codiPostal>
+            <ciutat>ciutat</ciutat>
+        </direccio>
+        <email>correo1@gmail.com</email>
+    </contacte>
+</contactes>
