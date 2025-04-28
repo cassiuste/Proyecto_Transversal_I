@@ -14,10 +14,12 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     if(isset($_POST["register_admin"])){
         echo "<p>Register admin button is clicked. </p>";
+        $_SESSION["isAdmin"] = true;
         $user->register("admin");
     }
     if(isset($_POST["register_user"])){
         echo "<p>Register user button is clicked. </p>";
+        $_SESSION["isAdmin"] = false;
         $user->register("user");
     }
 }
@@ -54,7 +56,7 @@ class UserController{
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
             $_SESSION["error_message"] = $emailErr;
-            if($isAdmin){
+            if($_SESSION["$isAdmin"]){
                 header("location: ../view/registeradmin.php");
                 exit;
             }
@@ -65,10 +67,10 @@ class UserController{
           }
 
           // Validación de la contraseña
-            if (!preg_match('/^(?=(?:.*[a-zA-Z]){8,})(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password)) {
-                $passErr = "Password must contain at least 8 letters, one number, and one special character.";
+            if (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password)) {
+                $passErr = "Password must contain at least 8 characters, one letter, one number, and one special character.";
                 $_SESSION["error_message"] = $passErr;
-                if($isAdmin){
+                if($_SESSION["isAdmin"]){
                     header("location: ../view/registeradmin.php");
                     exit;
                 } else {
@@ -96,7 +98,7 @@ class UserController{
             // falta validaciones si esta repetido
             $_SESSION['logged'] = false;
             $_SESSION["error_message"] = "Could not register the account";
-            if($isAdmin){
+            if($_SESSION["isAdmin"]){
                 header("location: ../view/registeradmin.php");
                 exit;
             }
@@ -120,18 +122,24 @@ class UserController{
         $result = $this->conn->query($sql);
 
         if ($result->num_rows > 0) {
-        // output data of each row
-        // Si encuentra el usuario que lo mande a la pagina de profile
-        // sino al login con mensaje de error
-        
-        $_SESSION['logged'] = true;
-        $_SESSION['name'] = $row['name'];
-        $_SESSION['email'] = $row['email'];
-        // puede ser admin o user
-        $_SESSION['rol'] = $row['rol'];
-        
-        header("location: ../view/profile.php");
-        exit;
+            // output data of each row
+            // Si encuentra el usuario que lo mande a la pagina de profile
+            // sino al login con mensaje de error
+            
+            $_SESSION['logged'] = true;
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['email'] = $row['email'];
+            // puede ser admin o user
+            $_SESSION['rol'] = $row['rol'];
+            
+            if($_SESSION['rol'] == "admin"){
+                header("location: ../view/profileadmin.php");
+                exit;
+            }
+            else{
+                header("location: ../view/profileuser.php");
+                exit;
+            }
         } else {
         $_SESSION['logged'] = false;
         $_SESSION["error_message"] = "Could not find the account";

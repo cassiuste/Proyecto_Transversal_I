@@ -6,6 +6,7 @@
     <title>EventLink</title>
     <link rel="stylesheet" href="css/Event_page_from_search.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <header>
@@ -22,7 +23,6 @@
                 <?php
                     if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='buttom'>CREATE EVENT</div></a>";
-                        echo "<a href='profile.php'><div class='profilebtm'>A</div></a>";
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
@@ -66,30 +66,87 @@
             </div><br>
         </div>
         <div id="eventsDiv">
-            <div id="event1">
-                <img id="imageEvent1" src="./img/Event_page_from_search/imageEvent1.jpg" alt="Image of the Event 1">
-            </div>
-            
-            <div id="event2">
-                <img id="imageEvent2" src="./img/Event_page_from_search/imageEvent2.jpg" alt="Image of the Event 2">
-            </div>
-
-            <div id="event3">
-                <img id="imageEvent3" src="./img/Event_page_from_search/imageEvent3.jpg" alt="Image of the Event 3">
-            </div>
-
-            <div id="event4">
-                <img id="imageEvent4" src="./img/Event_page_from_search/imageEvent4.jpg" alt="Image of the Event 4">
-            </div>
+    <div id="event1" style="display: flex; align-items: flex-start; ">
+        <img id="imageEvent1" src="./img/Event_page_from_search/imageEvent1.jpg" alt="Image of the Event 1">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 1</h1>
+            <p>Location 1</p>
+            <p>Price 1</p>
         </div>
-        <div id="mapDiv">
-            <img id="map" src="./img/Event_page_from_search/map.jpg" alt="Image of the map">
+    </div>
+    
+    <div id="event2" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent2" src="./img/Event_page_from_search/imageEvent2.jpg" alt="Image of the Event 2">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 2</h1>
+            <p>Location 2</p>
+            <p>Price 2</p>
+        </div>
+    </div>
+
+    <div id="event3" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent3" src="./img/Event_page_from_search/imageEvent3.jpg" alt="Image of the Event 3">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 3</h1>
+            <p>Location 3</p>
+            <p>Price 3</p>
+        </div>
+    </div>
+
+    <div id="event4" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent4" src="./img/Event_page_from_search/imageEvent4.jpg" alt="Image of the Event 4">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 4</h1>
+            <p>Location 4</p>
+            <p>Price 4</p>
+        </div>
+    </div>
+</div>
+
+
+        <div id="mapDiv" style="height: 97%; width: 35%;">
         </div>
     </div>
 
     <footer id="footer">
         © 2025 EventLink - All rights reserved.
     </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+
+        var barcelonaCoords = [41.3851, 2.1734];
+
+        var map = L.map('mapDiv', {
+            center: barcelonaCoords,
+            zoom: 13,
+            minZoom: 11,
+            maxZoom: 18,
+            maxBounds: [
+                [41.2800, 2.0700],  
+                [41.4800, 2.2300]  
+            ],
+            maxBoundsViscosity: 1.0,
+            attributionControl: false
+        });
+
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        }).addTo(map);
+
+        var eventCoords = [
+        [41.4000, 2.1720],
+        [41.3900, 2.1540],
+        [41.3800, 2.1800],
+        [41.4000, 2.2000]
+        ];
+
+        for (var i = 0; i < eventCoords.length; i++) {
+        var eventMarker = L.marker(eventCoords[i]).addTo(map);
+        eventMarker.bindPopup("<b>Event " + (i + 1) + "</b>");
+        }
+        
+        
+    </script>
 
 </body>
 </html>
