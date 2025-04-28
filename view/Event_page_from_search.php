@@ -66,26 +66,43 @@
             </div><br>
         </div>
         <div id="eventsDiv">
-            <div id="event1" style="display: flex;">
-                <img id="imageEvent1" src="./img/Event_page_from_search/imageEvent1.jpg" alt="Image of the Event 1">
-                <h1>Event 1</h1>
-            </div>
-            
-            <div id="event2" style="display: flex;">
-                <img id="imageEvent2" src="./img/Event_page_from_search/imageEvent2.jpg" alt="Image of the Event 2">
-                <h1>Event 2</h1>
-            </div>
-
-            <div id="event3" style="display: flex;">
-                <img id="imageEvent3" src="./img/Event_page_from_search/imageEvent3.jpg" alt="Image of the Event 3">
-                <h1>Event 3</h1>
-            </div>
-
-            <div id="event4" style="display: flex;">
-                <img id="imageEvent4" src="./img/Event_page_from_search/imageEvent4.jpg" alt="Image of the Event 4">
-                <h1>Event 4</h1>
-            </div>
+    <div id="event1" style="display: flex; align-items: flex-start; ">
+        <img id="imageEvent1" src="./img/Event_page_from_search/imageEvent1.jpg" alt="Image of the Event 1">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 1</h1>
+            <p>Location 1</p>
+            <p>Price 1</p>
         </div>
+    </div>
+    
+    <div id="event2" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent2" src="./img/Event_page_from_search/imageEvent2.jpg" alt="Image of the Event 2">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 2</h1>
+            <p>Location 2</p>
+            <p>Price 2</p>
+        </div>
+    </div>
+
+    <div id="event3" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent3" src="./img/Event_page_from_search/imageEvent3.jpg" alt="Image of the Event 3">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 3</h1>
+            <p>Location 3</p>
+            <p>Price 3</p>
+        </div>
+    </div>
+
+    <div id="event4" style="display: flex; align-items: flex-start;">
+        <img id="imageEvent4" src="./img/Event_page_from_search/imageEvent4.jpg" alt="Image of the Event 4">
+        <div style="display: flex; flex-direction: column;">
+            <h1>Event 4</h1>
+            <p>Location 4</p>
+            <p>Price 4</p>
+        </div>
+    </div>
+</div>
+
 
         <div id="mapDiv" style="height: 97%; width: 35%;">
         </div>

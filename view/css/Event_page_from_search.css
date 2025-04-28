@@ -128,6 +128,6 @@ html,body{
     background-color: #c4c5c4;
     margin: 5px;
 }
-#eventsDiv h1 {
+#eventsDiv h1, p {
     margin-left: 10px;
 }
