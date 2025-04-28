@@ -25,7 +25,7 @@
                 </div>
                 <!-- Patri 27/04: Se añade enctype="multipart/form-data"para poder subir imagen -->
                 <form action="../controller/UserController.php" method="post" enctype="multipart/form-data">
-                    <div class="form_text" style="margin-bottom: 10%;">
+                    <div class="form_text">
                         <label for="username">Username: </label>
                         <input type="text" name="username" required>
                         <br>
