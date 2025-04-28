@@ -19,31 +19,21 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
 <link rel="stylesheet" href="./css/header.css">
 </head>
 <body>
- <header>
-        <div class="head">
-            <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
-            <div class="left">
-                <a href=""><div class="hbuttom">Search event</div></a>
-                <a href=""><div class="hbuttom">City / Zip code</div></a>
-                <a href=""><div class="search_img">
-                    <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar">
-                </div></a>
-            </div>
-            <div class="right">
-                <?php
-                    if(!empty($_SESSION["logged"])){
-                        echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                        echo "<a href='profile.php'><div class='profilebtm'>A</div></a>";
-                    }
-                    else{
-                        echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
-                        <a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                    }
-                ?>
-            </div>
-        </div>
-    </header>
-
+<header>
+        <div class="image">
+		<img src="../view/img/logo.png"/>
+	</div>
+	<div class="search-bar">
+		<input type="text" placeholder="Buscar evento">
+		<input type="text" placeholder="Ciudad - Código postal">
+	<button></button>
+	</div>
+	<div class="user-actions">
+		<button class="create-event-btn">CREAR EVENTO
+		</button>
+		<div class="user-avatar">A</div>
+	</div>
+</header> 
     <div class="container">
         <aside class="sidebar">
             <div class="profile-info">
