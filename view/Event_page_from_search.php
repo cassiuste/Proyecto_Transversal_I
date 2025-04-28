@@ -6,6 +6,7 @@
     <title>EventLink</title>
     <link rel="stylesheet" href="css/Event_page_from_search.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <header>
@@ -22,7 +23,6 @@
                 <?php
                     if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='buttom'>CREATE EVENT</div></a>";
-                        echo "<a href='profile.php'><div class='profilebtm'>A</div></a>";
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
@@ -82,14 +82,27 @@
                 <img id="imageEvent4" src="./img/Event_page_from_search/imageEvent4.jpg" alt="Image of the Event 4">
             </div>
         </div>
-        <div id="mapDiv">
-            <img id="map" src="./img/Event_page_from_search/map.jpg" alt="Image of the map">
+
+        <div id="mapDiv" style="height: 97%; width: 35%;">
         </div>
     </div>
 
     <footer id="footer">
         © 2025 EventLink - All rights reserved.
     </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <script>
+        var map = L.map('mapDiv').setView([51.505, -0.09], 13); // Coordenadas iniciales de ejemplo (Londres)
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker = L.marker([51.5, -0.09]).addTo(map);
+        marker.bindPopup("<b>¡Hola mundo!</b>").openPopup();
+    </script>
 
 </body>
 </html>
