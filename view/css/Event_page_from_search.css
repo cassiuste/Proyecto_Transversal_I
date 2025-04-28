@@ -128,3 +128,6 @@ html,body{
     background-color: #c4c5c4;
     margin: 5px;
 }
+#eventsDiv h1 {
+    margin-left: 10px;
+}
