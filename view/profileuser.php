@@ -5,6 +5,8 @@ session_start();
 if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
 	$username = htmlspecialchars(string: $_SESSION["user"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
+} else {
+    echo "<a href='home.php'>";
 }
 
 ?>
@@ -34,9 +36,6 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                     if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                         echo "<a href='profile.php'><div class='profilebtm'>A</div></a>";
-                    }
-                    else {
-                        echo "<a href='home.php'>";
                     }
                 ?>
             </div>
