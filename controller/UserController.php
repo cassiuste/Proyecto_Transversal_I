@@ -56,7 +56,7 @@ class UserController{
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
                 $_SESSION["error_message"] = $emailErr;
-                if($_SESSION["$isAdmin"]){
+                if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
                 }
@@ -70,7 +70,7 @@ class UserController{
                 if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $password)) {
                     $passErr = "Password must contain at least 8 characters, including one letter and one number.";
                     $_SESSION["error_message"] = $passErr;
-                    if($_SESSION["$isAdmin"]){
+                    if(!empty($_SESSION["isAdmin"])){
                         header("location: ../view/registeradmin.php");
                         exit;
                     } else {
@@ -85,7 +85,7 @@ class UserController{
                        $file_tmp = $_FILES['profile_image']['name'];
                        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
                        $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
-                       $subfolder = '../view/img/profiles/admin';
+                       $subfolder = '../view/img/profile/admin';
                        $new_file_name = uniqid('admin_') . '.' . $file_ext;
                        $destination = $subfolder . $new_file_name;
                        
@@ -128,7 +128,7 @@ class UserController{
                 // falta validaciones si esta repetido
                 $_SESSION['logged'] = false;
                 $_SESSION["error_message"] = "Could not register the account";
-                if($isAdmin){
+                if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
                 }
