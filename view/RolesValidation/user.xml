@@ -16,5 +16,6 @@ sin tener que añadir la ruta  porque está en la misma carpeta.
         <nom>nom</nom>
         <email>correo1@gmail.com</email>
         <password>password</password>
+        <image>imatge del logotip</image>
     </user>
 </users>
