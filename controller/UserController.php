@@ -56,7 +56,7 @@ class UserController{
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
                 $_SESSION["error_message"] = $emailErr;
-                if($isAdmin){
+                if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
                 }
@@ -67,10 +67,10 @@ class UserController{
               }
     
               // Validación de la contraseña
-                if (!preg_match('/^(?=(?:.*[a-zA-Z]){8,})(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password)) {
-                    $passErr = "Password must contain at least 8 letters, one number, and one special character.";
+                if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $password)) {
+                    $passErr = "Password must contain at least 8 characters, including one letter and one number.";
                     $_SESSION["error_message"] = $passErr;
-                    if($isAdmin){
+                    if(!empty($_SESSION["isAdmin"])){
                         header("location: ../view/registeradmin.php");
                         exit;
                     } else {
@@ -85,7 +85,7 @@ class UserController{
                        $file_tmp = $_FILES['profile_image']['name'];
                        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
                        $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
-                       $subfolder = '../view/img/profiles/admin';
+                       $subfolder = '../view/img/profile/admin';
                        $new_file_name = uniqid('admin_') . '.' . $file_ext;
                        $destination = $subfolder . $new_file_name;
                        
@@ -128,7 +128,7 @@ class UserController{
                 // falta validaciones si esta repetido
                 $_SESSION['logged'] = false;
                 $_SESSION["error_message"] = "Could not register the account";
-                if($isAdmin){
+                if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
                 }

@@ -96,6 +96,6 @@
         }
         else{
             header("location: index.html");
-        exit;
+            exit;
         }
 ?>
