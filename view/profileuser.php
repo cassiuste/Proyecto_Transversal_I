@@ -2,8 +2,8 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
-	$username = htmlspecialchars(string: $_SESSION["user"]);
+if (isset($_SESSION["logged"])) {
+	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
     header("location: home.php");
@@ -68,10 +68,10 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                     </li>
                     <li><a href="#">FRIENDS</a></li>
                     <li><a href="#">EDIT PROFILE</a></li>
+                    <li><a href="#">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
                     </form></li>
-                    <li><a href="#">My calendary</a></li>
                 </ul>
             </nav>
         </aside>

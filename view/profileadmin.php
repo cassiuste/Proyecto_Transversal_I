@@ -2,9 +2,12 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
-	$username = htmlspecialchars(string: $_SESSION["admin"]);
+if (isset($_SESSION["logged"])) {
+	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
+} else {
+    header("location: home.php");
+    exit;
 }
 
 ?>
@@ -19,20 +22,34 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
     <link rel="stylesheet" href="./css/header.css">
 </head>
 <body>
-    <header>
-        <div class="image">
-            <img  src="../view/img/logo.png"/>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar evento">
-            <input type="text" placeholder="Ciudad - Código postal">
-            <button></button>
-        </div>
-        <div class="user-actions">
-            <button class="create-event-btn">CREAR EVENTO</button>
-            <div class="user-avatar">A</div>
-        </div>
-    </header>
+<header>
+            <div class="head">
+                <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
+                <div class="left">
+                    <a href="Event_page_from_search.php"><div class="hbuttom">Search event</div></a>
+                    <a href="Event_page_from_search.php"><div class="hbuttom">City / Zip code</div></a>
+                    <a href="Event_page_from_search.php"><div class="search_img">
+                        <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar">
+                    </div></a>
+                </div>
+                <div class="right">
+                    <?php
+                        if(!empty($_SESSION["logged"])){
+                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+                            
+                            if ($_SESSION['rol'] == "admin") {
+                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+                            } else {
+                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                            }
+                            
+                        }
+
+                        ?>
+                </div>
+            </div>
+        </header>
+
 
     <div class="container">
         <aside class="sidebar">
@@ -52,8 +69,10 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                     </li>
                     <li><a href="#">FRIENDS</a></li>
                     <li><a href="#">EDIT PROFILE</a></li>
-                    <li><a href="#">LOG OUT</a></li>
                     <li><a href="#">My calendary</a></li>
+                    <li><form action="../controller/UserController.php" method="post">
+                        <input type="submit" value="LOG OUT" name="logout">
+                    </form></li>
                 </ul>
             </nav>
         </aside>
