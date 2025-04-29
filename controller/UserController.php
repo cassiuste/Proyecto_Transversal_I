@@ -50,7 +50,7 @@ class UserController{
         
             $username = $_POST["username"];
             $email = $_POST["email"];
-            $password = $_POST["password"];
+            $user_password = $_POST["password"];
     
             //validacion del email
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -67,7 +67,7 @@ class UserController{
               }
     
               // Validación de la contraseña
-                if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $password)) {
+                if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $user_password)) {
                     $passErr = "Password must contain at least 8 characters, including one letter and one number.";
                     $_SESSION["error_message"] = $passErr;
                     if(!empty($_SESSION["isAdmin"])){
@@ -103,12 +103,12 @@ class UserController{
     
             // insertar fila
             if($rol == "admin"){
-                $sql = "INSERT INTO user (username, email, password, rol, profile_image)
-                    VALUES ('$username', '$email', '$password', '$rol', '$destination')";
+                $sql = "INSERT INTO user (username, email, user_password, rol, profile_image)
+                    VALUES ('$username', '$email', '$user_password', '$rol', '$destination')";
             }
             else{
-                $sql = "INSERT INTO user (username, email, password, rol)
-                        VALUES ('$username', '$email', '$password', '$rol')";
+                $sql = "INSERT INTO user (username, email, user_password, rol)
+                        VALUES ('$username', '$email', '$user_password', '$rol')";
             }
     
             // Falta el control de errores en el sql para las filas
@@ -146,9 +146,9 @@ class UserController{
     public function login() : void {
 
         $username = htmlspecialchars($_POST["username"]);
-        $password = htmlspecialchars($_POST["password"]); 
+        $user_password = htmlspecialchars($_POST["password"]); 
 
-        $sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+        $sql = "SELECT * FROM user WHERE username='$username' AND password='$user_password'";
         $result = $this->conn->query($sql);
 
         if ($result->num_rows > 0) {
