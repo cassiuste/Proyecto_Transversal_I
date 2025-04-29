@@ -8,11 +8,31 @@
 </head>
 <body>
     <header>
-        <input type="text" placeholder="Buscar evento">
-        <input type="text" placeholder="Ciudad / Código postal">
-        <button class="search-btn">Q</button>
-        <button class="create-event-btn">CREAR EVENTO</button>
-        <div class="user-avatar">A</div>
+        <div class="head">
+            <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
+            <div class="left">
+                <a href="Event_page_from_search.php"><div class="hbuttom">Search event</div></a>
+                <a href="Event_page_from_search.php"><div class="hbuttom">City / Zip code</div></a>
+                <a href="Event_page_from_search.php"><div class="search_img">
+                <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar"></div></a>
+                        
+            </div>
+                <div class="right">
+                    <?php
+                        if(!empty($_SESSION["logged"])){
+                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+                                
+                            if ($_SESSION['rol'] == "admin") {
+                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+                            } else {
+                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                            }
+                                
+                        }
+
+                    ?>
+                </div>
+        </div>
     </header>
 
     <main>
