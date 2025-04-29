@@ -89,19 +89,25 @@ class UserController{
                    
                    if (in_array($file_ext, $allowed_ext)) {
                     move_uploaded_file($file_tmp, $destination);
-                    $_SESSION['success_message'] = 'Imagen subida correctamente al servidor';
+                    $_SESSION['success_message'] = 'Image uploaded correctly.';
                     } else {
-                    $_SESSION['error_message'] = 'Formato inválido.';
+                    $_SESSION['error_message'] = 'Invalid format.';
                     }
                     
             } else if (isset($_POST['register_admin']) && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
-                $_SESSION['error_message'] = 'Error de subida.';
+                $_SESSION['error_message'] = 'Error uploading the image.';
             }
 
 
         // insertar fila
-        $sql = "INSERT INTO user (username, email, password, rol)
-                VALUES ('$username', '$email', '$password', '$rol')";
+        if($rol == "admin"){
+            $sql = "INSERT INTO user (username, email, password, rol, profile_image)
+                VALUES ('$username', '$email', '$password', '$rol', '$destination')";
+        }
+        else{
+            $sql = "INSERT INTO user (username, email, password, rol)
+                    VALUES ('$username', '$email', '$password', '$rol')";
+        }
 
         // Falta el control de errores en el sql para las filas
         if ($this->conn->query($sql) === TRUE) {
@@ -110,7 +116,9 @@ class UserController{
             $_SESSION['email'] = $row['email'];
             // puede ser admin o user
             $_SESSION['rol'] = $row['rol'];
-
+            if($rol == $admin){
+                $_SESSION['prolife_image'] = $row['profile_image'];
+            }
             header("location: ../view/index.html");
             exit;
         } 

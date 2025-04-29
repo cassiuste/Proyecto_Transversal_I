@@ -70,7 +70,9 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                     </li>
                     <li><a href="#">FRIENDS</a></li>
                     <li><a href="#">EDIT PROFILE</a></li>
-                    <li><a href="#">LOG OUT</a></li>
+                    <li><form action="../controller/UserController.php" method="post">
+                        <input type="submit" value="LOG OUT" name="logout">
+                    </form></li>
                     <li><a href="#">My calendary</a></li>
                 </ul>
             </nav>
