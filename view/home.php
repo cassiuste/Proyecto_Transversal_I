@@ -16,9 +16,9 @@
         <div class="head">
             <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
             <div class="left">
-                <a href=""><div class="hbuttom">Search event</div></a>
-                <a href=""><div class="hbuttom">City / Zip code</div></a>
-                <a href=""><div class="search_img">
+                <a href="Event_page_from_search.php"><div class="hbuttom">Search event</div></a>
+                <a href="Event_page_from_search.php"><div class="hbuttom">City / Zip code</div></a>
+                <a href="Event_page_from_search.php"><div class="search_img">
                     <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar">
                 </div></a>
             </div>

@@ -93,7 +93,7 @@ class UserController{
                     } else {
                     $_SESSION['error_message'] = 'Formato inválido.';
                     }
-
+                    
             } else if (isset($_POST['register_admin']) && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
                 $_SESSION['error_message'] = 'Error de subida.';
             }
