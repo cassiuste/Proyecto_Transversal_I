@@ -118,7 +118,7 @@ class UserController{
                 $_SESSION['email'] = $row['email'];
                 // puede ser admin o user
                 $_SESSION['rol'] = $row['rol'];
-                if($rol == $admin){
+                if($rol == "admin"){
                     $_SESSION['prolife_image'] = $row['profile_image'];
                 }
                 header("location: ../view/index.html");
