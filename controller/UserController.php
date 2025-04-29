@@ -56,7 +56,7 @@ class UserController{
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
                 $_SESSION["error_message"] = $emailErr;
-                if($isAdmin){
+                if($_SESSION["$isAdmin"]){
                     header("location: ../view/registeradmin.php");
                     exit;
                 }
@@ -67,10 +67,10 @@ class UserController{
               }
     
               // Validación de la contraseña
-                if (!preg_match('/^(?=(?:.*[a-zA-Z]){8,})(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/', $password)) {
-                    $passErr = "Password must contain at least 8 letters, one number, and one special character.";
+                if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $password)) {
+                    $passErr = "Password must contain at least 8 characters, including one letter and one number.";
                     $_SESSION["error_message"] = $passErr;
-                    if($isAdmin){
+                    if($_SESSION["$isAdmin"]){
                         header("location: ../view/registeradmin.php");
                         exit;
                     } else {
