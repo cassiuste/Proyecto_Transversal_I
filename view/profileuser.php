@@ -6,7 +6,8 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
 	$username = htmlspecialchars(string: $_SESSION["user"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
-    echo "<a href='home.php'>";
+    header("location: home.php");
+    exit;
 }
 
 ?>
