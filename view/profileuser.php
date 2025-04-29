@@ -44,10 +44,7 @@ if (isset($_SESSION["logged"]) && $SESSION["logged"] == true) {
                             }
                             
                         }
-                        else{
-                            echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
-                                <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
-                        }
+
                         ?>
                 </div>
             </div>
