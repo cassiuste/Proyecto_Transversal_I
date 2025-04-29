@@ -121,7 +121,7 @@ class UserController{
                 if($rol == "admin"){
                     $_SESSION['prolife_image'] = $row['profile_image'];
                 }
-                header("location: ../view/index.html");
+                header("location: ../view/home.php");
                 exit;
             } 
             else {
@@ -183,7 +183,7 @@ class UserController{
     public function logout() : void {
         session_unset();
         session_destroy();
-        header("location: ../view/index.html");
+        header("location: ../view/signin.php");
         exit;
     }
 
