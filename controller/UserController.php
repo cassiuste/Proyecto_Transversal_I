@@ -148,7 +148,7 @@ class UserController{
         $username = htmlspecialchars($_POST["username"]);
         $user_password = htmlspecialchars($_POST["password"]); 
 
-        $sql = "SELECT * FROM user WHERE username='$username' AND password='$user_password'";
+        $sql = "SELECT * FROM user WHERE username='$username' AND user_password='$user_password'";
         $result = $this->conn->query($sql);
 
         if ($result->num_rows > 0) {
