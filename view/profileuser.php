@@ -2,7 +2,7 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"])) {
+if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
 	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {

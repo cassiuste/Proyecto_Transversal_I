@@ -94,6 +94,8 @@ class UserController{
                         $_SESSION['success_message'] = 'Image uploaded correctly.';
                         } else {
                         $_SESSION['error_message'] = 'Invalid format.';
+                        header("location: ../view/registeradmin.php");
+                        exit;
                         }
                         
                 } else if (isset($_POST['register_admin']) && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -110,24 +112,42 @@ class UserController{
                 $sql = "INSERT INTO user (username, email, user_password, rol)
                         VALUES ('$username', '$email', '$user_password', '$rol')";
             }
-    
+            
             // Falta el control de errores en el sql para las filas
-            if ($this->conn->query($sql) === TRUE) {
-                $_SESSION['logged'] = true;
-                $_SESSION['name'] = $row['name'];
-                $_SESSION['email'] = $row['email'];
-                // puede ser admin o user
-                $_SESSION['rol'] = $row['rol'];
-                if($rol == "admin"){
-                    $_SESSION['prolife_image'] = $row['profile_image'];
+            try{
+                if ($this->conn->query($sql) === TRUE) {
+                    $_SESSION['logged'] = true;
+                    $_SESSION['name'] = $username;
+                    $_SESSION['email'] = $email;
+                    // puede ser admin o user
+                    $_SESSION['rol'] = $rol;
+                    if($rol == "admin"){
+                        $_SESSION['prolife_image'] = $destination;
+                    }
+                    header("location: ../view/home.php");
+                    exit;
+                } 
+                else {
+                    // falta validaciones si esta repetido
+                    $_SESSION['logged'] = false;
+                    $_SESSION["error_message"] = "Could not register the account";
+                    $this->conn->close();
+                    if(!empty($_SESSION["isAdmin"])){
+                        header("location: ../view/registeradmin.php");
+                        exit;
+                    }
+                    else{
+                        header("location: ../view/registeruser.php");
+                        exit;
+                    }
                 }
-                header("location: ../view/home.php");
-                exit;
-            } 
-            else {
-                // falta validaciones si esta repetido
-                $_SESSION['logged'] = false;
-                $_SESSION["error_message"] = "Could not register the account";
+                
+                
+            }
+            catch(mysqli_sql_exception $e){
+                $_SESSION['logged'] = false;                
+                $_SESSION["error_message"] = "A user with that username or email already exists.";
+                $this->conn->close();
                 if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
@@ -137,9 +157,6 @@ class UserController{
                     exit;
                 }
             }
-    
-            $conn->close();
-            // despues validar si esta repetido
         }
 
 
@@ -155,21 +172,23 @@ class UserController{
             // output data of each row
             // Si encuentra el usuario que lo mande a la pagina de profile
             // sino al login con mensaje de error
-            
-            $_SESSION['logged'] = true;
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['email'] = $row['email'];
-            // puede ser admin o user
-            $_SESSION['rol'] = $row['rol'];
-            
-            if($_SESSION['rol'] == "admin"){
-                header("location: ../view/profileadmin.php");
-                exit;
-            }
-            else{
-                header("location: ../view/profileuser.php");
-                exit;
-            }
+            while($row = $result->fetch_assoc()) {
+                $_SESSION['logged'] = true;
+                $_SESSION['name'] = $row['name'];
+                $_SESSION['email'] = $row['email'];
+                // puede ser admin o user
+                $_SESSION['rol'] = $row['rol'];
+                
+                if($_SESSION['rol'] == "admin"){
+                    $_SESSION['profile_image'] = $row['profile_image'];
+                    header("location: ../view/profileadmin.php");
+                    exit;
+                }
+                else{
+                    header("location: ../view/profileuser.php");
+                    exit;
+                }
+              }
         } else {
         $_SESSION['logged'] = false;
         $_SESSION["error_message"] = "Could not find the account";
