@@ -67,7 +67,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                         </ul>
                     </li>
                     <li><a href="#">FRIENDS</a></li>
-                    <li><a href="#">EDIT PROFILE</a></li>
+                    <li><a href="registeruser.php">EDIT PROFILE</a></li>
                     <li><a href="#">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
