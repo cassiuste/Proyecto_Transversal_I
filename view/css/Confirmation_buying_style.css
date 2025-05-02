@@ -8,46 +8,6 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #e0e0e0;
-}
-
-header input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-header button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-.search-btn {
-    background-color: #ccc;
-    color: black;
-    width: 40px;
-}
-
-.user-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 main {
     width: 80%;
     max-width: 800px;

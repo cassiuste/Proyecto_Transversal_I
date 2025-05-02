@@ -7,34 +7,6 @@
     <link rel="stylesheet" href="../view/css/Buying_screen_style.css">
 </head>
 <body>
-    <header>
-        <div class="head">
-            <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
-            <div class="left">
-                <a href="Event_page_from_search.php"><div class="hbuttom">Search event</div></a>
-                <a href="Event_page_from_search.php"><div class="hbuttom">City / Zip code</div></a>
-                <a href="Event_page_from_search.php"><div class="search_img">
-                <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar"></div></a>
-                        
-            </div>
-                <div class="right">
-                    <?php
-                        if(!empty($_SESSION["logged"])){
-                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                                
-                            if ($_SESSION['rol'] == "admin") {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
-                            } else {
-                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
-                            }
-                                
-                        }
-
-                    ?>
-                </div>
-        </div>
-    </header>
-
     <main>
         <div class="ticket-selection">
             <h2>Compra</h2>
@@ -67,15 +39,18 @@
                 </div>
             </div>
 
-            <a href="#" class="back-btn">← Volver al evento</a>
+            <a href="profileuser.php" class="back-btn">← Volver a mis eventos</a>
         </div>
 
         <div class="event-details">
             <div class="event-image">
-                Imagen del evento
+                <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
             </div>
-            <button class="price-btn">"PRECIO"</button>
-            <button class="checkout-btn"> CHECKOUT</button>
+            <div class="price-container">
+                <span class="price-label">Precio total: </span>
+                <span class="price-value">19.99€</span>
+            </div>
+            <a href="Confirmation_buying.php"> <button class="checkout-btn"> CHECKOUT</button></a>
         </div>
     </main>
 </body>

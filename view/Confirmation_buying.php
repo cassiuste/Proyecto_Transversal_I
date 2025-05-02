@@ -7,50 +7,21 @@
     <link rel="stylesheet" href="../view/css/Confirmation_buying_style.css">
 </head>
 <body>
-    <header>
-        <div class="head">
-            <a href="home.php"><img src="./img/home/logo2.png" alt="logo of eventlink" id="eventlink_logo"></a>
-            <div class="left">
-                <a href="Event_page_from_search.php"><div class="hbuttom">Search event</div></a>
-                <a href="Event_page_from_search.php"><div class="hbuttom">City / Zip code</div></a>
-                <a href="Event_page_from_search.php"><div class="search_img">
-                <img src="./img/home/icons8-magnifying-glass-50.png" alt="search bar"></div></a>
-                        
-            </div>
-                <div class="right">
-                    <?php
-                        if(!empty($_SESSION["logged"])){
-                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                                
-                            if ($_SESSION['rol'] == "admin") {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
-                            } else {
-                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
-                            }
-                                
-                        }
-
-                    ?>
-                </div>
-        </div>
-    </header>
-
     <main>
         <div class="event-image">
-            Imagen del evento
+            <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
         </div>
 
         <div class="event-details">
             <p>¡Vas!</p>
-            <button class="share-btn">Compartir ↗️</button>
             <p>"FECHA Y HORA"</p>
             <p>"UBICACIÓN"</p>
             <p>"PRECIO"</p>
         </div>
 
         <div class="navigation">
-            <a href="#" class="back-btn">← Volver al evento</a>
-            <a href="#" class="events-btn">Ver tus eventos →</a>
+            <a href="Event_page_from_search.php" class="back-btn">← Más eventos</a>
+            <a href="home.php" class="events-btn">Ir al inicio →</a>
         </div>
     </main>
 </body>
