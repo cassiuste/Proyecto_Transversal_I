@@ -86,6 +86,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                     
                     <h3>EVENT 1</h3>
                     <p>Picture 1: It shows a wine tasting in the "Jardinet d'Aribau"</p>
+                    <h3><a href="eventDetailProfile.php?id=1">See more detail</a></h3>
                     <a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>                  
                 </div>                
                 <div class="event">                    
@@ -95,6 +96,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                     
                     <h3>EVENT 2</h3>
                     <p>Picture 2: It shows an sailboat experience Barcelona: 90 minuts plus Vermouth</p>
+                    <h3><a href="eventDetailProfile.php?id=2">See more detail</a></h3>
                     <a href="https://feverup.com/m/141663?_gl=1*irlico*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>
                 </div>                    
                 <div class="event">
@@ -104,6 +106,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                     
                     <h3>EVENT 3</h3>
                     <p>Picture 3: It shows Barcelona night Bike Tour with tapas and cava</p>
+                    <h3><a href="eventDetailProfile.php?id=3">See more detail</a></h3>
                     <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
                 </div>                    
                 <div class="event">                    
@@ -113,6 +116,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                     
                     <h3>EVENT 4</h3>
                     <p>Picture 4: It shows Barcelona night Bike Tour with tapas and cava</p>
+                    <h3><a href="eventDetailProfile.php?id=4">See more detail</a></h3>
                     <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
                 </div>            
             </div>
