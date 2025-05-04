@@ -86,7 +86,7 @@
                 </p>
                 <p class="date">Date of the event: 30/11/2025</p>
             </div>
-
+            <button type="button">Cancelar</button>
             <section class="other-events">
                 <h2>Other events you may like</h2>
                 <div class="other-events-grid">
