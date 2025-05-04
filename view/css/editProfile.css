@@ -87,7 +87,7 @@ h2 {
     text-decoration: underline;
 }
 
-/* Responsive adjustments */
+/* Responsiva */
 @media (max-width: 768px) {
     .page {
         flex-direction: column;

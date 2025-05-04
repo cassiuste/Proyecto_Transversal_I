@@ -166,3 +166,28 @@ body {
     width: auto;
     object-fit: contain;
 }
+
+/* Responsiva */
+@media (max-width: 960px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+    }
+
+    .event-header {
+        flex-direction: column;
+    }
+
+    .event-header .image-container, .event-header .static-map-container {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

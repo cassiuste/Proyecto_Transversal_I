@@ -238,7 +238,7 @@ body {
     font-size: 0.9em;
 }
 
-
+/* Responsiva */
 @media (max-width: 960px) {
     .container {
         flex-direction: column;
