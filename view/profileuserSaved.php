@@ -2,11 +2,11 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
+if (isset($_SESSION["logged"])) {
 	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
-    header("location: home.php");
+    header("location: signin.php");
     exit;
 }
 

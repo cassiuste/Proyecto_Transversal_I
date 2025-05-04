@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+//verificar login
+if (isset($_SESSION["logged"])) {
+	$username = htmlspecialchars(string: $_SESSION["name"]);
+	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
+} else {
+    header("location: signin.php");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

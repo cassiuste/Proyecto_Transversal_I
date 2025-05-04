@@ -23,7 +23,6 @@
                     }
                 ?>
                 </div>
-                <!-- Patri 27/04: Se añade enctype="multipart/form-data"para poder subir imagen -->
                 <form action="../controller/UserController.php" method="post" enctype="multipart/form-data">
                     <div class="form_text">
                         <label for="username">Username: </label>
@@ -35,7 +34,6 @@
                         <label for="password">Password: </label>
                         <input type="password" name="password" id="password" required>
                         <br>
-                        <!-- Patri 27/04: Se añade nuevo tag para poder subir imagen -->
                         <label for="profile_image">Profile Image: </label>
                         <input type="file" name="profile_image" id="profile_image"><br>
                         <br>
@@ -47,7 +45,6 @@
                             <span>Or</span>
                             <hr>
                         </div>
-                        <!-- <img src="./img/gmail_logo" alt="logo of gmail"> -->
                         <input type="submit" name="register_admin" value="Continue with Google">
                     </div>
                 </form>

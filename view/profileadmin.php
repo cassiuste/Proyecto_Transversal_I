@@ -2,11 +2,16 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
-	$username = htmlspecialchars(string: $_SESSION["name"]);
-	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
+if (isset($_SESSION["logged"])) {
+    if ($_SESSION['rol'] == "admin") {
+        $username = htmlspecialchars(string: $_SESSION["name"]);
+        $email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
+    } else {
+        header("location: access_denied.php");
+        exit;
+    }
 } else {
-    header("location: home.php");
+    header("location: signin.php");
     exit;
 }
 
