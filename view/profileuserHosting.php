@@ -2,7 +2,7 @@
 session_start();
 
 //verificar login
-if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
+if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
 	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
@@ -17,7 +17,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de admin</title>
+    <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="../view/css/profile_style.css">
     <link rel="stylesheet" href="./css/header.css">
 </head>
@@ -40,7 +40,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
                             if ($_SESSION['rol'] == "admin") {
                                 echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
                             } else {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
                             }
                                 
                         }
@@ -50,26 +50,26 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
         </div>
     </header>
 
-
     <div class="container">
         <aside class="sidebar">
             <div class="profile-info">
-                <div class="profile-image">
-                <img  src="../view/img/profile/admin/foto.jpg" alt="ImageAdmin"/>
-                </div>
+                <div class="profile-image"></div>
                 <div class="profile-name">Nombre</div>
             </div>
             <nav class="user-nav">
                 <ul>
                     <li>
-                       <a href="Event_page_from_search.phpp" class="parent-link">EVENTS</a>
+                       <a href="profileuser.php" class="parent-link">EVENTS</a>
+                       <span class="parent-link">EVENTS</span>
                         <ul class="sub-menu">
-                            <li><a href="createevent.php">Edit Events</a></li>
-                            <li><a href="event_detail.php">Cancel Events</a></li>
-                            <li><a href="Event_page_from_search.php">Published Events</a></li>
+                            <li><a href="profileuserAttending.php">Attending</a></li>
+                            <li><a href="profileuserSaved.php">Saved</a></li>
+                            <li><a href="profileuserHosting.php">Hosting</a></li>
                         </ul>
                     </li>
-                    <li><a href="editProfile.php">EDIT PROFILE</a></li>
+                    <li><a href="profileuser.php">FRIENDS</a></li>
+                    <li><a href="registeruser.php">EDIT PROFILE</a></li>
+                    <li><a href="profileuser.php">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
                     </form></li>
@@ -78,7 +78,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
         </aside>
 
         <main class="content">
-            <h2>YOUR EVENTS</h2>
+            <h2>Hosting</h2>
             <div class="event-grid">
                 <div class="event">
                     <div class="event-image">

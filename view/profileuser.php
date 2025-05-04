@@ -62,9 +62,9 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
                        <a href="profileuser.php" class="parent-link">EVENTS</a>
                        <span class="parent-link">EVENTS</span>
                         <ul class="sub-menu">
-                            <li><a href="profileuser.php">Attending</a></li>
-                            <li><a href="profileuser.php">Saved</a></li>
-                            <li><a href="profileuser.php">Hosting</a></li>
+                            <li><a href="profileuserAttending.php">Attending</a></li>
+                            <li><a href="profileuserSaved.php">Saved</a></li>
+                            <li><a href="profileuserHosting.php">Hosting</a></li>
                         </ul>
                     </li>
                     <li><a href="profileuser.php">FRIENDS</a></li>
