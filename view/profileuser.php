@@ -59,16 +59,17 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
             <nav class="user-nav">
                 <ul>
                     <li>
-                       <a href="#" class="parent-link">EVENTS</a>
+                       <a href="profileuser.php" class="parent-link">EVENTS</a>
+                       <span class="parent-link">EVENTS</span>
                         <ul class="sub-menu">
-                            <li><a href="#">Attending</a></li>
-                            <li><a href="#">Saved</a></li>
-                            <li><a href="#">Hosting</a></li>
+                            <li><a href="profileuser.php">Attending</a></li>
+                            <li><a href="profileuser.php">Saved</a></li>
+                            <li><a href="profileuser.php">Hosting</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">FRIENDS</a></li>
+                    <li><a href="profileuser.php">FRIENDS</a></li>
                     <li><a href="registeruser.php">EDIT PROFILE</a></li>
-                    <li><a href="#">My calendary</a></li>
+                    <li><a href="profileuser.php">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
                     </form></li>

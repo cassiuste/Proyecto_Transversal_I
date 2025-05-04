@@ -73,7 +73,7 @@ body {
     margin: 0;
 }
 
-.sidebar .user-nav > ul > li > a { /* menú izquiera principales */
+.sidebar .user-nav > ul > li > a { /* menú izquierda principales */
     display: block;
     padding: 12px 15px;
     text-decoration: none;
