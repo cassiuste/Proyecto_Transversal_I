@@ -40,7 +40,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
                             if ($_SESSION['rol'] == "admin") {
                                 echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
                             } else {
-                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
                             }
                                 
                         }
@@ -62,12 +62,12 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
                     <li>
                        <a href="#" class="parent-link">EVENTS</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Attending</a></li>
-                            <li><a href="#">Saved</a></li>
-                            <li><a href="#">Hosting</a></li>
+                            <li><a href="#">Edit Events</a></li>
+                            <li><a href="#">Cancel Events</a></li>
+                            <li><a href="#">Published Events</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">FRIENDS</a></li>
+                    <li><a href="#">Promoters</a></li>
                     <li><a href="#">EDIT PROFILE</a></li>
                     <li><a href="#">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
