@@ -6,7 +6,7 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "user")) {
 	$username = htmlspecialchars(string: $_SESSION["name"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
-    header("location: home.php");
+    header("location: signin.php");
     exit;
 }
 
