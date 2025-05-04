@@ -54,21 +54,23 @@ if (isset($_SESSION["logged"]) && ($_SESSION['rol'] == "admin")) {
     <div class="container">
         <aside class="sidebar">
             <div class="profile-info">
-                <div class="profile-image"></div>
+                <div class="profile-image">
+                <img  src="../view/img/profile/admin/foto.jpg" alt="ImageAdmin"/>
+                </div>
                 <div class="profile-name">Nombre</div>
             </div>
             <nav class="user-nav">
                 <ul>
                     <li>
-                       <a href="#" class="parent-link">EVENTS</a>
+                       <a href="Event_page_from_search.phpp" class="parent-link">EVENTS</a>
                         <ul class="sub-menu">
-                            <li><a href="#">Edit Events</a></li>
-                            <li><a href="#">Cancel Events</a></li>
-                            <li><a href="#">Published Events</a></li>
+                            <li><a href="createevent.php">Edit Events</a></li>
+                            <li><a href="event_detail.php">Cancel Events</a></li>
+                            <li><a href="Event_page_from_search.php">Published Events</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Promoters</a></li>
-                    <li><a href="#">EDIT PROFILE</a></li>
+                    <li><a href="editProfileAdmin.php">EDIT PROFILE</a></li>
                     <li><a href="#">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
