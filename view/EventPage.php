@@ -69,6 +69,16 @@
                     <p>Whether you're a curious wanderer, an art lover, or a seeker of the strange and beautiful, <em>Midnight Mosaic</em> is your portal into a world that feels both timeless and wildly new.</p><br><br>
 
                     <p style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: #004466;">Entry is free. All you need is curiosity—and perhaps a sense of wonder.</p>
+                    
+                    <div style="display: flex;">
+                        <button style="width:300px; height: 45px; background-color: #DFB885; cursor: pointer;"> Assist</button>
+                        
+                        <button style="all: unset; cursor: pointer;">
+                            <img src="./img/EventPage/SaveIcon.png" style="height: 45px; width: auto;">
+                        </button>
+                    </div>
+                    
+
                 </div>
             </div>
         </div>
