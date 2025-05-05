@@ -4,7 +4,7 @@ session_start();
 //verificar login
 if (isset($_SESSION["logged"])) {
     if ($_SESSION['rol'] == "admin") {
-        $username = htmlspecialchars(string: $_SESSION["name"]);
+        $username = htmlspecialchars(string: $_SESSION["username"]);
         $email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
     } else {
         header("location: access_denied.php");

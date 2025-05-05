@@ -3,7 +3,7 @@ session_start();
 
 //verificar login
 if (isset($_SESSION["logged"])) {
-	$username = htmlspecialchars(string: $_SESSION["name"]);
+	$username = htmlspecialchars(string: $_SESSION["username"]);
 	$email = htmlspecialchars(string: $_SESSION["email"] ?? "No email available");
 } else {
     header("location: signin.php");
@@ -36,14 +36,25 @@ if (isset($_SESSION["logged"])) {
                     <?php
                         if(!empty($_SESSION["logged"])){
                             echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                                
-                            if ($_SESSION['rol'] == "admin") {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+        
+                           if ($_SESSION['rol'] == "admin") {
+                            echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                            
+                            if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                                echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
                             } else {
-                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                                echo "A";
                             }
-                                
-                        }
+                            echo "</div></a>";
+                        }        
+                            else {
+                                    echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                                }
+                            }
+                            else{
+                                echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
+                                    <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
+                            }
 
                     ?>
                 </div>
