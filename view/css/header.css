@@ -59,6 +59,11 @@ header{
     align-items: center;
 }
 
+#profile_image{
+    max-width: 35px;
+    border-radius: 100%;
+}
+
 .search_img{
     background-color: #DFB885;
     border: black 1px solid;
@@ -74,10 +79,6 @@ header{
     max-width: 25px;
 }
 
-#profile_image{
-    max-width: 35px;
-    border-radius: 100%;
-}
 
 @media (max-width: 960px) {
     
