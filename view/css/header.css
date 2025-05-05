@@ -74,6 +74,11 @@ header{
     max-width: 25px;
 }
 
+#profile_image{
+    max-width: 35px;
+    border-radius: 100%;
+}
+
 @media (max-width: 960px) {
     
     header{
