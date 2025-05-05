@@ -82,11 +82,11 @@ class UserController{
                 //PGS 27/04: Subir imagen si es rol admin y si selecciona un archivo
                 if ($rol == "admin" && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
                        $file_name = $_FILES['profile_image']['name'];
-                       $file_tmp = $_FILES['profile_image']['name'];
+                       $file_tmp = $_FILES['profile_image']['tmp_name'];
                        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
                        $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
                        $subfolder = '../view/img/profile/admin/';
-                       $new_file_name = uniqid('') . '.' . $file_ext;
+                       $new_file_name = uniqid() . '.' . $file_ext;
                        $destination = $subfolder . $new_file_name;
                        
                        if (in_array($file_ext, $allowed_ext)) {

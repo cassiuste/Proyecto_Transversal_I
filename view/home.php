@@ -44,7 +44,7 @@
     </header>
 
     <main>
-    <img src="<?php echo $_SESSION['profile_image']; ?>" alt="Profile foto">
+
     <div class="main_imgcontainer">
             <div class="main_image">
                 <img src="./img/home/barcelona_event.jpg" alt="event">
