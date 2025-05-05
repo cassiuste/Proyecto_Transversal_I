@@ -85,8 +85,8 @@ class UserController{
                        $file_tmp = $_FILES['profile_image']['name'];
                        $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
                        $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
-                       $subfolder = '../view/img/profile/admin';
-                       $new_file_name = uniqid('admin_') . '.' . $file_ext;
+                       $subfolder = '../view/img/profile/admin/';
+                       $new_file_name = uniqid('') . '.' . $file_ext;
                        $destination = $subfolder . $new_file_name;
                        
                        if (in_array($file_ext, $allowed_ext)) {

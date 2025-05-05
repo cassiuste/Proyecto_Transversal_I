@@ -33,7 +33,6 @@ if (isset($_SESSION["logged"])) {
             </div>
             <div class="right">
                 <?php
-                    session_start();
                     if(!empty($_SESSION["logged"])){
                         echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
 
