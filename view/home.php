@@ -99,27 +99,33 @@
             <h3>Top Rated Events in Barcelona</h3>
             <div class="events_container">
                 <div class="events">
-                    <div class="event">
-                        <img src="./img/home/laser_tag.jpg" alt="event">
-                        <div class="event_text">
-                            <b>Laser Tag</b>
-                            <p>Fast-paced laser tag action in Barcelona. Fun, strategy, and excitement for all skill levels!</p>
+                    <a href="EventPage.php">
+                        <div class="event">
+                            <img src="./img/home/laser_tag.jpg" alt="event">
+                            <div class="event_text">
+                                <b>Laser Tag</b>
+                                <p>Fast-paced laser tag action in Barcelona. Fun, strategy, and excitement for all skill levels!</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="event">
+                    </a>
+                    <a href="EventPage.php">
+                        <div class="event">
                         <img src="./img/home/temptation_festival.jpg" alt="event">
                         <div class="event_text">
-                            <b>Temptation Festival</b>
-                            <p>A vibrant music and dance festival in Barcelona. Feel the rhythm, live the night!</p>
+                                <b>Temptation Festival</b>
+                                <p>A vibrant music and dance festival in Barcelona. Feel the rhythm, live the night!</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="event">
-                        <img src="./img/home/aniversario_barcelona.jpg" alt="event">
-                        <div class="event_text">
-                            <b>Gala de aniversario de FC Barcelona</b>
-                            <p>A special celebration with music, history, and passion for Barça fans.</p>
-                        </div>
-                    </div>
+                    </a>
+                    <a href="EventPage.php">
+                        <div class="event">
+                            <img src="./img/home/aniversario_barcelona.jpg" alt="event">
+                            <div class="event_text">
+                                <b>Gala de aniversario de FC Barcelona</b>
+                                <p>A special celebration with music, history, and passion for Barça fans.</p>
+                                </div>
+                            </div>
+                        </a>
                 </div>
             </div>
         </div>
@@ -128,27 +134,33 @@
             <h3>Upcoming Events</h3>
             <div class="events_container">
                 <div class="events">
-                    <div class="event">
+                    <a href="EventPage.php">
+                        <div class="event">
                         <img src="./img/home/circo_event.jpg" alt="event">
                         <div class="event_text">
                             <b>Festival Circorts</b>
-                            <p>Contemporary circus, street art, and live shows for all ages.</p>
+                                <p>Contemporary circus, street art, and live shows for all ages.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="event">
-                        <img src="./img/home/robbie_williams.jpg" alt="event">
-                        <div class="event_text">
-                            <b>Robbie Williams</b>
-                            <p>The iconic British singer live in concert with his greatest hits.</p>
+                    </a>
+                    <a href="EventPage.php">
+                        <div class="event">
+                            <img src="./img/home/robbie_williams.jpg" alt="event">
+                            <div class="event_text">
+                                <b>Robbie Williams</b>
+                                <p>The iconic British singer live in concert with his greatest hits.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="event">
-                        <img src="./img/home/starwars_event.jpg" alt="event">
-                        <div class="event_text">
-                            <b>Cosplay event</b>
-                            <p>An epic gathering for Star Wars fans and pop culture lovers.</p>
+                    </a>
+                    <a href="EventPage.php">
+                        <div class="event">
+                            <img src="./img/home/starwars_event.jpg" alt="event">
+                            <div class="event_text">
+                                <b>Cosplay event</b>
+                                <p>An epic gathering for Star Wars fans and pop culture lovers.</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
