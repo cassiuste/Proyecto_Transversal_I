@@ -61,7 +61,6 @@ if (isset($_SESSION["logged"])) {
             <div class="profile-info">
                 <div class="profile-image">
                     <img src="<?php echo '../view/img/profile/admin/' . $_SESSION['profile_image']; ?>" alt="ImageAdmin"/>
-
                 </div>
                 <div class="profile-name">Nombre</div>
             </div>
