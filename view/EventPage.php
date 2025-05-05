@@ -71,14 +71,17 @@
                     <p style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: #004466;">Entry is free. All you need is curiosity—and perhaps a sense of wonder.</p>
                     
                     <div style="display: flex;">
-                        <button style="width:300px; height: 45px; background-color: #DFB885; cursor: pointer;"> Assist</button>
-                        
-                        <button style="all: unset; cursor: pointer;">
-                            <img src="./img/EventPage/SaveIcon.png" style="height: 45px; width: auto;">
-                        </button>
+                        <form action="" method="POST">
+                            <button type="submit" name="action" value="assist" style="width:300px; height: 45px; background-color: #DFB885; cursor: pointer;">Assist</button>
+                        </form>
+
+                        <form action="" method="POST">
+                            <button type="submit" name="action" value="save" style="all: unset; cursor: pointer;">
+                                <img src="./img/EventPage/SaveIcon.png" style="height: 45px; width: auto;">
+                            </button>
+                        </form>
                     </div>
                     
-
                 </div>
             </div>
         </div>
@@ -122,3 +125,36 @@
 
 </body>
 </html>
+
+<?php
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+
+        if ($action == 'assist') {
+
+            if (!empty($_SESSION["logged"])) {
+     
+                if ($_SESSION['rol'] == "admin") {
+                    header("Location: profileadmin.php");
+                } elseif ($_SESSION['rol'] == "user") {
+                 
+                    header("Location: profileuser.php");
+                } else {
+                 
+                    header("Location: access_denied.php");
+                }
+            } else {
+           
+                header("Location: signin.php");
+            }
+            exit; 
+        } elseif ($action == 'save') {
+            echo "Guardado en";
+        }
+    }
+}
+?>
