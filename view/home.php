@@ -25,14 +25,22 @@
             <div class="right">
                 <?php
                     if(!empty($_SESSION["logged"])){
-                        echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                        
-                        if ($_SESSION['rol'] == "admin") {
-                            echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
-                        } else {
+                    echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+
+                   if ($_SESSION['rol'] == "admin") {
+                    echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                    
+                    if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                        echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' id='profile_image' alt='Profile foto'>";
+                    } else {
+                        echo "A";
+                    }
+                
+                    echo "</div></a>";
+                }        
+                    else {
                             echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
                         }
-                        
                     }
                     else{
                         echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
@@ -42,9 +50,7 @@
             </div>
         </div>
     </header>
-
-    <main>
-
+    <main>    
     <div class="main_imgcontainer">
             <div class="main_image">
                 <img src="./img/home/barcelona_event.jpg" alt="event">

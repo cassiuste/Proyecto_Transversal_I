@@ -48,12 +48,12 @@
         </div>
     </header>
 
-        <div style="display: flex; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2c2c2c; background-color: #f8f8f8;">
+        <div style="display: flex; color: #2c2c2c; background-color: #f8f8f8;">
             <div id="mapDiv" style="height: 825px; width: 30%; background-color: #eaeaea; border-right: 2px solid #ccc;"></div>
 
             <div id="mainDivEventDetailed" style="padding: 40px; width: 70%;">
-                <h1 style="font-size: 2.5em; color: #1a1a1a; margin-bottom: 20px;">Midnight Mosaic: A Surreal Night in Barcelona</h1>
-
+                <u><h1 style="font-size: 2.5em; color: #1a1a1a; margin-bottom: 20px;">Midnight Mosaic: A Surreal Night in Barcelona</h1>
+                </u>
                 <div id="eventDescription" style="line-height: 1.6; font-size: 1.1em;">
                     <p><strong>Date:</strong> Saturday Night<br><br>
                     <strong>Location:</strong> Gothic Quarter, Barcelona</p><br>
@@ -69,6 +69,16 @@
                     <p>Whether you're a curious wanderer, an art lover, or a seeker of the strange and beautiful, <em>Midnight Mosaic</em> is your portal into a world that feels both timeless and wildly new.</p><br><br>
 
                     <p style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: #004466;">Entry is free. All you need is curiosity—and perhaps a sense of wonder.</p>
+                    
+                    <div style="display: flex;">
+                        <button style="width:300px; height: 45px; background-color: #DFB885; cursor: pointer;"> Assist</button>
+                        
+                        <button style="all: unset; cursor: pointer;">
+                            <img src="./img/EventPage/SaveIcon.png" style="height: 45px; width: auto;">
+                        </button>
+                    </div>
+                    
+
                 </div>
             </div>
         </div>
