@@ -41,14 +41,21 @@ if (isset($_SESSION["logged"])) {
                     <?php
                         if(!empty($_SESSION["logged"])){
                             echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-                                
-                            if ($_SESSION['rol'] == "admin") {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+        
+                           if ($_SESSION['rol'] == "admin") {
+                            echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                            
+                            if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                                echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
                             } else {
-                                echo "<a href='profileadmin.php'><div class='profilebtm'>A</div></a>";
+                                echo "A";
                             }
-                                
-                        }
+                            echo "</div></a>";
+                        }        
+                            else {
+                                    echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                                }
+                            }
 
                     ?>
                 </div>
@@ -59,9 +66,9 @@ if (isset($_SESSION["logged"])) {
     <div class="container">
         <aside class="sidebar">
             <div class="profile-info">
-                <div class="profile-image">
-                    <img src="<?php echo '../view/img/profile/admin/' . $_SESSION['profile_image']; ?>" alt="ImageAdmin"/>
-                </div>
+            <div class="profile-image">
+            <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Image of Admin">
+            </div>
                 <div class="profile-name">Nombre</div>
             </div>
             <nav class="user-nav">
