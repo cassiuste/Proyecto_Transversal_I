@@ -44,7 +44,8 @@
     </header>
 
     <main>
-        <div class="main_imgcontainer">
+    <img src="<?php echo $_SESSION['profile_image']; ?>" alt="Profile foto">
+    <div class="main_imgcontainer">
             <div class="main_image">
                 <img src="./img/home/barcelona_event.jpg" alt="event">
                 <div class="oval_container">
@@ -59,26 +60,34 @@
         <div class="popular_categories">
             <h2>Popular Categories</h2>
             <div class="categories">
-                <div class="categorie">
-                    <img src="./img/home/health.jpg" alt="image of an event">
-                    <br>
-                    <div class="oval"><p>HEALTH</p></div>
-                </div>
+                <a href="Event_page_from_search.php">
+                    <div class="categorie">
+                        <img src="./img/home/health.jpg" alt="image of an event">
+                        <br>
+                        <div class="oval"><p>HEALTH</p></div>
+                    </div>
+                </a>
+                <a href="Event_page_from_search.php">
                 <div class="categorie">
                     <img src="./img/home/music event.jpg" alt="image of an event">
                     <br>
                     <div class="oval"><p>MUSIC</p></div>
                 </div>
+                </a>
+                <a href="Event_page_from_search.php">
                 <div class="categorie">
                     <img src="./img/home/bussiness event.jpg" alt="image of an event">
                     <br>
                     <div class="oval"><p>BUSINESS</p></div>
                 </div>
+                </a>
+                <a href="Event_page_from_search.php">
                 <div class="categorie">
                     <img src="./img/home/community-event.jpg" alt="image of an event">
                     <br>
                     <div class="oval"><p>COMMUNITY</p></div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="event_section">
