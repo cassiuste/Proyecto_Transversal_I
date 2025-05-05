@@ -60,7 +60,8 @@ if (isset($_SESSION["logged"])) {
         <aside class="sidebar">
             <div class="profile-info">
                 <div class="profile-image">
-                <img  src="../view/img/profile/admin/foto.jpg" alt="ImageAdmin"/>
+                    <img src="<?php echo '../view/img/' . $_SESSION['profile_image']; ?>" alt="ImageAdmin"/>
+
                 </div>
                 <div class="profile-name">Nombre</div>
             </div>
