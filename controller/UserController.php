@@ -37,13 +37,15 @@ class UserController{
         $password = "";
 
         // Create connection
-        $this->conn = new mysqli($servername, $username, $password, $database);
+        try{
+            $this->conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+            // set the PDO error mode to exception
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Connected successfully";
+          } catch(PDOException $e) {
+            echo "Connection failed: " . $e->getMessage();
+          }
 
-        // Check connection
-        if ($this->conn->connect_error) {
-        die("Connection failed: " . $this->conn->connect_error);
-        }
-        echo "Connected successfully";
         }
 
         public function register($rol) : void {
@@ -104,20 +106,28 @@ class UserController{
     
     
             // insertar fila
-            if($rol == "admin"){
-                $sql = "INSERT INTO user (username, email, user_password, rol, profile_image)
-                    VALUES ('$username', '$email', '$user_password', '$rol', '$destination')";
-            }
-            else{
-                $sql = "INSERT INTO user (username, email, user_password, rol)
-                        VALUES ('$username', '$email', '$user_password', '$rol')";
-            }
-            
-            // Falta el control de errores en el sql para las filas
             try{
-                if ($this->conn->query($sql) === TRUE) {
-                    $_SESSION['logged'] = true;
-                    $_SESSION['name'] = $username;
+                if($rol == "admin"){
+                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol, profile_image)
+                        VALUES (:username, :email, :user_password, :rol, :profile_image)");
+                        $stmt->bindParam(":profile_image", $destination);
+                    // $sql = "INSERT INTO user (username, email, user_password, rol, profile_image)
+                    //     VALUES ('$username', '$email', '$user_password', '$rol', '$destination')";
+                }
+                else{
+                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol)
+                        VALUES (:username, :email, :user_password, :rol)");
+
+                }
+
+                $stmt->bindParam(":username", $username);
+                $stmt->bindParam(":email", $email);
+                $stmt->bindParam(":user_password", $user_password);
+                $stmt->bindParam(":rol", $rol);
+                
+            // Falta el control de errores en el sql para las filas
+                if ($stmt->execute()){
+                    $_SESSION['username'] = $username;
                     $_SESSION['email'] = $email;
                     // puede ser admin o user
                     $_SESSION['rol'] = $rol;
@@ -131,7 +141,7 @@ class UserController{
                     // falta validaciones si esta repetido
                     $_SESSION['logged'] = false;
                     $_SESSION["error_message"] = "Could not register the account";
-                    $this->conn->close();
+                    $this->conn = null;
                     if(!empty($_SESSION["isAdmin"])){
                         header("location: ../view/registeradmin.php");
                         exit;
@@ -142,12 +152,11 @@ class UserController{
                     }
                 }
                 
-                
             }
-            catch(mysqli_sql_exception $e){
+            catch(PDOException $e){
                 $_SESSION['logged'] = false;                
                 $_SESSION["error_message"] = "A user with that username or email already exists.";
-                $this->conn->close();
+                $this->conn = null;
                 if(!empty($_SESSION["isAdmin"])){
                     header("location: ../view/registeradmin.php");
                     exit;
@@ -165,53 +174,55 @@ class UserController{
         $username = htmlspecialchars($_POST["username"]);
         $user_password = htmlspecialchars($_POST["password"]); 
 
-        $sql = "SELECT * FROM user WHERE username='$username' AND user_password='$user_password'";
-        $result = $this->conn->query($sql);
+        try{
+        $stmt = $this->conn->prepare("SELECT * FROM user WHERE username=:username AND user_password=:user_password");
+        $stmt->bindParam(":username", $username);
+        $stmt->bindParam(":user_password", $user_password);
+        $stmt->execute();
 
-        if ($result->num_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             // output data of each row
             // Si encuentra el usuario que lo mande a la pagina de profile
             // sino al login con mensaje de error
-            while($row = $result->fetch_assoc()) {
-                $_SESSION['logged'] = true;
-                $_SESSION['name'] = $row['name'];
-                $_SESSION['email'] = $row['email'];
-                // puede ser admin o user
-                $_SESSION['rol'] = $row['rol'];
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['logged'] = true;
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $row['email'];
+            // puede ser admin o user
+            $_SESSION['rol'] = $row['rol'];
                 
-                if($_SESSION['rol'] == "admin"){
-                    $_SESSION['profile_image'] = $row['profile_image'];
-                    header("location: ../view/profileadmin.php");
-                    exit;
-                }
-                else{
-                    header("location: ../view/profileuser.php");
-                    exit;
-                }
+            if($_SESSION['rol'] == "admin"){
+                $_SESSION['profile_image'] = $row['profile_image'];
+                header("location: ../view/profileadmin.php");
+                exit;
+            }
+            else{
+                header("location: ../view/profileuser.php");
+                exit;
+            }
               }
-        } else {
+        else {
         $_SESSION['logged'] = false;
         $_SESSION["error_message"] = "Could not find the account";
+        $this->conn = null;
         header("location: ../view/signin.php");
         exit;
         }
-        $this->conn->close();
+        }
+        catch(PDOException $e){
+            $_SESSION['logged'] = false;
+            $_SESSION["error_message"] = "Could not find the account";
+            header("location: ../view/signin.php");
+            exit;
+        }
     }
-
-
+    
     public function logout() : void {
         session_unset();
         session_destroy();
         header("location: ../view/signin.php");
         exit;
-    }
-
-    function set_conn($conn){
-        $this->conn = $conn;
-    }
-
-    function get_conn(){
-        return $this->conn;
     }
 
     public function deletePassword() : void{
@@ -254,6 +265,14 @@ class UserController{
 
         }
 
+    }
+
+    function set_conn($conn){
+        $this->conn = $conn;
+    }
+
+    function get_conn(){
+        return $this->conn;
     }
 
 }
