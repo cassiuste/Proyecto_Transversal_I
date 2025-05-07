@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             exit; 
         } elseif ($action == 'save') {
-            echo "Guardado en";
+            //Guardar en favoritos. 
         }
     }
 }
