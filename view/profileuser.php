@@ -73,6 +73,9 @@ if (isset($_SESSION["logged"])) {
                     <li><a href="profileuser.php">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
+                    </form></li><br>
+                    <li><form action="../controller/UserController.php" method="post">
+                        <input type="submit" value="DELETE ACCOUNT" name="delete_account">
                     </form></li>
                 </ul>
             </nav>
