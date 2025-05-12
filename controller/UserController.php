@@ -86,6 +86,7 @@ class UserController{
                 }
     
                 //PGS 27/04: Subir imagen si es rol admin y si selecciona un archivo
+                $destination = null;
                 if ($rol == "admin" && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
                        $file_name = $_FILES['profile_image']['name'];
                        $file_tmp = $_FILES['profile_image']['tmp_name'];
@@ -114,14 +115,11 @@ class UserController{
                 if($rol == "admin"){
                     $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol, profile_image)
                         VALUES (:username, :email, :user_password, :rol, :profile_image)");
-                        $stmt->bindParam(":profile_image", $destination);
-                    // $sql = "INSERT INTO user (username, email, user_password, rol, profile_image)
-                    //     VALUES ('$username', '$email', '$user_password', '$rol', '$destination')";
+                            $stmt->bindValue(":profile_image", $destination);
                 }
                 else{
                     $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol)
                         VALUES (:username, :email, :user_password, :rol)");
-
                 }
 
                 $stmt->bindParam(":username", $username);
@@ -131,12 +129,13 @@ class UserController{
                 
             // Falta el control de errores en el sql para las filas
                 if ($stmt->execute()){
+                    $_SESSION['logged'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['email'] = $email;
                     // puede ser admin o user
                     $_SESSION['rol'] = $rol;
-                    if($rol == "admin"){
-                        $_SESSION['prolife_image'] = $destination;
+                    if(($rol == "admin") && ($destination !== null)){
+                        $_SESSION['profile_image'] = $destination;
                     }
                     header("location: ../view/home.php");
                     exit;
@@ -185,7 +184,6 @@ class UserController{
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            // output data of each row
             // Si encuentra el usuario que lo mande a la pagina de profile
             // sino al login con mensaje de error
 
@@ -195,7 +193,6 @@ class UserController{
             $_SESSION['email'] = $row['email'];
             // puede ser admin o user
             $_SESSION['rol'] = $row['rol'];
-                
             if($_SESSION['rol'] == "admin"){
                 $_SESSION['profile_image'] = $row['profile_image'];
                 header("location: ../view/profileadmin.php");
