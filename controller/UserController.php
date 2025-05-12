@@ -79,7 +79,7 @@ class UserController{
                     }
                 }
     
-                //PGS 27/04: Subir imagen si es rol admin y si selecciona un archivo
+                //Subir imagen si es rol admin y si selecciona un archivo
                 if ($rol == "admin" && isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
                        $file_name = $_FILES['profile_image']['name'];
                        $file_tmp = $_FILES['profile_image']['tmp_name'];
@@ -213,4 +213,89 @@ class UserController{
     function get_conn(){
         return $this->conn;
     }
+
+    function update($pdo, $tabla, $data, $condicion, $parametrosCondicion) {       
+        $setClausulas = [];
+        foreach (array_keys($data) as $campo) {
+            $setClausulas[] = "$campo = :$campo";
+        }
+        $setClausulaSql = implode(", ", $setClausulas);
+    
+        $sql = "UPDATE $tabla SET $setClausulaSql WHERE $condicion";
+        $stmt = $pdo->prepare($sql);
+    
+        // Bind de los valores a actualizar
+        foreach ($data as $key => &$value) {
+            $stmt->bindParam(":$key", $value);
+        }
+    
+        // Bind de los parámetros de la condición WHERE
+        foreach ($parametrosCondicion as $key => &$value) {
+            $stmt->bindParam(":$key", $value);
+        }
+    
+        return $stmt->execute();
+    }
+/* 
+// Ejemplo de cómo utilizar la función actualizarRegistro
+$tablaActualizar = "tu_tabla";
+$datosActualizar = [
+    'nombre' => 'Nuevo Nombre',
+    'email' => 'nuevo@email.com'
+];
+$condicionActualizar = "id = :id";
+$parametrosCondicionActualizar = [
+    'id' => 5 // El ID del registro que quieres actualizar
+];
+
+if (actualizarRegistro($pdo, $tablaActualizar, $datosActualizar, $condicionActualizar, $parametrosCondicionActualizar)) {
+    echo "Registro actualizado correctamente.";
+} else {
+    echo "Error al actualizar el registro.";
+}
+*/
+
+
+/*
+
+username varchar(50) primary key not null,
+email varchar(100) not null
+user_password varchar(10) not null,
+rol VARCHAR(20) NOT NULL DEFAULT 'user');
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "EventLink";
+
+
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  $username = htmlspecialchars($_POST["username"]);
+  $email = $_POST["email"];
+
+  $sql = "UPDATE MyGuests SET email='$email' WHERE username=$username";
+
+  // Prepare statement
+  $stmt = $conn->prepare($sql);
+
+  // execute the query
+  $stmt->execute();
+
+  // echo a message to say the UPDATE succeeded
+  echo $stmt->rowCount() . " records UPDATED successfully";
+} catch(PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
+}
+
+$conn = null;
+?>
+*/
+
+
 }
