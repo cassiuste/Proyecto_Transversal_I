@@ -22,13 +22,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $_SESSION["isAdmin"] = false;
         $user->register("user");
     }
+    if(isset($_POST["delete_account"])){
+        echo "<p>Delete user button is clicked. </p>";
+        $user->delete();
+    }
 }
 
 class UserController{
 
     private $conn;
 
-    public function __construct() {
+        public function __construct() {
 
         // Base de datos a cambiar cuando tengamos la definitiva
         $servername = "localhost";
@@ -228,59 +232,44 @@ class UserController{
     public function deletePassword() : void{
 
     }
-    public function delete() : void{
-        
-        if(isset($_POST['delete_account'])){
-            if(!isset($_SESSION['username'])){
+    
+    
+    public function delete() : void {
+
+        if (isset($_POST['delete_account'])) { 
+            if (!isset($_SESSION['username'])) {
                 exit;
             }
-
+    
             $username = $_SESSION['username'];
-
-            try{
+    
+            try {
                 $checkSql = "SELECT * FROM user WHERE username = :username";
-                $checkStmt = $pdo->prepare($checkSql);
+                $checkStmt = $this->conn->prepare($checkSql);
                 $checkStmt->bindParam(':username', $username);
                 $checkStmt->execute();
-
+    
                 if ($checkStmt->rowCount() > 0) {
-                    
                     $deleteSql = "DELETE FROM user WHERE username = :username";
-                    $deleteStmt = $pdo->prepare($deleteSql);
+                    $deleteStmt = $this->conn->prepare($deleteSql);
                     $deleteStmt->bindParam(':username', $username);
                     if ($deleteStmt->execute()) {
-                        
-                        session_destroy();
-                        header("Location: home.php"); 
-                        exit;
+                        logout();
                     } else {
                         echo "Error while trying to delete the account.";
                     }
                 } else {
                     echo "User not found.";
                 }
-            }catch(PDOException $e){
-                echo "Exception.";
+            } catch(PDOException $e) {
+                echo "Exception: " . $e->getMessage();
             }
-
-        }
-
-        if(isset($_POST['delete_password'])){
-            if(!isset($_SESSION['username'])){
-                exit;
-            }
-
-            $username = $_SESSION['username'];
-
-            try{
-                //CODIGO
-            }catch(PDOException $e){
-                echo "Exception.";
-            }
-
         }
 
     }
+    
+
+
 
     function set_conn($conn){
         $this->conn = $conn;
