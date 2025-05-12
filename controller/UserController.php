@@ -264,9 +264,6 @@ class UserController{
         }
 
     }
-    
-
-
 
     function set_conn($conn){
         $this->conn = $conn;
