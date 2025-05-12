@@ -228,7 +228,7 @@ class UserController{
     public function deletePassword() : void{
 
     }
-    public function deleteUser() : void{
+    public function delete() : void{
         
         if(isset($_POST['delete_account'])){
             if(!isset($_SESSION['username'])){
@@ -259,6 +259,21 @@ class UserController{
                 } else {
                     echo "User not found.";
                 }
+            }catch(PDOException $e){
+                echo "Exception.";
+            }
+
+        }
+
+        if(isset($_POST['delete_password'])){
+            if(!isset($_SESSION['username'])){
+                exit;
+            }
+
+            $username = $_SESSION['username'];
+
+            try{
+                //CODIGO
             }catch(PDOException $e){
                 echo "Exception.";
             }
