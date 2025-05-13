@@ -72,10 +72,10 @@
                             </div>
                             <div class="datetime-group">
                                 <label for="start-time">Start Time</label>
-                                <input type="time" required>
+                                <input type="time" name="start-time" required>
                             </div>
                         </div>
-                        <label for="event_image">Profile Image: </label>
+                        <label for="event_image">Event image: </label>
                         <br>
                         <input type="file" name="event_image"><br>
                         <br>

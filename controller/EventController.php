@@ -50,14 +50,99 @@ class EventController{
         
         public function create() : void {
             
-            $eventName = htmlspecialchars($_POST[""]);
-            $description = htmlspecialchars($_POST[""]);
-            $date = htmlspecialchars($_POST[""]);
-            $startTime = htmlspecialchars($_POST[""]);
-            $location = htmlspecialchars($_POST[""]);
-            $price = htmlspecialchars($_POST[""]);
-            $capacity = htmlspecialchars($_POST[""]);
+            $eventName = htmlspecialchars($_POST["name"]);
+            $description = htmlspecialchars($_POST["description"]);
+            $date = htmlspecialchars($_POST["date"]);
+            $startTime = htmlspecialchars($_POST["start-time"]);
+            $location = htmlspecialchars($_POST["location"]);
+            $price = htmlspecialchars($_POST["price"]);
+            $capacity = htmlspecialchars($_POST["capacity"]);
             
+
+            $destination = null;
+                if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] === UPLOAD_ERR_OK) {
+                       $file_name = $_FILES['event_image']['name'];
+                       $file_tmp = $_FILES['event_image']['tmp_name'];
+                       $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                       $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
+                       $subfolder = '../view/img/event/';
+                       $new_file_name = uniqid() . '.' . $file_ext;
+                       $destination = $subfolder . $new_file_name;
+                       
+                       if (in_array($file_ext, $allowed_ext)) {
+                        move_uploaded_file($file_tmp, $destination);
+                        $_SESSION['success_message'] = 'Image uploaded correctly.';
+                        } else {
+                        $_SESSION['error_message'] = 'Invalid format.';
+                        header("location: ../view/createevent.php");
+                        exit;
+                        }
+                        
+                } else if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+                    $_SESSION['error_message'] = 'Error uploading the image.';
+                }
+    
+    
+
+            // insertar fila
+            try{
+                if($rol == "admin"){
+                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol, profile_image)
+                        VALUES (:username, :email, :user_password, :rol, :profile_image)");
+                            $stmt->bindValue(":profile_image", $destination);
+                }
+                else{
+                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol)
+                        VALUES (:username, :email, :user_password, :rol)");
+                }
+
+                $stmt->bindParam(":username", $username);
+                $stmt->bindParam(":email", $email);
+                $stmt->bindParam(":user_password", $user_password);
+                $stmt->bindParam(":rol", $rol);
+                
+            // Falta el control de errores en el sql para las filas
+                if ($stmt->execute()){
+                    $_SESSION['logged'] = true;
+                    $_SESSION['username'] = $username;
+                    $_SESSION['email'] = $email;
+                    // puede ser admin o user
+                    $_SESSION['rol'] = $rol;
+                    if(($rol == "admin") && ($destination !== null)){
+                        $_SESSION['profile_image'] = $destination;
+                    }
+                    header("location: ../view/home.php");
+                    exit;
+                } 
+                else {
+                    // falta validaciones si esta repetido
+                    $_SESSION['logged'] = false;
+                    $_SESSION["error_message"] = "Could not register the account";
+                    $this->conn = null;
+                    if(!empty($_SESSION["isAdmin"])){
+                        header("location: ../view/registeradmin.php");
+                        exit;
+                    }
+                    else{
+                        header("location: ../view/registeruser.php");
+                        exit;
+                    }
+                }
+                
+            }
+            catch(PDOException $e){
+                $_SESSION['logged'] = false;                
+                $_SESSION["error_message"] = "A user with that username or email already exists.";
+                $this->conn = null;
+                if(!empty($_SESSION["isAdmin"])){
+                    header("location: ../view/registeradmin.php");
+                    exit;
+                }
+                else{
+                    header("location: ../view/registeruser.php");
+                    exit;
+                }
+            }
 
         }
 
