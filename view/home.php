@@ -62,7 +62,11 @@
                 </div>
             </div>
         </div>
-        <div class="popular_categories">
+        <form action="../controller/EventController.php" method="post">
+            <input type="submit" value="Show events">
+        </form>
+        
+        <!-- <div class="popular_categories">
             <h2>Popular Categories</h2>
             <div class="categories">
                 <a href="Event_page_from_search.php">
@@ -163,7 +167,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </main>
     <footer>

@@ -56,7 +56,7 @@
             <div class="page">
                 <div class="content">
                     <h2>CREATE EVENT</h2>
-                    <form action="" method="post">
+                    <form action="../controller/EventController.php" method="post" enctype="multipart/form-data">
                         <label for="name">Name of the event</label>
                         <br>
                         <input type="text" name="name" id="name" required>
@@ -74,11 +74,11 @@
                                 <label for="start-time">Start Time</label>
                                 <input type="time" required>
                             </div>
-                            <div class="datetime-group">
-                                <label for="end-time">End Time</label>
-                                <input type="time" required>
-                            </div>
                         </div>
+                        <label for="event_image">Profile Image: </label>
+                        <br>
+                        <input type="file" name="event_image"><br>
+                        <br>
                         <label for="location">Location</label>
                         <br>
                         <input type="text" name="location" id="location" required>

@@ -48,7 +48,6 @@ input[type="submit"] {
     gap: 1rem;
     margin: 1rem 0;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
 .datetime-group {

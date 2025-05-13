@@ -49,6 +49,19 @@ class EventController{
         }
         
         public function create() : void {
+            
+            $eventName = htmlspecialchars($_POST[""]);
+            $description = htmlspecialchars($_POST[""]);
+            $date = htmlspecialchars($_POST[""]);
+            $startTime = htmlspecialchars($_POST[""]);
+            $location = htmlspecialchars($_POST[""]);
+            $price = htmlspecialchars($_POST[""]);
+            $capacity = htmlspecialchars($_POST[""]);
+            
+
+        }
+
+        public function read() : void {
 
         }
 
@@ -56,11 +69,6 @@ class EventController{
             
         }
 
-
-        public function read() : void {
-
-        }
-        
         public function delete() : void {
             
         }
