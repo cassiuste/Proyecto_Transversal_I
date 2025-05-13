@@ -2,7 +2,7 @@
 session_start();
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    $user = new UserController();
+    $event = new EventController();
     
     if(isset($_POST["read"])){
         echo "<p>Read button is clicked. </p>";
