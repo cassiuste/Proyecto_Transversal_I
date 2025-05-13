@@ -89,10 +89,29 @@ if (isset($_SESSION["logged"])) {
                         <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
                     </div>
                     
+
+                    <?php 
+                    //Controlador de eventos
+                    require_once 'EventController.php';
+                    $eventController = new EventController();
+                    $events = $eventController->read();
+                    if (!empty($events)) {
+                        foreach ($events as $event) {
+                            echo "<h3>" . $event["eventName"] . "</h3>";
+                            echo "<p>" . $event["date"] . "</p>";
+                            echo "<a href=" . $event["location"] . "</a>";
+                            echo "<h2>" . $evento["price"] . "</h2>";
+                        }
+                    }
+                    ?>
+                    <!--
                     <h3>EVENT 1</h3>
                     <p>Picture 1: It shows a wine tasting in the "Jardinet d'Aribau"</p>
+                    -->
                     <h3><a href="eventDetailProfile.php?id=1">See more detail</a></h3>
                     <a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>                  
+
+
                 </div>                
                 <div class="event">                    
                     <div class="event-image">

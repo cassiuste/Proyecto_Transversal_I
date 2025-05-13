@@ -146,9 +146,26 @@ class EventController{
 
         }
 
-        public function read() : void {
+        public function read() : array {
+            $sql = "SELECT eventName, date, location, price FROM event";
 
+            try {
+                $stmt = $this->conn->prepare($sql);
+                $stmt->execute();
+                $rowCount = $stmt->rowCount(); // Devuelve el total de número de filas devueltas
+        
+                if ($rowCount > 0) {
+                    $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    return $events;
+                } else {
+                    return []; // No se encontraron eventos
+                }
+            } catch(PDOException $e) {
+                echo "Error al leer los eventos: " . $e->getMessage();
+                return [];
+            }
         }
+        
 
         public function update() : void {
             
