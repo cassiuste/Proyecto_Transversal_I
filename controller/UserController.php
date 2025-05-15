@@ -26,6 +26,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         echo "<p>Delete user button is clicked. </p>";
         $user->delete();
     }
+    if(isset($_POST["update_password"])){
+        echo "<p>Update password button is clicked. </p>";
+        $user->updatePassword();
+    }
 }
 
 class UserController{
@@ -233,40 +237,42 @@ class UserController{
     
     public function delete() : void {
 
-        if (isset($_POST['delete_account'])) { 
-            if (!isset($_SESSION['username'])) {
-                exit;
-            }
     
-            $username = $_SESSION['username'];
+        $username = $_SESSION['username'];
     
-            try {
-                $checkSql = "SELECT * FROM user WHERE username = :username";
-                $checkStmt = $this->conn->prepare($checkSql);
-                $checkStmt->bindParam(':username', $username);
-                $checkStmt->execute();
+        try {
+            $checkSql = "SELECT * FROM user WHERE username = :username";
+            $checkStmt = $this->conn->prepare($checkSql);
+            $checkStmt->bindParam(':username', $username);
+            $checkStmt->execute();
     
-                if ($checkStmt->rowCount() > 0) {
-                    $deleteSql = "DELETE FROM user WHERE username = :username";
-                    $deleteStmt = $this->conn->prepare($deleteSql);
-                    $deleteStmt->bindParam(':username', $username);
-                    if ($deleteStmt->execute()) {
-                        session_unset();
-                        session_destroy();
-                        header("location: ../view/home.php");
-                        exit;
-                    } else {
-                        echo "Error while trying to delete the account.";
-                    }
+            if ($checkStmt->rowCount() > 0) {
+                $deleteSql = "DELETE FROM user WHERE username = :username";
+                $deleteStmt = $this->conn->prepare($deleteSql);
+                $deleteStmt->bindParam(':username', $username);
+                if ($deleteStmt->execute()) {
+                    session_unset();
+                    session_destroy();
+                    header("location: ../view/home.php");
+                    exit;
                 } else {
-                    echo "User not found.";
+                    echo "Error while trying to delete the account.";
                 }
-            } catch(PDOException $e) {
-                echo "Exception: " . $e->getMessage();
+            } else {
+                echo "User not found.";
             }
+        } catch(PDOException $e) {
+            echo "Exception: " . $e->getMessage();
         }
 
     }
+
+    public function updatePassword() : void {
+
+
+
+    }
+
 
     function set_conn($conn){
         $this->conn = $conn;
