@@ -27,10 +27,9 @@
                 <div class="right">
                     <?php
                         if(!empty($_SESSION["logged"])){
-                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-        
-                           if ($_SESSION['rol'] == "admin") {
-                            echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                            if ($_SESSION['rol'] == "admin") {
+                               echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+                                echo "<a href='profileadmin.php'><div class='profilebtm'>";
                             
                             if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
                                 echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";

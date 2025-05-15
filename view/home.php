@@ -25,10 +25,9 @@
             <div class="right">
                 <?php
                     if(!empty($_SESSION["logged"])){
-                    echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-
-                   if ($_SESSION['rol'] == "admin") {
-                    echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                    if ($_SESSION['rol'] == "admin") {
+                       echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
+                        echo "<a href='profileadmin.php'><div class='profilebtm'>";
                     
                     if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
                         echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
@@ -63,8 +62,46 @@
             </div>
         </div>
         <form action="../controller/EventController.php" method="post">
-            <input type="submit" value="Show events">
+            <input type="submit" name="read" value="Show all events">
         </form>
+        
+
+        <table>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>date</th>
+                    <th>location</th>
+                    <th>price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                if(!empty($_SESSION['events'])){
+                foreach ($_SESSION['events'] as $index => $event) { 
+                    ?>
+                    <tr>
+                        <td><?php echo $event['name']; ?></td>
+                        <td><?php echo $event['date']; ?></td>
+                        <td><?php echo $event['location']; ?></td>
+                        <td><?php echo $event['price']; ?></td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="name" value="<?php echo $event['name']; ?>">
+                                <input type="hidden" name="date" value="<?php echo $event['date']; ?>">
+                                <input type="hidden" name="location" value="<?php echo $event['location']; ?>">
+                                <input type="hidden" name="price" value="<?php echo $event['price']; ?>">
+                                <input type="hidden" name="index" value="<?php echo $index; ?>">
+                                <input type="submit" name="edit" value="Edit">
+                                <input type="submit" name="delete" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                <?php } 
+                }
+                ?>
+            </tbody>
+        </table>
         
         <!-- <div class="popular_categories">
             <h2>Popular Categories</h2>

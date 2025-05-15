@@ -14,7 +14,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     if(isset($_POST["update"])){
         echo "<p>Update button is clicked. </p>";
-        $_SESSION["isAdmin"] = false;
         $event->update();
     }
     if(isset($_POST["delete"])){
@@ -127,7 +126,7 @@ class EventController{
         }
 
         public function read() : array {
-            $sql = "SELECT eventName, date, location, price FROM event";
+            $sql = "SELECT name, date, location, price FROM event";
 
             try {
                 $stmt = $this->conn->prepare($sql);
@@ -136,6 +135,7 @@ class EventController{
         
                 if ($rowCount > 0) {
                     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $_SESSION['events'] = $events;
                     return $events;
                 } else {
                     return []; // No se encontraron eventos
