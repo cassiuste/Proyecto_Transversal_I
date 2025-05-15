@@ -20,6 +20,10 @@ body{
     align-items: center;
 }
 
+.error_message{
+    color: red;
+}
+
 form{
     position: relative;
     line-height: 2;

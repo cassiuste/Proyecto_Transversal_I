@@ -172,10 +172,10 @@
     </main>
     <footer>
         <div class="footer_imgs">
-            <a href="home.html"><img src="./img/sign/facebook_logo.png" alt="logo of facebook"></a>
-            <a href="home.html"><img src="./img/home/instagram_logo.png" alt="logo of instagram"></a>
-            <a href="home.html"><img src="./img/home/youtube_logo.png" alt="logo of youtube"></a>
-            <a href="home.html"><img src="./img/home/twitter_logo.png" alt="logo of twitter_logo"></a>
+            <a href="home.php"><img src="./img/sign/facebook_logo.png" alt="logo of facebook"></a>
+            <a href="home.php"><img src="./img/home/instagram_logo.png" alt="logo of instagram"></a>
+            <a href="home.php"><img src="./img/home/youtube_logo.png" alt="logo of youtube"></a>
+            <a href="home.php"><img src="./img/home/twitter_logo.png" alt="logo of twitter_logo"></a>
         </div>
     </footer>
 </body>

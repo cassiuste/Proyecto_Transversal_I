@@ -55,6 +55,15 @@
         <main>
             <div class="page">
                 <div class="content">
+                    <div class="error_message">
+                    <?php
+                        if(isset($_SESSION["error_message"])){
+                            $error_message = $_SESSION["error_message"];
+                            echo "$error_message" . "<br>";
+                            unset($_SESSION["error_message"]);
+                        }
+                    ?>
+                    </div>
                     <h2>CREATE EVENT</h2>
                     <form action="../controller/EventController.php" method="post" enctype="multipart/form-data">
                         <label for="name">Name of the event</label>
@@ -63,8 +72,7 @@
                         <br>
                         <label for="description">Description</label>
                         <br>
-                        <input type="text" name="description" id="description">
-                        <br>
+                        <textarea name="description" id="description" cols="30" rows="4"></textarea>
                         <div class="datetime-row">
                             <div class="datetime-group">
                                 <label for="date">Date</label>
@@ -91,7 +99,7 @@
                         <br>
                         <input type="number" name="capacity" id="capacity" min="0">
                         <br>
-                        <input type="submit" class="createbtm" value="CREATE">
+                        <input type="submit" class="createbtm" name="create" value="CREATE">
                     </form>
                 </div>
             </div>

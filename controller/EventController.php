@@ -6,21 +6,20 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     
     if(isset($_POST["read"])){
         echo "<p>Read button is clicked. </p>";
-        $user->read();
+        $event->read();
     }
     if(isset($_POST["create"])){
         echo "<p>Create button is clicked. </p>";
-        $_SESSION["isAdmin"] = true;
-        $user->create();
+        $event->create();
     }
     if(isset($_POST["update"])){
         echo "<p>Update button is clicked. </p>";
         $_SESSION["isAdmin"] = false;
-        $user->update();
+        $event->update();
     }
     if(isset($_POST["delete"])){
         echo "<p>Delete button is clicked. </p>";
-        $user->delete();
+        $event->delete();
     }
 }
 
@@ -54,96 +53,77 @@ class EventController{
             $description = htmlspecialchars($_POST["description"]);
             $date = htmlspecialchars($_POST["date"]);
             $startTime = htmlspecialchars($_POST["start-time"]);
+            $datetime = $date . ' ' . $startTime . ':00';
             $location = htmlspecialchars($_POST["location"]);
             $price = htmlspecialchars($_POST["price"]);
             $capacity = htmlspecialchars($_POST["capacity"]);
-            
+
+
+            // solo se puede seleccionar una fecha igual o mayor a la de hoy
+            $today = new DateTime(); 
+            $today->setTime(0, 0, 0);
+            $eventDate = DateTime::createFromFormat('Y-m-d', $date);
+            if ($eventDate < $today) {
+                $_SESSION['error_message'] = "The selected date cannot be in the past.";
+                header("Location: ../view/createevent.php");
+                exit;
+            }
+
 
             $destination = null;
-                if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] === UPLOAD_ERR_OK) {
-                       $file_name = $_FILES['event_image']['name'];
-                       $file_tmp = $_FILES['event_image']['tmp_name'];
-                       $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-                       $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
-                       $subfolder = '../view/img/event/';
-                       $new_file_name = uniqid() . '.' . $file_ext;
-                       $destination = $subfolder . $new_file_name;
-                       
-                       if (in_array($file_ext, $allowed_ext)) {
-                        move_uploaded_file($file_tmp, $destination);
-                        $_SESSION['success_message'] = 'Image uploaded correctly.';
-                        } else {
-                        $_SESSION['error_message'] = 'Invalid format.';
-                        header("location: ../view/createevent.php");
-                        exit;
-                        }
-                        
-                } else if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] !== UPLOAD_ERR_NO_FILE) {
-                    $_SESSION['error_message'] = 'Error uploading the image.';
-                }
-    
-    
-
-            // insertar fila
-            try{
-                if($rol == "admin"){
-                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol, profile_image)
-                        VALUES (:username, :email, :user_password, :rol, :profile_image)");
-                            $stmt->bindValue(":profile_image", $destination);
-                }
-                else{
-                    $stmt = $this->conn->prepare("INSERT INTO user (username, email, user_password, rol)
-                        VALUES (:username, :email, :user_password, :rol)");
-                }
-
-                $stmt->bindParam(":username", $username);
-                $stmt->bindParam(":email", $email);
-                $stmt->bindParam(":user_password", $user_password);
-                $stmt->bindParam(":rol", $rol);
+            if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] === UPLOAD_ERR_OK) {
+                $file_name = $_FILES['event_image']['name'];
+                $file_tmp = $_FILES['event_image']['tmp_name'];
+                $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
+                $subfolder = '../view/img/event/';
+                $new_file_name = uniqid() . '.' . $file_ext;
+                $destination = $subfolder . $new_file_name;
                 
-            // Falta el control de errores en el sql para las filas
-                if ($stmt->execute()){
-                    $_SESSION['logged'] = true;
-                    $_SESSION['username'] = $username;
-                    $_SESSION['email'] = $email;
-                    // puede ser admin o user
-                    $_SESSION['rol'] = $rol;
-                    if(($rol == "admin") && ($destination !== null)){
-                        $_SESSION['profile_image'] = $destination;
-                    }
-                    header("location: ../view/home.php");
+                if (in_array($file_ext, $allowed_ext)) {
+                    move_uploaded_file($file_tmp, $destination);
+                    $_SESSION['success_message'] = 'Image uploaded correctly.';
+                    } else {
+                    $_SESSION['error_message'] = 'Invalid format.';
+                    header("location: ../view/createevent.php");
                     exit;
-                } 
-                else {
-                    // falta validaciones si esta repetido
-                    $_SESSION['logged'] = false;
-                    $_SESSION["error_message"] = "Could not register the account";
-                    $this->conn = null;
-                    if(!empty($_SESSION["isAdmin"])){
-                        header("location: ../view/registeradmin.php");
-                        exit;
                     }
-                    else{
-                        header("location: ../view/registeruser.php");
-                        exit;
-                    }
+            } else if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+                $_SESSION['error_message'] = 'Error uploading the image.';
+            }
+    
+
+            try{
+                if($_SESSION['rol'] == "admin"){
+                    $stmt = $this->conn->prepare("INSERT INTO event (name, date, price, ticketsAvailable, imagen, descripcion, location)
+                        VALUES (:eventName, :date, :price, :capacity, :destination, :description, :location)");
+                            $stmt->bindParam(":eventName", $eventName);
+                            $stmt->bindParam(":date", $datetime);
+                            $stmt->bindParam(":price", $price);
+                            $stmt->bindParam(":capacity", $capacity);
+                            $stmt->bindValue(":destination", $destination);
+                            $stmt->bindParam(":description", $description);
+                            $stmt->bindParam(":location", $location);
+                            if ($stmt->execute()){
+                                header("location: ../view/home.php");
+                                exit;
+                            } 
+                            else {
+                                $_SESSION['logged'] = false;
+                                $_SESSION["error_message"] = "Could not create the event";
+                                $this->conn = null;
+                                header("location: ../view/createevent.php");
+                                exit;            
+                            }
                 }
-                
             }
             catch(PDOException $e){
                 $_SESSION['logged'] = false;                
-                $_SESSION["error_message"] = "A user with that username or email already exists.";
+                $_SESSION["error_message"] = "Error ocurred created the event.";
                 $this->conn = null;
-                if(!empty($_SESSION["isAdmin"])){
-                    header("location: ../view/registeradmin.php");
-                    exit;
-                }
-                else{
-                    header("location: ../view/registeruser.php");
-                    exit;
-                }
+                header("location: ../view/createevent.php");
+                exit; 
             }
-
         }
 
         public function read() : array {
