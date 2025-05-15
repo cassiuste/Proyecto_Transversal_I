@@ -251,7 +251,10 @@ class UserController{
                     $deleteStmt = $this->conn->prepare($deleteSql);
                     $deleteStmt->bindParam(':username', $username);
                     if ($deleteStmt->execute()) {
-                        logout();
+                        session_unset();
+                        session_destroy();
+                        header("location: ../view/home.php");
+                        exit;
                     } else {
                         echo "Error while trying to delete the account.";
                     }

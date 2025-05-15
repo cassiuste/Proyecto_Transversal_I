@@ -85,7 +85,7 @@
         <div style="display: flex; flex-direction: column; margin-left: 5px;">
             <h1>Event 1</h1>
             <!-- PGS: <h3><a href="event_detail.php?id=1">Event 1</a></h3> -->
-            <h3><a href="event_detail.php?id=1">See more detail</a></h3>
+            <h3><a href="EventPage.php">See more detail</a></h3>
             <p>Location 1 | Price 1</p>
         </div>
     </div>
@@ -95,7 +95,7 @@
         <div style="display: flex; flex-direction: column; margin-left: 5px;">
             <h1>Event 2</h1>
             <!-- PGS: <h3><a href="event_detail.php?id=2">Event 2</a></h3> -->
-            <h3><a href="event_detail.php?id=2">See more detail</a></h3>
+            <h3><a href="EventPage.php">See more detail</a></h3>
             <p>Location 2 | Price 2</p>
         </div>
     </div>
@@ -105,7 +105,7 @@
         <div style="display: flex; flex-direction: column; margin-left: 5px;">
             <h1>Event 3</h1>
             <!-- PGS: <h3><a href="event_detail.php?id=3">Event 3</a></h3> -->
-            <h3><a href="event_detail.php?id=3">See more detail</a></h3>
+            <h3><a href="EventPage.php">See more detail</a></h3>
             <p>Location 3 | Price 3</p>
         </div>
     </div>
@@ -115,7 +115,7 @@
         <div style="display: flex; flex-direction: column; margin-left: 5px;">
             <h1>Event 4</h1>
              <!-- PGS: <h3><a href="event_detail.php?id=4">Event 4</a></h3> -->
-            <h3><a href="event_detail.php?id=4">See more detail</a></h3>
+            <h3><a href="EventPage.php">See more detail</a></h3>
             <p>Location 4 | Price 4</p>
         </div>
     </div>
