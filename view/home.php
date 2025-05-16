@@ -86,12 +86,12 @@
                         <td><?php echo $event['location']; ?></td>
                         <td><?php echo $event['price']; ?></td>
                         <td>
-                            <form method="post">
+                            <form action="../controller/EventController.php" method="post">
                                 <input type="hidden" name="name" value="<?php echo $event['name']; ?>">
                                 <input type="hidden" name="date" value="<?php echo $event['date']; ?>">
                                 <input type="hidden" name="location" value="<?php echo $event['location']; ?>">
                                 <input type="hidden" name="price" value="<?php echo $event['price']; ?>">
-                                <input type="hidden" name="index" value="<?php echo $index; ?>">
+                                <input type="hidden" name="index" value="<?php echo $event['id_Event']; ?>">
                                 <input type="submit" name="edit" value="Edit">
                                 <input type="submit" name="delete" value="Delete">
                             </form>

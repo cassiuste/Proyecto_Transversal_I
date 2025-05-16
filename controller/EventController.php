@@ -126,7 +126,7 @@ class EventController{
         }
 
         public function read() : array {
-            $sql = "SELECT name, date, location, price FROM event";
+            $sql = "SELECT id_Event, name, date, location, price FROM event";
 
             try {
                 $stmt = $this->conn->prepare($sql);
@@ -152,7 +152,32 @@ class EventController{
         }
 
         public function delete() : void {
-            
+            $index = htmlspecialchars($_POST['index']);
+    
+        try {
+            $checkSql = "SELECT * FROM event WHERE id_Event = :index";
+            $checkStmt = $this->conn->prepare($checkSql);
+            $checkStmt->bindParam(':index', $index);
+            $checkStmt->execute();
+    
+            if ($checkStmt->rowCount() > 0) {
+                $deleteSql = "DELETE FROM event WHERE id_Event = :index";
+                $deleteStmt = $this->conn->prepare($deleteSql);
+                $deleteStmt->bindParam(':index', $index);
+                if ($deleteStmt->execute()) {
+                    session_unset();
+                    session_destroy();
+                    header("location: ../view/home.php");
+                    exit;
+                } else {
+                    echo "Error while trying to delete the event.";
+                }
+            } else {
+                echo "Event not found.";
+            }
+        } catch(PDOException $e) {
+            echo "Exception: " . $e->getMessage();
+        }
         }
         
 }
