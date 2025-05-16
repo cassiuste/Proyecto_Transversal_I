@@ -138,7 +138,7 @@ if (isset($_SESSION["logged"])) {
                 -->
                 <?php
                 //Controlador de eventos
-                require_once 'EventController.php';
+                require_once '../controller/EventController.php';
                 $eventController = new EventController();
                 $events = $eventController->read();
                 if (!empty($events)) {
