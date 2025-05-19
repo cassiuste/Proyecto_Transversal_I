@@ -55,13 +55,22 @@
             <div class="page">
                 <div class="content">
                     <div class="error_message">
-                    <?php
+                        <?php
                         if(isset($_SESSION["error_message"])){
                             $error_message = $_SESSION["error_message"];
                             echo "$error_message" . "<br>";
                             unset($_SESSION["error_message"]);
                         }
-                    ?>
+                        ?>
+                    </div>
+                    <div class="success_message">
+                        <?php
+                        if(isset($_SESSION["success_message"])){
+                            $success_message = $_SESSION["success_message"];
+                            echo "$success_message" . "<br>";
+                            unset($_SESSION["success_message"]);
+                        }
+                        ?>
                     </div>
                     <h2>CREATE EVENT</h2>
                     <form action="../controller/EventController.php" method="post" enctype="multipart/form-data">
