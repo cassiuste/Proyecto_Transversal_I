@@ -168,7 +168,7 @@ class EventController{
                 $deleteStmt = $this->conn->prepare($deleteSql);
                 $deleteStmt->bindParam(':index', $index);
                 if ($deleteStmt->execute()) {
-                    header("location: ../view/home.php");
+                    header("location: ../view/profileadmin.php");
                     exit;
                 } else {
                     echo "Error while trying to delete the event.";
