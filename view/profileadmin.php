@@ -39,11 +39,10 @@ if (isset($_SESSION["logged"])) {
             </div>
                 <div class="right">
                     <?php
-                        if(!empty($_SESSION["logged"])){
-                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-        
+                        if(!empty($_SESSION["logged"])){                                    
                            if ($_SESSION['rol'] == "admin") {
                             echo "<a href='profileadmin.php'><div class='profilebtm'>";
+                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                             
                             if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
                                 echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
@@ -56,7 +55,6 @@ if (isset($_SESSION["logged"])) {
                                     echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
                                 }
                             }
-
                     ?>
                 </div>
         </div>
@@ -95,6 +93,7 @@ if (isset($_SESSION["logged"])) {
         <main class="content">
             <h2>YOUR EVENTS</h2>
             <div class="event-grid">
+                <!--
                 <div class="event">
                     <div class="event-image">
                         <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
@@ -102,6 +101,7 @@ if (isset($_SESSION["logged"])) {
                     
                     <h3>EVENT 1</h3>
                     <p>Picture 1: It shows a wine tasting in the "Jardinet d'Aribau"</p>
+                        
                     <h3><a href="eventDetailProfileAdmin.php?id=1">See more detail</a></h3>
                     <a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>                  
                 </div>                
@@ -134,7 +134,29 @@ if (isset($_SESSION["logged"])) {
                     <p>Picture 4: It shows Barcelona night Bike Tour with tapas and cava</p>
                     <h3><a href="eventDetailProfileAdmin.php?id=4">See more detail</a></h3>
                     <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
-                </div>            
+                </div>
+                -->
+                <?php
+                //Controlador de eventos
+                require_once '../controller/EventController.php';
+                $eventController = new EventController();
+                $events = $eventController->read();
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        echo "<div class='event'>";
+                        echo "  <div class='event-image'>";
+                        echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>"; //Pendiente de hacer
+                        echo "  </div>";
+                        echo "  <div>";
+                        echo "    <h3>" . $event["name_event"] . "</h3>";
+                        echo "  </div>";
+                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>"; //Pendiente de hacer
+                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo "</div>";
+                    }
+                }
+                ?>
+
             </div>
         </main>
     </div>
