@@ -167,6 +167,14 @@ body {
     object-fit: contain;
 }
 
+.event h3 {
+    margin-bottom: 5px;
+}
+
+.event h4 {
+    margin-bottom: 2px;
+}
+
 /* Responsiva */
 @media (max-width: 960px) {
     .container {
@@ -190,4 +198,5 @@ body {
         width: 100%;
         margin-bottom: 15px;
     }
+
 }

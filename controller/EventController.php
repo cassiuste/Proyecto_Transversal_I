@@ -129,7 +129,7 @@ class EventController{
         }
 
         public function read() : array {
-            $sql = "SELECT name_event, date_event, location_event, price_event FROM event";
+            $sql = "SELECT name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state FROM event";
 
             try {
                 $stmt = $this->conn->prepare($sql);

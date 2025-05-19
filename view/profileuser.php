@@ -82,6 +82,30 @@ if (isset($_SESSION["logged"])) {
         <main class="content">
             <h2>YOUR EVENTS</h2>
             <div class="event-grid">
+
+                <?php
+                //Controlador de eventos
+                //name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state
+                require_once '../controller/EventController.php';
+                $eventController = new EventController();
+                $events = $eventController->read();
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        echo "<div class='event'>";
+                        echo "  <div class='event-image'>";
+                        echo "    <img src='" . $event["image_event"] . "' alt='Event profile'/>";
+                        //echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>"; //Pendiente de hacer
+                        echo "  </div>";
+                        echo "    <h3>" . $event["name_event"] . "</h3>";
+                        echo "    <h4>" . $event["date_event"] . "</h2>";
+                        echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
+                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
+                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo "</div>";
+                    }
+                }
+                ?>
+
                 <!--<div class="event">
                     <div class="event-image">
                         <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
@@ -126,26 +150,6 @@ if (isset($_SESSION["logged"])) {
                 </div>
                 --> 
 
-                <?php
-                //Controlador de eventos
-                require_once '../controller/EventController.php';
-                $eventController = new EventController();
-                $events = $eventController->read();
-                if (!empty($events)) {
-                    foreach ($events as $event) {
-                        echo "<div class='event'>";
-                        echo "  <div class='event-image'>";
-                        echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>"; //Pendiente de hacer
-                        echo "  </div>";
-                        echo "  <div>";
-                        echo "    <h3>" . $event["name_event"] . "</h3>";
-                        echo "  </div>";
-                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>"; //Pendiente de hacer
-                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
-                        echo "</div>";
-                    }
-                }
-                ?>
             </div>
         </main>
     </div>

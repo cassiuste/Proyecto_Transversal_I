@@ -143,12 +143,15 @@ if (isset($_SESSION["logged"])) {
                     foreach ($events as $event) {
                         echo "<div class='event'>";
                         echo "  <div class='event-image'>";
-                        echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>"; //Pendiente de hacer
+                        //echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>";
+                        echo "    <img src='" . $event["image_event"] . "' alt='Event profile'/>";
                         echo "  </div>";
                         echo "  <div>";
                         echo "    <h3>" . $event["name_event"] . "</h3>";
+                        echo "    <h4>" . $event["date_event"] . "</h2>";
+                        echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
                         echo "  </div>";
-                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>"; //Pendiente de hacer
+                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
                         echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
                         echo "</div>";
                     }

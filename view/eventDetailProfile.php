@@ -77,7 +77,36 @@
         
 
         <main class="event-details">
-            <div class="event-header">
+                <?php
+                //Controlador de eventos
+                //name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state
+                require_once '../controller/EventController.php';
+                $eventController = new EventController();
+                $events = $eventController->read();
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        echo "<div class='event-header'>";
+                        echo "  <div class='image-container'>";
+                        echo "    <img src='" . $event["image_event"] . "' alt='Image of the event'/>";
+                        echo "    <p><a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3' target='_blank'>Más información</a></p>";
+                        echo "  </div>";
+                        echo "  <div class='static-map-container'>";
+                        echo "    <img src='" . $event["location_event"] . "'alt='Image of the event'/>";
+                        echo "    <p><a href='https://www.google.com/search?q=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&oq=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzIyMmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8' target='_blank'>Ver en Google Maps</a></p>";
+                        echo "  </div>";
+                        echo "</div>";
+                        echo "<div class='event-info'>";
+                        echo "  <h1>" . $event["name_event"] . "</h1>";
+                        echo "  <p class='about'>" . $event["description_event"] . "</p>";
+                        echo "  <p class='date'>Date of the event: " . $event["date_event"] . "</p>";
+                        echo "  <h4> Price: "  . $event["price_event"] . " €</h4>";
+                        echo "  <h4> State: "  . $event["state"] . "</h4>";
+                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo "</div>";
+                    }
+                }
+                ?>
+                <!--
                 <div class="image-container">
                     <img src="../view/img/profile/cataVinos_profile.jpg" alt="Image of the event">
                     <p><a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3" target="_blank">Más información</a></p>
@@ -97,6 +126,7 @@
                 </p>
                 <p class="date">Date of the event: 30/11/2025</p>
             </div>
+                               
 
             <section class="other-events">
                 <h2>Other events you may like</h2>
@@ -118,6 +148,7 @@
                     </div>
                 </div>
             </section>
+            --> 
         </main>
     </div>
 
