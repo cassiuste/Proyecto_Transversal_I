@@ -24,6 +24,10 @@ body{
     color: red;
 }
 
+.success_message{
+    color: green;
+}
+
 form{
     position: relative;
     line-height: 2;

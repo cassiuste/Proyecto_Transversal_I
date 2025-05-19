@@ -76,28 +76,29 @@
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                if(!empty($_SESSION['events'])){
-                foreach ($_SESSION['events'] as $index => $event) { 
-                    ?>
+            <?php
+                if (!empty($_SESSION['events'])) {
+                    foreach ($_SESSION['events'] as $index => $event) {
+                ?>
                     <tr>
-                        <td><?php echo $event['name']; ?></td>
-                        <td><?php echo $event['date']; ?></td>
-                        <td><?php echo $event['location']; ?></td>
-                        <td><?php echo $event['price']; ?></td>
+                        <td><?php echo $event['name_event']; ?></td>
+                        <td><?php echo $event['date_event']; ?></td>
+                        <td><?php echo $event['location_event']; ?></td>
+                        <td><?php echo $event['price_event']; ?></td>
                         <td>
-                            <form method="post">
-                                <input type="hidden" name="name" value="<?php echo $event['name']; ?>">
-                                <input type="hidden" name="date" value="<?php echo $event['date']; ?>">
-                                <input type="hidden" name="location" value="<?php echo $event['location']; ?>">
-                                <input type="hidden" name="price" value="<?php echo $event['price']; ?>">
-                                <input type="hidden" name="index" value="<?php echo $index; ?>">
+                            <form action="../controller/EventController.php" method="post">
+                                <input type="hidden" name="name_event" value="<?php echo $event['name_event']; ?>">
+                                <input type="hidden" name="date_event" value="<?php echo $event['date_event']; ?>">
+                                <input type="hidden" name="location_event" value="<?php echo $event['location_event']; ?>">
+                                <input type="hidden" name="price_event" value="<?php echo $event['price_event']; ?>">
+                                <input type="hidden" name="idEvent" value="<?php echo $event['idEvent']; ?>">
                                 <input type="submit" name="edit" value="Edit">
                                 <input type="submit" name="delete" value="Delete">
                             </form>
                         </td>
                     </tr>
-                <?php } 
+                <?php
+                    }
                 }
                 ?>
             </tbody>

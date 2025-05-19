@@ -96,22 +96,23 @@ class EventController{
 
             try{
                 if($_SESSION['rol'] == "admin"){
-                    $stmt = $this->conn->prepare("INSERT INTO event (name, date, price, ticketsAvailable, imagen, descripcion, location)
-                        VALUES (:eventName, :date, :price, :capacity, :destination, :description, :location)");
+                    $stmt = $this->conn->prepare("INSERT INTO event (name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event)
+        VALUES (:eventName, :date, :price, :capacity, :image, :description, :location)");
                             $stmt->bindParam(":eventName", $eventName);
                             $stmt->bindParam(":date", $datetime);
                             $stmt->bindParam(":price", $price);
                             $stmt->bindParam(":capacity", $capacity);
-                            $stmt->bindValue(":destination", $destination);
+                            $stmt->bindParam(":image", $destination);
                             $stmt->bindParam(":description", $description);
                             $stmt->bindParam(":location", $location);
                             if ($stmt->execute()){
-                                header("location: ../view/home.php");
+                                $_SESSION['success_message'] = "The event was succesfully created.";
+                                header("location: ../view/createevent.php");
                                 exit;
                             } 
                             else {
                                 $_SESSION['logged'] = false;
-                                $_SESSION["error_message"] = "Could not create the event";
+                                $_SESSION["error_message"] = "Could not create the event.";
                                 $this->conn = null;
                                 header("location: ../view/createevent.php");
                                 exit;            
@@ -154,7 +155,30 @@ class EventController{
         }
 
         public function delete() : void {
-            
+            $index = htmlspecialchars($_POST['idEvent']);
+    
+        try {
+            $checkSql = "SELECT * FROM event WHERE idEvent = :index";
+            $checkStmt = $this->conn->prepare($checkSql);
+            $checkStmt->bindParam(':index', $index);
+            $checkStmt->execute();
+    
+            if ($checkStmt->rowCount() > 0) {
+                $deleteSql = "DELETE FROM event WHERE idEvent = :index";
+                $deleteStmt = $this->conn->prepare($deleteSql);
+                $deleteStmt->bindParam(':index', $index);
+                if ($deleteStmt->execute()) {
+                    header("location: ../view/home.php");
+                    exit;
+                } else {
+                    echo "Error while trying to delete the event.";
+                }
+            } else {
+                echo "Event not found.";
+            }
+        } catch(PDOException $e) {
+            echo "Exception: " . $e->getMessage();
+        }
         }
         
 }
