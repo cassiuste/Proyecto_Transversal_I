@@ -21,27 +21,25 @@
                 <div class="right">
                     <?php
                         if(!empty($_SESSION["logged"])){
-                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
-        
+                            //Solo podrá crear eventos el administrador
                            if ($_SESSION['rol'] == "admin") {
+                            echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                             echo "<a href='profileadmin.php'><div class='profilebtm'>";
-                            
                             if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
                                 echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
                             } else {
                                 echo "A";
                             }
                             echo "</div></a>";
-                        }        
-                            else {
-                                    echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
-                                }
-                            }
-                            else{
-                                echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
-                                    <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
-                            }
-
+                           }
+                           else {                                
+                            echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                           }
+                        }
+                        else{
+                            echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
+                            <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
+                        }
                     ?>
                 </div>
         </div>
@@ -74,47 +72,35 @@
         
 
         <main class="event-details">
-            <div class="event-header">
-                <div class="image-container">
-                    <img src="../view/img/profile/cataVinos_profile.jpg" alt="Image of the event">
-                    <p><a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3" target="_blank">Más información</a></p>
-                </div>
-                <div class="static-map-container">
-                    <img src="./img/profile/Event1_map.png" alt="Static map Event1">
-                    <p><a href="https://www.google.com/search?q=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&oq=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzIyMmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8" target="_blank">Ver en Google Maps</a></p>
-                </div>
-            </div>
-
-            <div class="event-info">
-                <h1>Cata de vinos en Jardinet d'Aribau, Barcelona</h1>
-                <p class="about">
-                En el centro de Barcelona se encuentra este restaurante que parece sacado de un cuento.
-                Ven a su encantador jardín a disfrutar de una sugerente cata de vinos y, si lo deseas, de una tabla de quesos. 
-                ¿Levantamos las copas por una experiencia más que deliciosa? ¡Disfruta de tu plan de cata de vinos en Jardinet d'Aribau, Barcelona!
-                </p>
-                <p class="date">Date of the event: 30/11/2025</p>
-            </div>
-            <button type="button">Cancelar</button>
-            <section class="other-events">
-                <h2>Other events you may like</h2>
-                <div class="other-events-grid">
-                    <div class="other-event-card">
-                        <img src="./img/profile/e2_velero_profile.jpg" alt="Detail Event 2">
-                        <h3>Event 2</h3>
-                        <p>Short description</p>
-                    </div>
-                    <div class="other-event-card">
-                        <img src="./img/profile/event3_profile.jpg" alt="Detail Event 3">
-                        <h3>Event 3</h3>
-                        <p>Short description</p>
-                    </div>
-                    <div class="other-event-card">
-                        <img src="./img/profile/event3_profile.jpg" alt="Detail Event 4">
-                        <h3>Event 4</h3>
-                        <p>Short description</p>
-                    </div>
-                </div>
-            </section>
+                <?php
+                //Controlador de eventos
+                //name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state
+                require_once '../controller/EventController.php';
+                $eventController = new EventController();
+                $events = $eventController->read();
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        echo "<div class='event-header'>";
+                        echo "  <div class='image-container'>";
+                        echo "    <img src='" . $event["image_event"] . "' alt='Image of the event'/>";
+                        echo "    <p><a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3' target='_blank'>Más información</a></p>";
+                        echo "  </div>";
+                        echo "  <div class='static-map-container'>";
+                        echo "    <img src='" . $event["location_event"] . "'alt='Image of the event'/>";
+                        echo "    <p><a href='https://www.google.com/search?q=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&oq=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzIyMmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8' target='_blank'>Ver en Google Maps</a></p>";
+                        echo "  </div>";
+                        echo "</div>";
+                        echo "<div class='event-info'>";
+                        echo "  <h1>" . $event["name_event"] . "</h1>";
+                        echo "  <p class='about'>" . $event["description_event"] . "</p>";
+                        echo "  <p class='date'>Date of the event: " . $event["date_event"] . "</p>";
+                        echo "  <h4> Price: "  . $event["price_event"] . " €</h4>";
+                        echo "  <h4> State: "  . $event["state"] . "</h4>";
+                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo "</div>";
+                    }
+                }
+                ?>
         </main>
     </div>
 

@@ -1,0 +1,102 @@
+/* Estilos para editar evento en el profile de admin */
+.event-details { /* Clase para el contenedor principal del formulario */
+    flex: 1;
+    padding: 20px;
+}
+.event-details h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+.event-details form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.event-details label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    display: block; /* Para que la etiqueta esté en su propia línea */
+}
+.event-details input[type="text"],
+.event-details input[type="number"],
+.event-details input[type="date"],
+.event-details input[type="time"],
+.event-details textarea,
+.event-details select {
+    width: calc(100% - 22px); /* Ajusta por padding y borde */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+    font-size: 16px;
+}
+.event-details button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+.event-details button[type="submit"] {
+    background-color: #28a745; /* Verde para guardar */
+    color: white;
+}
+.event-details button[type="submit"]:hover {
+    background-color: #218838;
+}
+.event-details .cancel-button {
+    background-color: #6c757d; /* Gris para cancelar */
+    color: white;
+    margin-left: 10px;
+}
+.event-details .cancel-button:hover {
+    background-color: #5a6268;
+}
+.image-container, .static-map-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.image-container img, .static-map-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    max-height: 250px; /* Limita la altura de las imágenes para que no sean enormes */
+    object-fit: cover;
+}
+.image-container input[type="file"] {
+    margin-top: 10px;
+}
+/* Estilos para el header del evento (imagen y mapa) en el formulario de edición */
+.event-header {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+.event-header .image-container,
+.event-header .static-map-container {
+    flex: 1; /* Permite que cada contenedor ocupe el espacio disponible */
+    min-width: 280px; /* Ancho mínimo para que no se compriman demasiado */
+}
+
+/* Responsiva específica para el formulario de edición */
+@media (max-width: 768px) {
+    .event-details form {
+        margin: 10px; /* Reduce el margen en pantallas más pequeñas */
+    }
+    .event-header {
+        flex-direction: column; /* Apila la imagen y el mapa en pantallas pequeñas */
+    }
+}

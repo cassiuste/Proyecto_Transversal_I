@@ -15,7 +15,27 @@ if (isset($_SESSION["logged"])) {
     exit;
 }
 
+//Añadimos código para el botón editar cada evento:
+require_once '../controller/EventController.php'; // Para llamar al controlador de eventos
+$eventController = new EventController();
+$events = $eventController->read(); // Usaremos del EventController el método read() que devuelve todos los eventos
+
+// Mensajes de sesión
+$success_message = '';
+$error_message = '';
+if (isset($_SESSION['success_message'])) {
+    $success_message = $_SESSION['success_message'];
+    unset($_SESSION['success_message']);
+}
+if (isset($_SESSION['error_message'])) {
+    $error_message = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+}
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -39,20 +59,23 @@ if (isset($_SESSION["logged"])) {
             </div>
                 <div class="right">
                     <?php
+                        if (!empty($_SESSION["logged"])) {
                         if ($_SESSION['rol'] == "admin") {
                             echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                             echo "<a href='profileadmin.php'><div class='profilebtm'>";
-                        
-                        if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
-                            echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
-                        } else {
-                            echo "A";
-                        }
-                        echo "</div></a>";
-                    }        
-                        else {
-                                echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                            if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                                echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
+                            } else {
+                                echo "A";
                             }
+                            echo "</div></a>";
+                        } else {
+                            echo "<a href='profileuser.php'><div class='profilebtm'>A</div></a>";
+                        }
+                    } else {
+                        echo "<a href='signin.php'><div class='hbuttom'>SIGN IN</div></a>
+                              <a href='registeruser.php'><div class='hbuttom'>SIGN UP</div></a>";
+                    }
                     ?>
                 </div>
         </div>
@@ -91,6 +114,61 @@ if (isset($_SESSION["logged"])) {
         <main class="content">
             <h2>YOUR EVENTS</h2>
             <div class="event-grid">
+                <?php
+                //Controlador de eventos
+                require_once '../controller/EventController.php';
+                $eventController = new EventController();
+                $events = $eventController->read();
+                if (!empty($events)) {
+                    foreach ($events as $event) {
+                        echo "<div class='event'>";
+                        echo "  <div class='event-image'>";
+                        echo "    <img src='" . $event["image_event"] . "' alt='Event profile'/>";
+                        echo "  </div>";
+                        echo "  <div>";
+                        echo "    <h3>" . $event["name_event"] . "</h3>";
+                        echo "    <h4>" . $event["date_event"] . "</h2>";
+                        echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
+                        echo "  </div>";
+                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
+
+                        /*
+                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo " <form action='../controller/EventController.php' method='post'>
+                                <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>
+                                <input type='hidden' name='name_event' value='" . htmlspecialchars($event['name_event']) . "'>
+                                <input type='hidden' name='date_event' value='" . htmlspecialchars($event['date_event']) . "'>
+                                <input type='hidden' name='price_event' value='" . htmlspecialchars($event['price_event']) . "'>
+                                <input type='hidden' name='ticketAvailable' value='" . htmlspecialchars($event['ticketAvailable']) . "'>
+                                <input type='hidden' name='image_event' value='" . htmlspecialchars($event['image_event']) . "'>
+                                <input type='hidden' name='description_event' value='" . htmlspecialchars($event['description_event']) . "'>
+                                <input type='hidden' name='location_event' value='" . htmlspecialchars($event['location_event']) . "'>
+                                <input type='submit' name='edit' value='Edit'>
+                                <input type='submit' name='delete' value='Delete'>
+                                </form>";
+                        echo "</div>";
+                    }
+                }
+                ?>
+                        */
+
+                        // Botones de acción para EDITAR y ELIMINAR añadidos:
+                        echo "  <div class='actions-buttons'>";                        
+                        echo "    <a href='../view/eventEditProfileAdmin.php?idEvent=" . htmlspecialchars($event['idEvent']) . "' class='edit-button'>Edit</a>";
+
+                        // Botón de ELIMINAR: Un formulario para enviar una solicitud POST al controlador para eliminar
+                        echo "    <form action='../controller/EventController.php' method='post' style='display:inline;'>";
+                        echo "      <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>";
+                        echo "      <input type='submit' name='delete_event' value='Delete' class='delete-button' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este evento?\");'>";
+                        echo "    </form>";
+                        echo "  </div>";
+                        echo "</div>";
+                    }
+                } else {
+                    echo "<p>No hay eventos creados.</p>";
+                }
+                ?>
+
                 <!--
                 <div class="event">
                     <div class="event-image">
@@ -134,42 +212,6 @@ if (isset($_SESSION["logged"])) {
                     <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
                 </div>
                 -->
-                <?php
-                //Controlador de eventos
-                require_once '../controller/EventController.php';
-                $eventController = new EventController();
-                $events = $eventController->read();
-                if (!empty($events)) {
-                    foreach ($events as $event) {
-                        echo "<div class='event'>";
-                        echo "  <div class='event-image'>";
-                        //echo "    <img src='../view/img/profile/cataVinos_profile.jpg' alt='Event profile'/>";
-                        echo "    <img src='" . $event["image_event"] . "' alt='Event profile'/>";
-                        echo "  </div>";
-                        echo "  <div>";
-                        echo "    <h3>" . $event["name_event"] . "</h3>";
-                        echo "    <h4>" . $event["date_event"] . "</h2>";
-                        echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
-                        echo "  </div>";
-                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
-                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
-                        echo " <form action='../controller/EventController.php' method='post'>
-                                <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>
-                                <input type='hidden' name='name_event' value='" . htmlspecialchars($event['name_event']) . "'>
-                                <input type='hidden' name='date_event' value='" . htmlspecialchars($event['date_event']) . "'>
-                                <input type='hidden' name='price_event' value='" . htmlspecialchars($event['price_event']) . "'>
-                                <input type='hidden' name='ticketAvailable' value='" . htmlspecialchars($event['ticketAvailable']) . "'>
-                                <input type='hidden' name='image_event' value='" . htmlspecialchars($event['image_event']) . "'>
-                                <input type='hidden' name='description_event' value='" . htmlspecialchars($event['description_event']) . "'>
-                                <input type='hidden' name='location_event' value='" . htmlspecialchars($event['location_event']) . "'>
-                                <input type='submit' name='edit' value='Edit'>
-                                <input type='submit' name='delete' value='Delete'>
-                                </form>";
-                        echo "</div>";
-                    }
-                }
-                ?>
-
             </div>
         </main>
     </div>
