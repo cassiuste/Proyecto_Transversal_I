@@ -35,6 +35,12 @@ h2 {
     text-align: center;
 }
 
+.success_message{
+    color: green;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
 .form_text label {
     display: block;
     margin-bottom: 8px;
@@ -44,8 +50,7 @@ h2 {
 
 .form_text input[type="text"],
 .form_text input[type="email"],
-.form_text input[type="age"],
-.form_text input[type="dateB"] {
+.form_text input[type="password"] {
     width: calc(100% - 16px);
     padding: 10px;
     margin-bottom: 20px;
@@ -60,7 +65,7 @@ h2 {
 }
 
 .buttons button[type="submit"] {
-    background-color: #5cb85c;
+    background-color: #DFB885;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -71,7 +76,7 @@ h2 {
 }
 
 .buttons button[type="submit"]:hover {
-    background-color: #4cae4c;
+    background-color: #ddb075;
 }
 
 .back-link {

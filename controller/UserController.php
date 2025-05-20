@@ -26,9 +26,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         echo "<p>Delete user button is clicked. </p>";
         $user->delete();
     }
-    if(isset($_POST["update_password"])){
-        echo "<p>Update password button is clicked. </p>";
-        $user->updatePassword();
+    if(isset($_POST["update"])){
+        echo "<p>Update button is clicked. </p>";
+        $user->update();
     }
 }
 
@@ -223,21 +223,65 @@ class UserController{
         }
     }
     
-    public function logout() : void {
-        session_unset();
-        session_destroy();
-        header("location: ../view/signin.php");
-        exit;
-    }
+    public function update() : void {
 
-    public function deletePassword() : void{
+        $current_username = $_SESSION["username"];
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $user_password = $_POST["user_password"];
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format";
+            $_SESSION["error_message"] = $emailErr;
+            header("location: ../view/editProfile.php");
+            exit;
+          }
+
+          // Validación de la contraseña
+            if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).{8,}$/', $user_password)) {
+                $passErr = "Password must contain at least 8 characters, including one letter and one number.";
+                $_SESSION["error_message"] = $passErr;
+                header("location: ../view/editProfile.php");
+                exit;
+            }
+
+            try{
+                $stmt = $this->conn->prepare(" UPDATE user SET username = :username, 
+                                            email = :email, user_password = :user_password 
+                                            WHERE username = :current_username");
+
+                $stmt->bindParam(":username", $username);
+                $stmt->bindParam(":email", $email);
+                $stmt->bindParam(":user_password", $user_password);
+                $stmt->bindParam(":current_username", $current_username);
+                
+                if ($stmt->execute()){
+                    $_SESSION['username'] = $username;
+                    $_SESSION['email'] = $email;
+                    $_SESSION["success_message"] = "Account updated correctly.";
+                    $this->conn = null;
+                    header("location: ../view/editProfile.php");
+                    exit;
+                } 
+                else {
+                    // falta validaciones si esta repetido
+                    $_SESSION['logged'] = false;
+                    $_SESSION["error_message"] = "Could not update the account";
+                    $this->conn = null;
+                    header("location: ../view/editProfile.php");
+                    exit;
+                }
+            }
+            catch(PDOException $e){
+                $_SESSION["error_message"] = "A user with that username or email already exists.";
+                $this->conn = null;
+                header("location: ../view/editProfile.php");
+                exit;
+            }
     }
-    
     
     public function delete() : void {
 
-    
         $username = $_SESSION['username'];
     
         try {
@@ -264,14 +308,15 @@ class UserController{
         } catch(PDOException $e) {
             echo "Exception: " . $e->getMessage();
         }
-
+        
     }
 
-    public function updatePassword() : void {
-
-
+    public function logout() : void {
+        session_unset();
+        session_destroy();
+        header("location: ../view/signin.php");
+        exit;
     }
-
 
     function set_conn($conn){
         $this->conn = $conn;
@@ -280,5 +325,5 @@ class UserController{
     function get_conn(){
         return $this->conn;
     }
-
+    
 }
