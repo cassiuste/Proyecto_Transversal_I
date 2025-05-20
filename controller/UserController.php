@@ -270,7 +270,6 @@ class UserController{
     public function updatePassword() : void {
 
 
-
     }
 
 

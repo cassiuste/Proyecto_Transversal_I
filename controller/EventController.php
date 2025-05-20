@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         echo "<p>Create button is clicked. </p>";
         $event->create();
     }
-    if(isset($_POST["update"])){
+    if(isset($_POST["edit"])){
         echo "<p>Update button is clicked. </p>";
         $event->update();
     }
@@ -129,7 +129,7 @@ class EventController{
         }
 
         public function read() : array {
-            $sql = "SELECT name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state FROM event";
+            $sql = "SELECT idEvent, name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state FROM event";
 
             try {
                 $stmt = $this->conn->prepare($sql);
@@ -138,7 +138,6 @@ class EventController{
         
                 if ($rowCount > 0) {
                     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    $_SESSION['events'] = $events;
                     return $events;
                 } else {
                     return []; // No se encontraron eventos
@@ -151,6 +150,7 @@ class EventController{
         
 
         public function update() : void {
+            
             
         }
 

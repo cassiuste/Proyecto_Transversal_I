@@ -153,6 +153,19 @@ if (isset($_SESSION["logged"])) {
                         echo "  </div>";
                         echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
                         echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
+                        echo " <form action='../controller/EventController.php' method='post'>
+                                <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>
+                                <input type='hidden' name='name_event' value='" . htmlspecialchars($event['name_event']) . "'>
+                                <input type='hidden' name='date_event' value='" . htmlspecialchars($event['date_event']) . "'>
+                                <input type='hidden' name='price_event' value='" . htmlspecialchars($event['price_event']) . "'>
+                                <input type='hidden' name='ticketAvailable' value='" . htmlspecialchars($event['ticketAvailable']) . "'>
+                                <input type='hidden' name='image_event' value='" . htmlspecialchars($event['image_event']) . "'>
+                                <input type='hidden' name='description_event' value='" . htmlspecialchars($event['description_event']) . "'>
+                                <input type='hidden' name='location_event' value='" . htmlspecialchars($event['location_event']) . "'>
+                                <input type='submit' name='edit' value='Edit'>
+                                <input type='submit' name='delete' value='Delete'>
+                                </form>";
+
                         echo "</div>";
                     }
                 }
