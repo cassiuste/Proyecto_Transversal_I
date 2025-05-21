@@ -1,8 +1,11 @@
 <?php
-//session_start();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     $event = new EventController();
@@ -129,7 +132,7 @@ class EventController{
     }
 
     public function read() : array {
-            $sql = "SELECT idEvent, name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state FROM event";
+            $sql = "SELECT idEvent, name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state_event FROM event";
 
             try {
                 $stmt = $this->conn->prepare($sql);
@@ -148,7 +151,7 @@ class EventController{
             }
     }
         
-    //Creamos una función para actualizar eventos:
+    //Creamos una función para obtener un evento de toda la lista, llamada desde la función update:
     public function getEventById($idEvent) {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM event WHERE idEvent = :idEvent");
@@ -161,38 +164,38 @@ class EventController{
         }
     }        
     public function update() : void {
+        //Solo el administrador puede modificar eventos y lanzamos de nuevo la verificación:
         if (empty($_SESSION["logged"]) || $_SESSION['rol'] != "admin") {
             $_SESSION['error_message'] = "Acceso no autorizado";
-            header("Location: ../view/signin.php"); // Redirigir a inicio de sesión
+            header("Location: ../view/signin.php");
             exit;
         }
 
-        // Obtenemos datos del formulario POST
+        // Como vamos a insertar datos, obtenemos datos con un formulario tipo POST
         $idEvent = htmlspecialchars($_POST["idEvent"]);
         $eventName = htmlspecialchars($_POST["name"]);
         $description = htmlspecialchars($_POST["description"]);
         $date = htmlspecialchars($_POST["date"]);
         $startTime = htmlspecialchars($_POST["start-time"]);
-        $location = htmlspecialchars($_POST["location"]);
         $price = htmlspecialchars($_POST["price"]);
         $capacity = htmlspecialchars($_POST["capacity"]);
-        $state = htmlspecialchars($_POST["state"]);
-        $datetime = $date . ' ' . $startTime . ':00'; 
+        $state_event = htmlspecialchars($_POST["state_event"]);
+        $datetime = $date . ' ' . $startTime . ':00';
 
-        // 2. Validación de fecha
+        // Validación de fecha
         $today = new DateTime();
         $today->setTime(0, 0, 0);
         $eventDate = DateTime::createFromFormat('Y-m-d', $date);
 
         if ($eventDate < $today) {
             $_SESSION['error_message'] = "La fecha seleccionada no puede ser anterior a la actual.";
-            header("Location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent); // Redirige a la página de editar con el ID
+            header("Location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
             exit;
         }
 
-        // Para mantener la antigua o subir una nueva
-        $destination = htmlspecialchars($_POST["current_image"]); // Por defecto usará la imagen actual
-
+        // Nos guardamos la ruta de la imagen que ya está en la BBDD (event_image)
+        $eventImageDestination = htmlspecialchars($_POST["current_event_image"]);        
+        //Para poder subir nueva imagen del evento a actualizar
         if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] === UPLOAD_ERR_OK) {
             $file_name = $_FILES['event_image']['name'];
             $file_tmp = $_FILES['event_image']['tmp_name'];
@@ -200,25 +203,47 @@ class EventController{
             $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');
             $subfolder = '../view/img/event/';
             $new_file_name = uniqid() . '.' . $file_ext;
-            $new_destination = $subfolder . $new_file_name;
-
-            if (in_array(strtolower($file_ext), $allowed_ext)) { // Convertir a minúsculas para la comparación
-                // Eliminar la imagen antigua si existe y no es la por defecto
-                if (!empty($destination) && file_exists($destination) && strpos($destination, 'default_event.jpg') === false) {
-                    unlink($destination);
-                }
-                move_uploaded_file($file_tmp, $new_destination);
-                $destination = $new_destination; // Actualiza la ruta de la imagen en la BBDD
-                $_SESSION['success_message'] = 'Imagen actualizada correctamente.';
+            $new_event_image_destination = $subfolder . $new_file_name;
+            //Validación de imagen y se actualiza la ruta para la BBDD
+            if (in_array(strtolower($file_ext), $allowed_ext)) {
+                move_uploaded_file($file_tmp, $new_event_image_destination);
+                $eventImageDestination = $new_event_image_destination;
+                $_SESSION['success_message'] = 'Imagen del evento actualizada correctamente.';
             } else {
-                $_SESSION['error_message'] = 'Formato de imagen inválido. Solo se permiten JPG, JPEG, PNG, GIF.';
-                header("location: ../view/view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
+                $_SESSION['error_message'] = 'Formato de imagen de evento inválido. Solo se permiten JPG, JPEG, PNG, GIF.';
+                header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
                 exit;
             }
         } else if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] !== UPLOAD_ERR_NO_FILE) {
-            // Otros errores de subida que no sean "no se subió archivo"
-            $_SESSION['error_message'] = 'Error al subir la imagen: ' . $_FILES['event_image']['error'];
-            header("location: ../view/view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
+            $_SESSION['error_message'] = 'Error al subir la imagen del evento: ' . $_FILES['event_image']['error'];
+            header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
+            exit;
+        }
+
+        // Nos guardamos la ruta de la imagen del mapa de ubicación que ya está en la BBDD (location_image)
+        $locationImageDestination = htmlspecialchars($_POST["current_location_image"]);
+        // Para poder subir nueva imagen del mapa de ubicación del evento a actualizar
+        if (isset($_FILES['location_image']) && $_FILES['location_image']['error'] === UPLOAD_ERR_OK) {
+            $file_name = $_FILES['location_image']['name'];
+            $file_tmp = $_FILES['location_image']['tmp_name'];
+            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+            $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');
+            $subfolder = '../view/img/event/';
+            $new_file_name = uniqid() . '.' . $file_ext;
+            $new_location_image_destination = $subfolder . $new_file_name;
+            //Validación de imagen y se actualiza la ruta para la BBDD
+            if (in_array(strtolower($file_ext), $allowed_ext)) {
+                move_uploaded_file($file_tmp, $new_location_image_destination);
+                $locationImageDestination = $new_location_image_destination; // Actualiza la ruta para la BBDD
+                $_SESSION['success_message'] = (isset($_SESSION['success_message']) ? $_SESSION['success_message'] . ' y ' : '') . 'Imagen de ubicación actualizada correctamente.';
+            } else {
+                $_SESSION['error_message'] = 'Formato de imagen de ubicación inválido. Solo se permiten JPG, JPEG, PNG, GIF.';
+                header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
+                exit;
+            }
+        } else if (isset($_FILES['location_image']) && $_FILES['location_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $_SESSION['error_message'] = 'Error al subir la imagen de ubicación: ' . $_FILES['location_image']['error'];
+            header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
             exit;
         }
 
@@ -232,22 +257,22 @@ class EventController{
                 image_event = :image,
                 description_event = :description,
                 location_event = :location,
-                state = :state
+                state_event = :state_event
                 WHERE idEvent = :idEvent");
 
             $stmt->bindParam(":eventName", $eventName);
             $stmt->bindParam(":date", $datetime);
             $stmt->bindParam(":price", $price);
             $stmt->bindParam(":capacity", $capacity);
-            $stmt->bindParam(":image", $destination); // Usa la nueva o la antigua ruta de la imagen
+            $stmt->bindParam(":image", $eventImageDestination); // Usa la nueva o la antigua ruta de la imagen del evento
             $stmt->bindParam(":description", $description);
-            $stmt->bindParam(":location", $location);
-            $stmt->bindParam(":state", $state);
+            $stmt->bindParam(":location", $locationImageDestination); // Usa la nueva o la antigua ruta de la imagen de ubicación
+            $stmt->bindParam(":state_event", $state_event);
             $stmt->bindParam(":idEvent", $idEvent, PDO::PARAM_INT);
 
             if ($stmt->execute()) {
                 $_SESSION['success_message'] = "El evento fue actualizado exitosamente.";
-                header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent); // Redirige de nuevo a la página de edición o a la lista de eventos
+                header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
                 exit;
             } else {
                 $_SESSION["error_message"] = "No se pudo actualizar el evento.";
@@ -255,14 +280,13 @@ class EventController{
                 exit;
             }
         } catch (PDOException $e) {
-            error_log("Error de base de datos al actualizar evento: " . $e->getMessage()); // Para depurar datos en memoria
+            error_log("Error de base de datos al actualizar evento: " . $e->getMessage());
             $_SESSION["error_message"] = "Ocurrió un error al actualizar el evento.";
             header("location: ../view/eventEditProfileAdmin.php?idEvent=" . $idEvent);
             exit;
         }
-            
-            
     }
+
 
     public function delete() : void {
             $index = htmlspecialchars($_POST['idEvent']);

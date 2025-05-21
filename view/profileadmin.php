@@ -92,14 +92,18 @@ if (isset($_SESSION['error_message'])) {
             </div>
             <nav class="user-nav">
                 <ul>
+                    <!--
                     <li>
                        <a href="Event_page_from_search.phpp" class="parent-link">EVENTS</a>
                         <ul class="sub-menu">
+                            
                             <li><a href="createevent.php">Edit Events</a></li>
                             <li><a href="event_detail.php">Cancel Events</a></li>
                             <li><a href="Event_page_from_search.php">Published Events</a></li>
+                            
                         </ul>
                     </li>
+                     -->
                     <li><a href="editProfile.php">EDIT PROFILE</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
@@ -159,7 +163,7 @@ if (isset($_SESSION['error_message'])) {
                         // Botón de ELIMINAR: Un formulario para enviar una solicitud POST al controlador para eliminar
                         echo "    <form action='../controller/EventController.php' method='post' style='display:inline;'>";
                         echo "      <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>";
-                        echo "      <input type='submit' name='delete_event' value='Delete' class='delete-button' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este evento?\");'>";
+                        echo "      <input type='submit' name='delete_event' value='delete' class='delete-button' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este evento?\");'>";
                         echo "    </form>";
                         echo "  </div>";
                         echo "</div>";

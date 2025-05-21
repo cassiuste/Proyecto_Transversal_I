@@ -128,39 +128,40 @@ body {
 }
 
 /*Botones añadidos para editar eventos*/
-        .event .actions-buttons {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px;
-            gap: 10px;
-        }
-        .event .actions-buttons a,
-        .event .actions-buttons input[type="submit"] {
-            display: block;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 0.9em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            flex-grow: 1;
-        }
+    .event .actions-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .event .actions-buttons a,
+    .event .actions-buttons input[type="submit"] {
+        display: block;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+    }
         .event .actions-buttons .edit-button {
-            background-color: #007bff;
-            color: white;
+            background-color: #dddddf;
+            color: rgb(104, 102, 102);
             border: none;
         }
         .event .actions-buttons .edit-button:hover {
             background-color: #0056b3;
         }
         .event .actions-buttons .delete-button {
-            background-color: #dc3545;
-            color: white;
+            background-color: #dddddf;
+            color: rgb(104, 102, 102);
             border: none;
         }
         .event .actions-buttons .delete-button:hover {
-            background-color: #c82333;
+            background-color: #0056b3;
         }
 
 /* Estilo para la opción activa */
