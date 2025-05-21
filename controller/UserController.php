@@ -225,10 +225,10 @@ class UserController{
     
     public function update() : void {
 
-        $current_username = $_SESSION["username"];
-        $username = $_POST["username"];
-        $email = $_POST["email"];
-        $user_password = $_POST["user_password"];
+        $current_username = htmlspecialchars($_SESSION["username"]);
+        $username = htmlspecialchars($_POST["username"]);
+        $email = htmlspecialchars($_POST["email"]);
+        $user_password = htmlspecialchars($_POST["user_password"]);
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
