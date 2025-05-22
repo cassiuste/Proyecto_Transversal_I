@@ -128,7 +128,7 @@ class UserController{
 
                 $stmt->bindParam(":username", $username);
                 $stmt->bindParam(":email", $email);
-                $stmt->bindParam(":user_password", $user_password);
+                $stmt->bindParam(":user_password", password_hash($user_password, PASSWORD_DEFAULT));
                 $stmt->bindParam(":rol", $rol);
                 
             // Falta el control de errores en el sql para las filas
@@ -179,45 +179,49 @@ class UserController{
     public function login() : void {
 
         $username = htmlspecialchars($_POST["username"]);
-        $user_password = htmlspecialchars($_POST["password"]); 
+        $user_password = $_POST["password"]; 
 
         try{
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE username=:username AND user_password=:user_password");
+        $stmt = $this->conn->prepare("SELECT * FROM user WHERE username=:username");
         $stmt->bindParam(":username", $username);
-        $stmt->bindParam(":user_password", $user_password);
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            // Si encuentra el usuario que lo mande a la pagina de profile
-            // sino al login con mensaje de error
-
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['logged'] = true;
-            $_SESSION['username'] = $row['username'];
-            $_SESSION['email'] = $row['email'];
-            // puede ser admin o user
-            $_SESSION['rol'] = $row['rol'];
-            if($_SESSION['rol'] == "admin"){
-                $_SESSION['profile_image'] = $row['profile_image'];
-                header("location: ../view/profileadmin.php");
+
+            // Verifica la contraseña
+            if (password_verify($user_password, $row['user_password'])) {
+                $_SESSION['logged'] = true;
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['rol'] = $row['rol'];
+
+                if ($row['rol'] === "admin") {
+                    $_SESSION['profile_image'] = $row['profile_image'];
+                    header("location: ../view/profileadmin.php");
+                    exit;
+                } else {
+                    header("location: ../view/profileuser.php");
+                    exit;
+                }
+            } 
+            else {
+                // Contraseña incorrecta
+                $_SESSION['logged'] = false;
+                $_SESSION["error_message"] = "Invalid password.";
+                header("location: ../view/signin.php");
                 exit;
             }
-            else{
-                header("location: ../view/profileuser.php");
-                exit;
-            }
-              }
+        } 
         else {
-        $_SESSION['logged'] = false;
-        $_SESSION["error_message"] = "Could not find the account";
-        $this->conn = null;
-        header("location: ../view/signin.php");
-        exit;
-        }
-        }
-        catch(PDOException $e){
             $_SESSION['logged'] = false;
-            $_SESSION["error_message"] = "Could not find the account";
+            $_SESSION["error_message"] = "Could not find the account.";
+            header("location: ../view/signin.php");
+            exit;
+        }
+        } catch(PDOException $e) {
+            $_SESSION['logged'] = false;
+            $_SESSION["error_message"] = "Could not find the account.";
             header("location: ../view/signin.php");
             exit;
         }
@@ -252,7 +256,7 @@ class UserController{
 
                 $stmt->bindParam(":username", $username);
                 $stmt->bindParam(":email", $email);
-                $stmt->bindParam(":user_password", $user_password);
+                $stmt->bindParam(":user_password", password_hash($user_password, PASSWORD_DEFAULT));
                 $stmt->bindParam(":current_username", $current_username);
                 
                 if ($stmt->execute()){
