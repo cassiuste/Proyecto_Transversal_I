@@ -121,7 +121,8 @@ if (isset($_SESSION['error_message'])) {
                         echo "    <h4>" . $event["date_event"] . "</h2>";
                         echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
                         echo "  </div>";
-                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
+                        //echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
+                        echo " <h3><a href='eventDetailProfileAdmin.php?id=" . htmlspecialchars($event['idEvent']) . "'>See more detail</a></h3>";
 
                         // Botones de acción para EDITAR y ELIMINAR añadidos:
                         echo "  <div class='actions-buttons'>";                        
