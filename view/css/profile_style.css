@@ -51,7 +51,6 @@ body {
 
 /* Simular un icono de "signo +" para añadir imagen */
 .sidebar .profile-image::before {
-    content: '+';
     position: absolute;
     font-size: 1.5em;
     color: #fff;
