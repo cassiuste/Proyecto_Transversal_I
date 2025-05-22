@@ -64,7 +64,7 @@ if (isset($_SESSION['error_message'])) {
                             echo "<a href='createevent.php'><div class='hbuttom'>CREATE EVENT</div></a>";
                             echo "<a href='profileadmin.php'><div class='profilebtm'>";
                             if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
-                                echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='max-width: 35px; border-radius: 100%;' alt='Profile foto'>";
+                                echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' style='width: 50px; border-radius: 100%;' alt='Profile foto'>";
                             } else {
                                 echo "A";
                             }
@@ -86,7 +86,7 @@ if (isset($_SESSION['error_message'])) {
         <aside class="sidebar">
             <div class="profile-info">
             <div class="profile-image">
-                <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Image of Admin">
+                <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Image of Admin" style="width: 70px; height: 70px; border-radius: 100%;">
             </div>
                 <div class="profile-name">Nombre</div>
             </div>
