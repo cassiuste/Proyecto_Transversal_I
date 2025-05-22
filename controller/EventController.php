@@ -265,18 +265,18 @@ class EventController{
     }
 
     public function delete() : void {
-            $index = htmlspecialchars($_POST['idEvent']);
+            $idEvent = htmlspecialchars($_POST['idEvent']);
     
         try {
-            $checkSql = "SELECT * FROM event WHERE idEvent = :index";
+            $checkSql = "SELECT * FROM event WHERE idEvent = :idEvent";
             $checkStmt = $this->conn->prepare($checkSql);
-            $checkStmt->bindParam(':index', $index);
+            $checkStmt->bindParam(':idEvent', $idEvent);
             $checkStmt->execute();
     
             if ($checkStmt->rowCount() > 0) {
-                $deleteSql = "DELETE FROM event WHERE idEvent = :index";
+                $deleteSql = "DELETE FROM event WHERE idEvent = :idEvent";
                 $deleteStmt = $this->conn->prepare($deleteSql);
-                $deleteStmt->bindParam(':index', $index);
+                $deleteStmt->bindParam(':idEvent', $idEvent);
                 if ($deleteStmt->execute()) {
                     header("location: ../view/profileadmin.php");
                     exit;
