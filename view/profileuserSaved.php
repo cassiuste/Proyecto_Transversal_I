@@ -70,19 +70,17 @@ if (isset($_SESSION["logged"])) {
             <nav class="user-nav">
                 <ul>
                     <li>
-                       <a href="profileuser.php" class="parent-link">EVENTS</a>
-                       <span class="parent-link">EVENTS</span>
+                       <a href="profileuser.php" class="parent-link">MY EVENTS</a>
                         <ul class="sub-menu">
-                            <li><a href="profileuserAttending.php">Attending</a></li>
                             <li><a href="profileuserSaved.php">Saved</a></li>
-                            <li><a href="profileuserHosting.php.php">Hosting</a></li>
+                            <li><a href="profileuserHosting.php">Hosting</a></li>
                         </ul>
                     </li>
-                    <li><a href="profileuser.php">FRIENDS</a></li>
-                    <li><a href="registeruser.php">EDIT PROFILE</a></li>
-                    <li><a href="profileuser.php">My calendary</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
+                    </form></li><br>
+                    <li><form action="../controller/UserController.php" method="post">
+                        <input type="submit" value="DELETE ACCOUNT" name="delete_account">
                     </form></li>
                 </ul>
             </nav>
