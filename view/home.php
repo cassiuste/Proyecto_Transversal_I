@@ -57,6 +57,14 @@
                         if(empty($_SESSION["logged"])){
                             echo "<a href='signin.php'><div class='oval_join'><p>Join Eventlink now!</p></div></a>";
                         }
+                        else{
+                            if($_SESSION['rol'] == "admin"){
+                            echo "<a href='profileadmin.php'><div class='oval_join'><p>See your Events!</p></div></a>";
+                        }
+                        else {
+                            echo "<a href='profileuser.php'><div class='oval_join'><p>See your Events!</p></div></a>";
+                            }
+                        }
                         ?>
                 </div>
             </div>
@@ -103,7 +111,7 @@
                 ?>
             </tbody>
         </table> -->
-        
+<!--         
         <div class="popular_categories">
             <h2>Popular Categories</h2>
             <div class="categories">
@@ -217,4 +225,4 @@
         </div>
     </footer>
 </body>
-</html>
+</html> -->
