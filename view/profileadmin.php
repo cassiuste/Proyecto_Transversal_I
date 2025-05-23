@@ -85,7 +85,13 @@ if (isset($_SESSION['error_message'])) {
         <aside class="sidebar">
             <div class="profile-info">
             <div class="profile-image">
-                <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Image of Admin" style="width: 70px; height: 70px; border-radius: 100%;">
+            <?php
+                if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                    echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' alt='Image of Admin' style='width: 70px; height: 70px; border-radius: 100%;'>";
+                } else {
+                    echo "<div style='width: 70px; height: 70px; border-radius: 100%; background-color: #ccc; display: flex; align-items: center; justify-content: center;'>+</div>";
+                }
+                ?>
             </div>
                 <div class="profile-name">Nombre</div>
             </div>
