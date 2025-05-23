@@ -58,7 +58,6 @@ class EventController{
             $date = htmlspecialchars($_POST["date"]);
             $startTime = htmlspecialchars($_POST["start-time"]);
             $datetime = $date . ' ' . $startTime . ':00';
-            $location = htmlspecialchars($_POST["location"]);
             $price = htmlspecialchars($_POST["price"]);
             $capacity = htmlspecialchars($_POST["capacity"]);
 
@@ -95,7 +94,29 @@ class EventController{
             } else if (isset($_FILES['event_image']) && $_FILES['event_image']['error'] !== UPLOAD_ERR_NO_FILE) {
                 $_SESSION['error_message'] = 'Error uploading the image.';
             }
-    
+
+
+            $newLocation = null;
+            if (isset($_FILES['location']) && $_FILES['location']['error'] === UPLOAD_ERR_OK) {
+                $file_name = $_FILES['location']['name'];
+                $file_tmp = $_FILES['location']['tmp_name'];
+                $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                $allowed_ext = array('jpg', 'jpeg', 'png', 'gif');   
+                $subfolder = '../view/img/event/';
+                $new_file_name = uniqid() . '.' . $file_ext;
+                $newLocation = $subfolder . $new_file_name;
+                
+                if (in_array($file_ext, $allowed_ext)) {
+                    move_uploaded_file($file_tmp, $newLocation); 
+                    $_SESSION['success_message'] = 'Location image uploaded correctly.';
+                } else {
+                    $_SESSION['error_message'] = 'Invalid location image format.';
+                    header("location: ../view/createevent.php");
+                    exit;
+                }
+            }
+            
+
 
             try{
                 if($_SESSION['rol'] == "admin"){
@@ -107,7 +128,7 @@ class EventController{
                             $stmt->bindParam(":capacity", $capacity);
                             $stmt->bindParam(":image", $destination);
                             $stmt->bindParam(":description", $description);
-                            $stmt->bindParam(":location", $location);
+                            $stmt->bindParam(":location", $newLocation);
                             if ($stmt->execute()){
                                 $_SESSION['success_message'] = "The event was succesfully created.";
                                 header("location: ../view/createevent.php");
