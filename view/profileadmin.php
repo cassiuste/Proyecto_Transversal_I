@@ -131,7 +131,7 @@ if (isset($_SESSION['error_message'])) {
                         // Botón de ELIMINAR: Un formulario para enviar una solicitud POST al controlador para eliminar
                         echo "    <form action='../controller/EventController.php' method='post' style='display:inline;'>";
                         echo "      <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>";
-                        echo "      <input type='submit' name='delete_event' value='delete' class='delete-button' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este evento?\");'>";
+                        echo "      <input type='submit' name='delete' value='Delete' class='delete-button' onclick='return confirm(\"¿Estás seguro de que quieres eliminar este evento?\");'>";
                         echo "    </form>";
                         echo "  </div>";
                         echo "</div>";
