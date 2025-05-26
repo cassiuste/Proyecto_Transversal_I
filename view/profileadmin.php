@@ -102,10 +102,22 @@ if (isset($_SESSION['error_message'])) {
                     </li>
                     <li><a href="editProfile.php">EDIT PROFILE</a></li>
                     <li><form action="../controller/UserController.php" method="post">
-                        <input type="submit" value="LOG OUT" name="logout">
+                        <input type="submit" value="LOG OUT" name="logout" 
+                            style="background-color: transparent; 
+                                    border: 2px solid #DFB885; 
+                                    color: #DFB885; 
+                                    border-radius: 25px; 
+                                    padding: 10px 20px; 
+                                    cursor: pointer;">
                     </form></li><br>
                     <li><form action="../controller/UserController.php" method="post">
-                        <input type="submit" value="DELETE ACCOUNT" name="delete_account">
+                    <input type="submit" value="DELETE ACCOUNT" name="delete_account"
+                            style="background-color: transparent; 
+                                    border: 2px solid #DFB885; 
+                                    color: #DFB885; 
+                                    border-radius: 25px; 
+                                    padding: 10px 20px; 
+                                    cursor: pointer;">
                     </form></li>
                 </ul>
             </nav>
