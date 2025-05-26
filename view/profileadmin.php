@@ -32,7 +32,6 @@ if (isset($_SESSION['error_message'])) {
     unset($_SESSION['error_message']);
 }
 
-
 ?>
 
 
@@ -86,20 +85,18 @@ if (isset($_SESSION['error_message'])) {
         <aside class="sidebar">
             <div class="profile-info">
             <div class="profile-image">
-                <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Image of Admin" style="width: 70px; height: 70px; border-radius: 100%;">
+            <?php
+                if (isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])) {
+                    echo "<img src='" . htmlspecialchars($_SESSION['profile_image']) . "' alt='Image of Admin' style='width: 70px; height: 70px; border-radius: 100%;'>";
+                } else {
+                    echo "<div style='width: 70px; height: 70px; border-radius: 100%; background-color: #ccc; display: flex; align-items: center; justify-content: center;'>+</div>";
+                }
+                ?>
             </div>
                 <div class="profile-name">Nombre</div>
             </div>
             <nav class="user-nav">
                 <ul>
-                    <li>
-                       <a href="Event_page_from_search.phpp" class="parent-link">EVENTS</a>
-                        <ul class="sub-menu">
-                            <li><a href="createevent.php">Edit Events</a></li>
-                            <li><a href="event_detail.php">Cancel Events</a></li>
-                            <li><a href="Event_page_from_search.php">Published Events</a></li>
-                        </ul>
-                    </li>
                     <li><a href="editProfile.php">EDIT PROFILE</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout" 
@@ -142,27 +139,8 @@ if (isset($_SESSION['error_message'])) {
                         echo "    <h4>" . $event["date_event"] . "</h2>";
                         echo "    <h4> Price: "  . $event["price_event"] . " €</h2>";
                         echo "  </div>";
-                        echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
-
-                        /*
-                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
-                        echo " <form action='../controller/EventController.php' method='post'>
-                                <input type='hidden' name='idEvent' value='" . htmlspecialchars($event['idEvent']) . "'>
-                                <input type='hidden' name='name_event' value='" . htmlspecialchars($event['name_event']) . "'>
-                                <input type='hidden' name='date_event' value='" . htmlspecialchars($event['date_event']) . "'>
-                                <input type='hidden' name='price_event' value='" . htmlspecialchars($event['price_event']) . "'>
-                                <input type='hidden' name='ticketAvailable' value='" . htmlspecialchars($event['ticketAvailable']) . "'>
-                                <input type='hidden' name='image_event' value='" . htmlspecialchars($event['image_event']) . "'>
-                                <input type='hidden' name='description_event' value='" . htmlspecialchars($event['description_event']) . "'>
-                                <input type='hidden' name='location_event' value='" . htmlspecialchars($event['location_event']) . "'>
-                                <input type='submit' name='edit' value='Edit'>
-                                <input type='submit' name='delete' value='Delete'>
-                                </form>";
-                        echo "</div>";
-                    }
-                }
-                ?>
-                        */
+                        //echo "  <h3><a href='eventDetailProfile.php?id=1'>See more detail</a></h3>";
+                        echo " <h3><a href='eventDetailProfileAdmin.php?id=" . htmlspecialchars($event['idEvent']) . "'>See more detail</a></h3>";
 
                         // Botones de acción para EDITAR y ELIMINAR añadidos:
                         echo "  <div class='actions-buttons'>";                        
@@ -180,50 +158,6 @@ if (isset($_SESSION['error_message'])) {
                     echo "<p>No hay eventos creados.</p>";
                 }
                 ?>
-
-                <!--
-                <div class="event">
-                    <div class="event-image">
-                        <img  src="../view/img/profile/cataVinos_profile.jpg" alt="Event1 profile"/>
-                    </div>
-                    
-                    <h3>EVENT 1</h3>
-                    <p>Picture 1: It shows a wine tasting in the "Jardinet d'Aribau"</p>
-                        
-                    <h3><a href="eventDetailProfileAdmin.php?id=1">See more detail</a></h3>
-                    <a href="https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>                  
-                </div>                
-                <div class="event">                    
-                    <div class="event-image">
-                        <img  src="../view/img/profile/e2_velero_profile.jpg" alt="Event2 profile"/>
-                    </div>
-                    
-                    <h3>EVENT 2</h3>
-                    <p>Picture 2: It shows an sailboat experience Barcelona: 90 minuts plus Vermouth</p>
-                    <h3><a href="eventDetailProfileAdmin.php?id=2">See more detail</a></h3>
-                    <a href="https://feverup.com/m/141663?_gl=1*irlico*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3"></a>
-                </div>                    
-                <div class="event">
-                    <div class="event-image">
-                        <img  src="../view/img/profile/event3_profile.jpg" alt="Event3 profile"/>
-                    </div>
-                    
-                    <h3>EVENT 3</h3>
-                    <p>Picture 3: It shows Barcelona night Bike Tour with tapas and cava</p>
-                    <h3><a href="eventDetailProfileAdmin.php?id=3">See more detail</a></h3>
-                    <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
-                </div>                    
-                <div class="event">                    
-                    <div class="event-image">
-                        <img  src="../view/img/profile/event3_profile.jpg" alt="Event4 profile"/>
-                    </div>
-                    
-                    <h3>EVENT 4</h3>
-                    <p>Picture 4: It shows Barcelona night Bike Tour with tapas and cava</p>
-                    <h3><a href="eventDetailProfileAdmin.php?id=4">See more detail</a></h3>
-                    <a href="https://feverup.com/m/312210?_gl=1*1hkz0u0*_up*MQ..*_ga*NzgwMDg3ODk5LjE3NDM1ODg4MjA.*_ga_L4M4ND4NG4*MTc0MzU4ODgxOC4xLjAuMTc0MzU4ODgxOC4wLjAuMTkxNDk4MTUwNw.."></a>                
-                </div>
-                -->
             </div>
         </main>
     </div>

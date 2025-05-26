@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+//Controlador de eventos
+require_once '../controller/EventController.php';
+$event = null;
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $eventId = $_GET['id'];
+    $eventController = new EventController();
+    $event = $eventController->getEventById($eventId);
+    if (!$event) {
+        header('Location: profileuser.php?error=event_not_found');
+        exit();
+    }
+} else {
+    header('Location: profileuser.php?error=id_not_provided');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,17 +74,13 @@
             <nav class="user-nav">
                 <ul>
                     <li>
-                       <a href="profileuser.php" class="parent-link">EVENTS</a>
-                       <span class="parent-link">EVENTS</span>
+                       <a href="profileuser.php" class="parent-link">MY EVENTS</a>
                         <ul class="sub-menu">
-                            <li><a href="profileuserAttending.php">Attending</a></li>
                             <li><a href="profileuserSaved.php">Saved</a></li>
                             <li><a href="profileuserHosting.php">Hosting</a></li>
                         </ul>
                     </li>
-                    <li><a href="profileuser.php">FRIENDS</a></li>
-                    <li><a href="registeruser.php">EDIT PROFILE</a></li>
-                    <li><a href="profileuser.php">My calendary</a></li>
+                    <li><a href="profileuser.php">BACK</a></li>
                     <li><form action="../controller/UserController.php" method="post">
                         <input type="submit" value="LOG OUT" name="logout">
                     </form></li>
@@ -72,35 +88,22 @@
             </nav>
         </aside>
         <main class="event-details">
-                <?php
-                //Controlador de eventos
-                //name_event, date_event, price_event, ticketAvailable, image_event, description_event, location_event, state
-                require_once '../controller/EventController.php';
-                $eventController = new EventController();
-                $events = $eventController->read();
-                if (!empty($events)) {
-                    foreach ($events as $event) {
-                        echo "<div class='event-header'>";
-                        echo "  <div class='image-container'>";
-                        echo "    <img src='" . $event["image_event"] . "' alt='Image of the event'/>";
-                        echo "    <p><a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3' target='_blank'>Más información</a></p>";
-                        echo "  </div>";
-                        echo "  <div class='static-map-container'>";
-                        echo "    <img src='" . $event["location_event"] . "'alt='Image of the event'/>";
-                        echo "    <p><a href='https://www.google.com/search?q=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&oq=Carrer+d%27Aribau%2C+133%2C+Barcelona%2C+Barcelona%2C+08036&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzIyMmowajSoAgCwAgE&sourceid=chrome&ie=UTF-8' target='_blank'>Ver en Google Maps</a></p>";
-                        echo "  </div>";
-                        echo "</div>";
-                        echo "<div class='event-info'>";
-                        echo "  <h1>" . $event["name_event"] . "</h1>";
-                        echo "  <p class='about'>" . $event["description_event"] . "</p>";
-                        echo "  <p class='date'>Date of the event: " . $event["date_event"] . "</p>";
-                        echo "  <h4> Price: "  . $event["price_event"] . " €</h4>";
-                        echo "  <h4> State: "  . $event["state"] . "</h4>";
-                        echo "  <a href='https://feverup.com/m/125199?_gl=1*10a9o3y*_up*MQ..*_ga*NzU2OTUwMzAuMTc0MjQ3MTQ4Ng..*_ga_L4M4ND4NG4*MTc0MjQ3MTQ4NS4xLjAuMTc0MjQ3MTQ4NS4wLjAuMTYyODQ2MDk3'></a>"; //Pendiente de hacer
-                        echo "</div>";
-                    }
-                }
-                ?>
+            <div class="event-header">
+                <div class="image-container">
+                    <img src="<?php echo htmlspecialchars($event["image_event"]); ?>" alt="Image of the event"/>
+                </div>
+                <div class="static-map-container">
+                    <img src="<?php echo htmlspecialchars($event["location_event"]); ?>" alt="Map of the event location"/>
+                </div>
+            </div>
+            <div class="event-info">
+                <h1><?php echo htmlspecialchars($event["name_event"]); ?></h1>
+                <p class="about"><?php echo nl2br(htmlspecialchars($event["description_event"])); ?></p>
+                <p class="date">Date of the event: <?php echo htmlspecialchars($event["date_event"]); ?></p>
+                <h4> Price: <?php echo htmlspecialchars($event["price_event"]); ?> €</h4>
+                <h4> Tickets available: <?php echo htmlspecialchars($event["ticketAvailable"]); ?></h4>
+                <h4> State: <?php echo htmlspecialchars($event["state_event"]); ?></h4>
+            </div>
         </main>
     </div>
 

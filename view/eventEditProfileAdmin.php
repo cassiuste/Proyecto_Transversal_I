@@ -80,6 +80,19 @@
                 ?>
             </div>
         </div>
+
+        <?php        
+        // Mostrar mensajes de éxito o error
+        if (isset($_SESSION['success_message'])) {
+            echo '<div class="message success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
+            unset($_SESSION['success_message']); // Eliminar el mensaje después de mostrarlo
+        }
+        if (isset($_SESSION['error_message'])) {
+            echo '<div class="message error">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+            unset($_SESSION['error_message']); // Eliminar el mensaje después de mostrarlo
+        }
+        ?>    
+
     </header>
 
         <main class="event-details">
@@ -121,16 +134,14 @@
                 <label for="capacity">Capacidad de Entradas:</label>
                 <input type="number" id="capacity" name="capacity" value="<?php echo htmlspecialchars($eventData['ticketAvailable']); ?>" required>
 
-                <label for="state">Estado:</label>
-                <select id="state" name="state" required>
-                    <option value="Active" <?php echo ($eventData['state'] == 'Active') ? 'selected' : ''; ?>>Activo</option>
-                    <option value="Cancelled" <?php echo ($eventData['state'] == 'Cancelled') ? 'selected' : ''; ?>>Cancelado</option>
-                    <option value="Postponed" <?php echo ($eventData['state'] == 'Postponed') ? 'selected' : ''; ?>>Pospuesto</option>
-                    <option value="Completed" <?php echo ($eventData['state'] == 'Completed') ? 'selected' : ''; ?>>Completado</option>
+                <label for="state_event">Estado: </label>
+                <select id="state_event" name="state_event" required>
+                    <option value="Active" <?php echo ($eventData['state_event'] == 'Active') ? 'selected' : ''; ?>>Activo</option>
+                    <option value="Inactive" <?php echo ($eventData['state_event'] == 'Inactive') ? 'selected' : ''; ?>>Inactivo</option>
                 </select>
                 
-                <button type="submit" name="update_event">Actualizar Evento</button>
-                <button type="button" class="cancel-button" onclick="window.location.href='profileadmin.php'">Volver a la Lista</button>
+                <button type="submit" name="update">Actualizar Evento</button>
+                <button type="button" class="cancel-button" onclick="window.location.href='../view/profileadmin.php'">Volver a la Lista</button>
             </form>
         </main>
     </div>

@@ -97,7 +97,7 @@
                         <br>
                         <label for="location">Location</label>
                         <br>
-                        <input type="text" name="location" id="location" required>
+                        <input type="file" name="location" id="location" required>
                         <br>
                         <label for="price">Price</label>
                         <br>
