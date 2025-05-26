@@ -85,7 +85,7 @@ class EventController{
                 
                 if (in_array($file_ext, $allowed_ext)) {
                     move_uploaded_file($file_tmp, $destination);
-                    $_SESSION['success_message'] = 'Image uploaded correctly.';
+                    // $_SESSION['success_message'] = 'Image uploaded correctly.';
                     } else {
                     $_SESSION['error_message'] = 'Invalid format.';
                     header("location: ../view/createevent.php");
@@ -108,7 +108,7 @@ class EventController{
                 
                 if (in_array($file_ext, $allowed_ext)) {
                     move_uploaded_file($file_tmp, $newLocation); 
-                    $_SESSION['success_message'] = 'Location image uploaded correctly.';
+                    // $_SESSION['success_message'] = 'Location image uploaded correctly.';
                 } else {
                     $_SESSION['error_message'] = 'Invalid location image format.';
                     header("location: ../view/createevent.php");
@@ -145,7 +145,7 @@ class EventController{
             }
             catch(PDOException $e){
                 $_SESSION['logged'] = false;                
-                $_SESSION["error_message"] = "Error ocurred created the event.";
+                $_SESSION["error_message"] = "Error ocurred created the event: " . $e->getMessage();
                 $this->conn = null;
                 header("location: ../view/createevent.php");
                 exit; 
