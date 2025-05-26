@@ -160,5 +160,6 @@ if (isset($_SESSION["logged"])) {
             </div>
         </main>
     </div>
+    <script src="index.js"></script>
 </body>
 </html>

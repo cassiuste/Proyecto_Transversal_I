@@ -1,5 +1,11 @@
 <?php
-    session_start();
+session_start();
+$showPopup = false;
+
+if (isset($_SESSION['popup']) && $_SESSION['popup'] === true) {
+    $showPopup = true;
+    unset($_SESSION['popup']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -223,6 +229,33 @@
             <a href="home.php"><img src="./img/home/youtube_logo.png" alt="logo of youtube"></a>
             <a href="home.php"><img src="./img/home/twitter_logo.png" alt="logo of twitter_logo"></a>
         </div>
-    </footer>
+    </footer> -->
+    <div id="popUpDiv" style="
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #DFB885;
+        padding: 20px;
+        border: 5px solid white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    ">
+        <h1>Account deleted successfully!</h1>
+    </div>
+
+
+    <?php if ($showPopup): ?>
+        <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            const popup = document.getElementById("popUpDiv");
+            popup.style.display = "block";
+            setTimeout(() => {
+            popup.style.display = "none";
+            }, 3000);
+        });
+        </script>
+    <?php endif; ?>
+
 </body>
-</html> -->
+</html>

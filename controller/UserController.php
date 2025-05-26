@@ -298,10 +298,13 @@ class UserController{
                 $deleteSql = "DELETE FROM user WHERE username = :username";
                 $deleteStmt = $this->conn->prepare($deleteSql);
                 $deleteStmt->bindParam(':username', $username);
+
                 if ($deleteStmt->execute()) {
+                    $_SESSION['popup'] = true; 
+                    session_write_close(); 
                     session_unset();
                     session_destroy();
-                    header("location: ../view/home.php");
+                    header("Location: ../view/home.php");
                     exit;
                 } else {
                     echo "Error while trying to delete the account.";
@@ -314,6 +317,7 @@ class UserController{
         }
         
     }
+
 
     public function logout() : void {
         session_unset();
